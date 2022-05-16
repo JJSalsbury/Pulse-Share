@@ -12,6 +12,7 @@ const s3 = require('./s3');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+const profileRouter = require('./routes/profile.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -26,6 +27,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/profile', profileRouter);
 
 // GET route for aws bucket url
 app.get('/s3Url', async (req, res) => {
