@@ -19,6 +19,7 @@ function LoginForm() {
           password: password,
         },
       });
+      // Add history.push to landing page
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }

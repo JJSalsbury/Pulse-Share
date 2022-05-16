@@ -1,6 +1,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css'
@@ -11,6 +12,7 @@ import ReactPlayer from 'react-player'
 
 function UserPage() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const user = useSelector((store) => store.user);
   const image = useSelector(store => store.image);
@@ -46,15 +48,17 @@ function UserPage() {
       imageUrl = url.split('?')[0]
       console.log(imageUrl)
 
-      dispatch({
-        type: 'SET_IMAGE',
-        payload: imageUrl
-      })
+      // dispatch({
+      //   type: 'SET_IMAGE',
+      //   payload: imageUrl
+      // })
     }
 
+    // Empties Dropzone 
     console.log(files.map(f => f.meta))
     allFiles.forEach(f => f.remove())
   }
+
 
   
 

@@ -8,6 +8,8 @@ import {
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import './App.css';
+
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
@@ -20,7 +22,11 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
-import './App.css';
+import ProfilePage from '../_ProfilePage/ProfilePage';
+import PostListPage from '../_PostListPage/PostListPage';
+import PostDetailPage from '../_PostDetailPage/PostDetailPage';
+import AddPostPage from '../_AddPostPage/AddPostPage';
+import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,21 +58,61 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <ProtectedRoute
+          <Route
             // logged in shows UserPage else shows LoginPage
             exact
             path="/user"
           >
             <UserPage />
-          </ProtectedRoute>
+          </Route>
 
-          <ProtectedRoute
+          <Route
+            // Shows ProfilePage
+            exact
+            path="/profile"
+          >
+            <ProfilePage />
+          </Route>
+
+          <Route
+            // Shows PostListPage
+            exact
+            path="/posts"
+          >
+            <PostListPage />
+          </Route>
+
+          <Route
+            // Shows postDetailPage
+            exact
+            path="/postDetail"
+          >
+            <PostDetailPage />
+          </Route>
+
+          <Route
+            // Shows AddPostPage
+            exact
+            path="/addPost"
+          >
+            <AddPostPage />
+          </Route>
+
+          <Route
+            // Shows AddPostPage
+            exact
+            path="/postHistory"
+          >
+            <PostHistoryPage />
+          </Route>
+
+          <Route
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
           >
             <InfoPage />
-          </ProtectedRoute>
+          </Route>
 
           <Route
             exact
