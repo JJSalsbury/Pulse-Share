@@ -7,6 +7,9 @@ const app = express();
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
+// import for s3.js - creates url route for aws bucket
+const s3 = require('./s3');
+
 // Route includes
 const userRouter = require('./routes/user.router');
 
@@ -23,6 +26,12 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+
+// GET route for aws bucket url
+app.get('/s3Url', async (req, res) => {
+  const url = await s3();
+  res.send({url})
+})
 
 // Serve static files
 app.use(express.static('build'));
