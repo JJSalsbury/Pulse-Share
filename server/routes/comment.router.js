@@ -3,6 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
+
+//GET Route
 router.get('/', (req, res) => {
     console.log('/comment GET route GOOD!');
     console.log('is authenticated?');
@@ -19,6 +21,31 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
   });
     
+  });
+
+
+  //POST Route
+  router.post('/', (req, res) => {
+    // endpoint functionality
+  
+    //req.user.id is the currently logged in user's id: 
+    //this is NOT sent on params, it is on the server
+    const queryValues = [req.body.comment, req.body.media]
+  
+    const queryText = `
+    INSERT INTO "comments" 
+    ("comment", "media")
+    VALUES ($1, $2)`;
+  
+    console.log(req.body);
+    
+  pool
+    .query(queryText, queryValues)
+    .then(() => {res.sendStatus(201)})
+    .catch((err) => {
+      console.log('error posting item', err);
+      res.sendStatus(500);
+    });
   });
 
   module.exports = router;
