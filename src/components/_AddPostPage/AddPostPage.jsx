@@ -5,8 +5,6 @@ import { useHistory } from 'react-router-dom';
 
 import './AddPostPage.css'
 // imports for MUI v5
-import TextField from '@mui/material/TextField';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import {
     Box,
     Container,
@@ -14,7 +12,10 @@ import {
     Select,
     MenuItem,
     InputLabel,
-    Button
+    Button,
+    Modal,
+    Typography,
+    TextField
 } from '@mui/material';
 
 // imports for file upload
@@ -35,13 +36,17 @@ function AddPostPage() {
     const history = useHistory();
 
     const user = useSelector((store) => store.user);
-    const image = useSelector(store => store.image);
-    const media = useSelector( store => store.mediaReducer);
+    const image = useSelector( store => store.imageReducer);
+    
     const outcomesList = useSelector( store => store.outcomesListReducer);
 
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
     const [outcomeTag, setOutcomeTag] = useState('');
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     
     // specify upload params and url for your files
     const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
@@ -50,14 +55,30 @@ function AddPostPage() {
     const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
     
     // receives array of files that are done uploading when submit button is clicked
-    const handleSubmit = (files, allFiles) => {
+    const handleSubmitImage = (files, allFiles) => {
         console.log(files[0])
-        const fileToUpload = files[0];
-        console.log(fileToUpload['file']);
+        const imageToUpload = files[0];
+        console.log(imageToUpload['file']);
 
         dispatch({
-            type: 'SET_MEDIA',
-            payload: fileToUpload
+            type: 'SET_IMAGE',
+            payload: imageToUpload
+        })
+
+        // Empties Dropzone 
+        console.log(files.map(f => f.meta))
+        allFiles.forEach(f => f.remove())
+    }
+
+     // receives array of files that are done uploading when submit button is clicked
+    const handleSubmitVideo = (files, allFiles) => {
+        console.log(files[0])
+        const videoToUpload = files[0];
+        console.log(videoToUpload['file']);
+
+        dispatch({
+            type: 'SET_VIDEO',
+            payload: videoToUpload
         })
 
         // Empties Dropzone 
@@ -68,7 +89,7 @@ function AddPostPage() {
     // function will clear media reducer and allow user to input new media
     const handleChangeImage = () => {
         dispatch({
-            type: 'CLEAR_MEDIA'
+            type: 'CLEAR_IMAGE'
         })
     }
 
@@ -85,7 +106,7 @@ function AddPostPage() {
                 headers: {
                 "Content-Type": "image/jpeg"
                 },
-                body: media['file']
+                body: image['file']
             })
 
             const imageUrl = url.split('?')[0]
@@ -96,7 +117,7 @@ function AddPostPage() {
                 payload: {
                     postTitle: postTitle,
                     postBody: postBody,
-                    postMedia: imageUrl,
+                    postImage: imageUrl,
                     postTag: outcomeTag
                 }
             })
@@ -197,7 +218,7 @@ function AddPostPage() {
                     </select>
                     </label> */}
                 </Box>
-                <Box>
+                {/* <Box>
                     {media.file ? 
                         <Button 
                             onClick={handleChangeImage}
@@ -225,7 +246,86 @@ function AddPostPage() {
                             }}
                             accept="image/*,video/*"
                         />}
-                </Box>
+                </Box> */}
+                {image.file ?
+                    <Button 
+                        onClick={handleChangeImage}
+                        style={{
+                            marginBottom: 15,
+                        }}
+                    >Change Photo
+                    </Button> 
+                    : 
+                    <Button 
+                        onClick={handleOpen}
+                        style={{
+                            marginBottom: 15,
+                        }}
+                    >Add Photo
+                    </Button>
+                }
+                <Button 
+                    onClick={handleOpen}
+                    style={{
+                        marginBottom: 15,
+                    }}
+                >Add Video
+                </Button>
+                <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    style={{
+                        marginBottom: 15,
+                    }}
+                >
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 400,
+                        bgcolor: 'background.paper',
+                        border: '2px solid #000',
+                        boxShadow: 24,
+                        p: 4,
+                    }}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        Add 1 Photo Here!
+                    </Typography>
+                    {image.file ? 
+                        <Button 
+                            onClick={handleChangeImage}
+                            style={{
+                                marginBottom: 15,
+                            }}
+                        >Change Photo
+                        </Button> 
+                        : 
+                        <Dropzone
+                            getUploadParams={getUploadParams}
+                            onChangeStatus={handleChangeStatus}
+                            onSubmit={handleSubmitImage}
+                            maxFiles={1}
+                            inputContent={(files, extra) => (extra.reject ? 
+                                'Image files only' 
+                                : 
+                                'Click or Drag 1 Image Here'
+                            )}
+                            styles={{
+                            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                            dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
+                            dropzoneActive: { borderColor: "green" }
+                            }}
+                            accept="image/*"
+                        />}
+                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+                    </Typography> */}
+                    </Box>
+                </Modal>
                 
                 {/* {!media.file && <Dropzone
                     getUploadParams={getUploadParams}

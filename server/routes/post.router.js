@@ -31,19 +31,21 @@ router.post('/', rejectUnauthenticated,(req, res) => {
   // POST route code here
   const title = req.body.postTitle;
   const post = req.body.postBody;
-  const media = req.body.postMedia;
+  const image = req.body.postImage;
+  const video = 'works';
   const outcome_id = req.body.postTag;
   
 
   const queryText = `
-    INSERT INTO "posts" ("title", "post", "media", "user_id", "outcome_id")
-    VALUES ($1, $2, $3, $4, $5);
+    INSERT INTO "posts" ("title", "post", "image", "video", "user_id", "outcome_id")
+    VALUES ($1, $2, $3, $4, $5, $6);
   `;
 
   const values = [
     title,
     post,
-    media,
+    image,
+    video,
     req.user.id,
     outcome_id
   ]

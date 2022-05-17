@@ -1,13 +1,13 @@
-const mediaReducer = (state = {}, action) => {
+const imageReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_MEDIA':
+        case 'SET_IMAGE':
             return action.payload;
-        case 'CLEAR_MEDIA':
+        case 'CLEAR_IMAGE':
             return {};
         default:
             return state;
     }
 };
     
-export default mediaReducer;
+export default imageReducer;
     
