@@ -5,22 +5,25 @@ import { useParams } from 'react-router-dom'
 function PostDetailPage() {
 
     const dispatch = useDispatch();
+    const {id} = useParams();
 
     const user = useSelector(store => store.user);
-    const {id} = useParams();
+    const post = useSelector(store => store.postReducer);
+    
 
     useEffect(() => {
         dispatch({ type: 'GET_POST', payload: id });
       }, [id]);
 
+      console.log('POST IS', post);
     return (
         <div>
             <div>
-                <h2>Post title goes here</h2>
-                <p> Post body goes here</p>
+                <h2>{post?.title}</h2>
+                <p>{post?.post}</p>
 
-                {/* {user.id === post.user_id && <button>Edit</button>}
-                {user.id === post.user_id && <button>Delete</button>} */}
+                {user.id === post.user_id && <button>Edit</button>}
+                {user.id === post.user_id && <button>Delete</button>}
             </div>
 
             <div>
