@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import { Grid } from '@mui/material';
+import { Radio } from '@mui/material';
+import { Card, CardMedia, CardContent } from '@mui/material';
+
 
 
 function ProfilePage() {
@@ -37,35 +41,53 @@ function ProfilePage() {
     const handleClick = () => {
         history.push('/postHistory')
     }
-
+    const handleEdit = () => {
+        //switch to edit mode "form"
+    }
     return (
-        <div>
-            <h2>Profile Page goes here</h2>
-            {/* this goes on the side bar */}
-            <p>{user.username}</p>
-            <h2>Contact Info</h2>
-            <div>{user.email}</div>
-            <h2>Privacy</h2>
+        <>
+            <div>
 
-            {/* this will be a text box center top */}
-            <h2>About Me</h2>
+                {/* this goes on the side bar */}
+
+                <p>"profile image place holder p tag"</p>
+                <div>{user.username}</div>
+                <h2>Contact Info</h2>
+                <div>{user.email}</div>
+
+                <div>
+                    <button onClick={handleClick}>Post History</button>
+                    <button onClick={handleEdit}>Edit Profile</button>
+                </div>
+                {/* this will be a text box center top */}
+                <h2>About Me</h2>
+                <div>{profile.about_me}</div>
+
+                {/* device and Biometrics placement left of Device settings*/}
+                <h2>My Device</h2>
+                <div>{profile.device}</div>
+
+                <h2>Biometrics</h2>
+                <div>Age: {profile.age}</div>
+                <div>Height: {profile.height}</div>
+                <div>Weight: {profile.weight}</div>
+                <div>Biological Gender: {profile.biological_gender}</div>
+                <div>Injury Level: {profile.injury_level}</div>
+                <div>Aisa Level: {profile.aisa_level}</div>
+                <div>Time Since Injury: {profile.time_since_injury}</div>
 
 
-            {/* device and Biometrics placement left of Device settings*/}
-            <h2>My Device</h2>
-            <h2>Biometrics</h2>
-
-            {/* Device settings is a lager text box placement to the right of device and biometrics */}
-            <h2>Device Settings</h2>
-
-
-            <p>{profile.age}</p>
+                {/* Device settings is a lager text box placement to the right of device and biometrics */}
+                <h2>Device Settings</h2>
+                <div>{profile.device_settings}</div>
 
 
 
-            <button onClick={handleClick}>Post History</button>
-            {/* <button onClick={handleEdit}>Edit Profile</button> */}
-        </div>
+
+
+
+            </div>
+        </>
     );
 }
 
