@@ -32,7 +32,7 @@ router.post('/', rejectUnauthenticated,(req, res) => {
   const title = req.body.postTitle;
   const post = req.body.postBody;
   const image = req.body.postImage;
-  const video = 'works';
+  const video = req.body.postVideo;
   const outcome_id = req.body.postTag;
   
 
