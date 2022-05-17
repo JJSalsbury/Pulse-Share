@@ -69,7 +69,7 @@ function App() {
           <Route
             // Shows ProfilePage
             exact
-            path="/profile"
+            path="/profile/:id"
           >
             <ProfilePage />
           </Route>

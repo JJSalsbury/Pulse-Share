@@ -12,8 +12,8 @@ router.get('/', (req, res) => {
   // GET route code here
 });
 // get specific users profile information for profile page
-router.get('/:id', rejectUnauthenticated, (req, res) => {
-  const query = `SELECT * FROM "profiles" WHERE "id" =$1;`
+router.get('/:id', (req, res) => {
+  const query = `SELECT * FROM "profiles" WHERE "user_id" =$1;`
 
   pool.query(query, [req.params.id])
       .then((results) => res.send(results.rows))
