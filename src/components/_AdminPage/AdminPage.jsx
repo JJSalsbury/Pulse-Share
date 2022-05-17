@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {useSelector} from 'react-redux';
 
 function AdminPage() {
     const user = useSelector(store => store.user);
+
+    useEffect(() => {
+        dispatch({
+            type: 'GET_ROSTER'
+        })
+    }, [])
 
     return (
         <div>
