@@ -19,6 +19,7 @@ function* createNewPost(action) {
 
         // FIXME - once get route for all posts is made, update type
         // yield put({ type: 'GET_POST'});
+        yield put({type: 'CLEAR_MEDIA'})
     } catch (error) {
         console.log('Create new post request failed', error);
     }

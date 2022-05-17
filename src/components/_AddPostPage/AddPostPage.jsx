@@ -4,6 +4,18 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import './AddPostPage.css'
+// imports for MUI v5
+import TextField from '@mui/material/TextField';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import {
+    Box,
+    Container,
+    Paper,
+    Select,
+    MenuItem,
+    InputLabel,
+    Button
+} from '@mui/material';
 
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css'
@@ -53,65 +65,125 @@ function AddPostPage() {
         allFiles.forEach(f => f.remove())
     }
 
-    const handleClick = async () => {
-         // get secure url from our server
-        const { url } = await fetch("/s3Url").then(res => res.json())
-        console.log(url)
-
-        // post the image directly to the s3 bucket
-        await fetch(url, {
-            method: "PUT",
-            headers: {
-            "Content-Type": "image/jpeg"
-            },
-            body: media['file']
-        })
-
-        const imageUrl = url.split('?')[0]
-        console.log(imageUrl)
-
+    // function will clear media reducer and allow user to input new media
+    const handleChangeImage = () => {
         dispatch({
-            type: 'CREATE_NEW_POST',
-            payload: {
-                postTitle: postTitle,
-                postBody: postBody,
-                postMedia: imageUrl,
-                postTag: outcomeTag
-            }
+            type: 'CLEAR_MEDIA'
         })
     }
 
+    const handleClick = async () => {
+        // if title or body text fields are empty, won't submit
+        if (postTitle !== '' || postBody !== '') {
+             // get secure url from our server
+            const { url } = await fetch("/s3Url").then(res => res.json())
+            console.log(url)
+
+            // post the image directly to the s3 bucket
+            await fetch(url, {
+                method: "PUT",
+                headers: {
+                "Content-Type": "image/jpeg"
+                },
+                body: media['file']
+            })
+
+            const imageUrl = url.split('?')[0]
+            console.log(imageUrl)
+
+            dispatch({
+                type: 'CREATE_NEW_POST',
+                payload: {
+                    postTitle: postTitle,
+                    postBody: postBody,
+                    postMedia: imageUrl,
+                    postTag: outcomeTag
+                }
+            })
+
+            history.push('/posts')
+        }
+    }
+
     return (
-        <div className="container">
+        <Container>
+            
             <h2>Add Post Page!</h2>
-            <div className="postContainer">
-                <div>
-                    <label htmlFor="post title">
-                    Title:
-                    <input
+            <Box 
+                component={Paper}
+                sx={{
+                    padding: '15px',
+                    borderRadius: '7px',
+                    border: '1px solid black',
+                }}
+            >
+                <Box>
+                    
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Title"
+                        defaultValue={postTitle}
+                        style={{
+                            marginBottom: 15,
+                            minWidth: '80%'
+                        }}
+                        onChange={(event) => setPostTitle(event.target.value)}
+                    />
+                    {/* <input
                         type="text"
                         name="post title"
                         required
                         value={postTitle}
                         onChange={(event) => setPostTitle(event.target.value)}
+                    /> */}
+                </Box>
+                <Box>
+                    <TextField
+                        required
+                        id="outlined-multiline-static"
+                        label="Body"
+                        multiline
+                        rows={4}
+                        defaultValue={postBody}
+                        style={{
+                            marginBottom: 15,
+                            minWidth: '80%'
+                        }}
+                        onChange={(event) => setPostBody(event.target.value)}
                     />
-                    </label>
-                </div>
-                <div>
-                <label htmlFor="post body">
-                    Body:
-                    <input
+                    {/* <input
                         type="text"
                         name="post body"
                         required
                         value={postBody}
                         onChange={(event) => setPostBody(event.target.value)}
-                    />
-                    </label>
-                </div>
-                <div>
-                <label htmlFor="outcome tag">
-                    tag:
+                    /> */}
+                </Box>
+                <Box>
+                    <InputLabel id="demo-simple-select-label">Outcome Tag</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={outcomeTag}
+                        label="Age"
+                        style={{
+                            marginBottom: 15,
+                            minWidth: '20%'
+                        }}
+                        onChange={(event) => setOutcomeTag(event.target.value)}
+                        >
+                            {outcomesList?.map(outcome => {
+                                return (
+                                    <MenuItem 
+                                        key={outcome.id} 
+                                        value={outcome.id}
+                                    >{outcome.outcome}</MenuItem>
+                                )
+                            })}
+                        </Select>
+                {/* <label htmlFor="outcome tag">
+                    Tag:
                     <select name="outcome tag" onChange={(event) => setOutcomeTag(event.target.value)}>
                             <option>Choose Outcome Tag</option>
                         {outcomesList?.map(outcome => {
@@ -123,35 +195,70 @@ function AddPostPage() {
                             )
                         })}
                     </select>
-                    </label>
-                </div>
-            </div>
-            {!media.file && <Dropzone
-                getUploadParams={getUploadParams}
-                onChangeStatus={handleChangeStatus}
-                onSubmit={handleSubmit}
-                maxFiles={1}
-                inputContent={(files, extra) => (extra.reject ? 
-                    'Image and video files only' 
-                    : 
-                    'Click Here or Drag 1 Picture/Video'
-                )}
-                styles={{
-                dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
-                dropzoneActive: { borderColor: "green" }
-                }}
-                accept="image/*,video/*"
-            />}
-            <button onClick={handleClick}>Submit Post</button>
-            <img src={image}/>
+                    </label> */}
+                </Box>
+                <Box>
+                    {media.file ? 
+                        <Button 
+                            onClick={handleChangeImage}
+                            style={{
+                                marginBottom: 15,
+                            }}
+                        >Change Photo
+                        </Button> 
+                        : 
+                        <Dropzone
+                            getUploadParams={getUploadParams}
+                            onChangeStatus={handleChangeStatus}
+                            onSubmit={handleSubmit}
+                            maxFiles={1}
+                            inputContent={(files, extra) => (extra.reject ? 
+                                'Image and video files only' 
+                                : 
+                                'Click Here or Drag 1 Picture/Video'
+                            )}
+                            styles={{
+                            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                            dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
+                            dropzoneActive: { borderColor: "green" }
+                            }}
+                            accept="image/*,video/*"
+                        />}
+                </Box>
+                
+                {/* {!media.file && <Dropzone
+                    getUploadParams={getUploadParams}
+                    onChangeStatus={handleChangeStatus}
+                    onSubmit={handleSubmit}
+                    maxFiles={1}
+                    inputContent={(files, extra) => (extra.reject ? 
+                        'Image and video files only' 
+                        : 
+                        'Click Here or Drag 1 Picture/Video'
+                    )}
+                    styles={{
+                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                    dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
+                    dropzoneActive: { borderColor: "green" }
+                    }}
+                    accept="image/*,video/*"
+                />} */}
+                <Box>
+                    <Button variant="contained" onClick={handleClick} >Submit Post</Button>
+                </Box>
+            </Box>
+            
+            
+            
+            {/* <img src={image}/>
             <ReactPlayer 
                 url={image}
                 width='400px'
                 height='600px'
-                controls = {true}/>
-        </div>
+                controls = {true}/> */}
+        </Container>
     );
 }
 
