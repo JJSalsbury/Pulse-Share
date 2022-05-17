@@ -8,7 +8,7 @@ function PostDetailPage() {
     const {id} = useParams();
 
     const user = useSelector(store => store.user);
-    const post = useSelector(store => store.postReducer);
+    const post = useSelector(store => store.post);
     
 
     useEffect(() => {
@@ -19,8 +19,15 @@ function PostDetailPage() {
     return (
         <div>
             <div>
-                <h2>{post?.title}</h2>
-                <p>{post?.post}</p>
+                <h2>{post.title}</h2>
+                <p>{post.date} {post.time}</p>
+
+                <div>
+                    {post.profile_picture}
+                    {post.username}
+                </div>
+                
+                <p>{post.post}</p>
 
                 {user.id === post.user_id && <button>Edit</button>}
                 {user.id === post.user_id && <button>Delete</button>}
