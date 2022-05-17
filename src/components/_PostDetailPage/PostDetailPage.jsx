@@ -58,9 +58,12 @@ function PostDetailPage() {
                         }}
                     >
                         <a onClick={sendToProfile}>
-                            <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
+                            {post.profile_picture == '' ?
+                            <img className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" /> :
+                            <img className='profile-pic' src={post.profile_picture} alt="profile picture" />  
+                            }
                             <br />
-                            {post.username}</a>
+                            <h3>{post.username}</h3></a>
                     </Box>
 
                     <Box>
@@ -74,18 +77,27 @@ function PostDetailPage() {
                 <Box
                     sx={{
                         display: 'flex',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        margin: '5px'
                     }}
                 >
-                    {post.image &&
-                        <img src={post.image} />}
-
-                    {post.video &&
-                        <ReactPlayer
-                            url={post.video}
-                            width='640px'
-                            height='360px'
-                            controls={true} />}
+                    <Box>
+                        {post.image &&
+                            <img
+                                src={post.image}
+                                maxheight='360px'
+                                maxwidth='640px'
+                            />}
+                    </Box>
+                            <br />
+                    <Box>
+                        {post.video &&
+                            <ReactPlayer
+                                url={post.video}
+                                width='640px'
+                                height='360px'
+                                controls={true} />}
+                    </Box>
                 </Box>
 
                 <Box className="btn-holder">
@@ -116,7 +128,6 @@ function PostDetailPage() {
             <div>
                 <p>COMMENT FORM WILL GO HERE</p>
             </div>
-
             <div>
                 <p>COMMENTS WILL GO HERE</p>
             </div>
