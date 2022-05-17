@@ -41,12 +41,24 @@ function RosterMember({ member }) {
         })
     }
 
+    const deleteUser = () => {
+        console.log('clicked delete');
+        const id = member.id;
+        const user = {
+            id: id 
+        }
+        dispatch({
+            type: 'DELETE_USER',
+            payload: user
+        })
+    }
+
     return (
         <>
             <tr>
                 <td>{member.username}</td>
                 <td>{buttonRender()}</td>
-                <td>{member.access_level < 2 ? <button>DELETE</button> : <p></p>}</td>
+                <td>{member.access_level < 2 ? <button onClick={deleteUser}>DELETE</button> : <p></p>}</td>
             </tr>
         </>
     )

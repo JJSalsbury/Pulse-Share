@@ -23,7 +23,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.put('/promote', rejectUnauthenticated, (req, res) => {
     
     const query = `UPDATE "user" SET "access_level" = 1
-    WHERE "id" = $1`;
+    WHERE "id" = $1;`;
     const values = [req.body.id];
     pool.query(query, values)
         .then(result => {
@@ -36,12 +36,10 @@ router.put('/promote', rejectUnauthenticated, (req, res) => {
 
 });
 
-module.exports = router;
-
 router.put('/demote', rejectUnauthenticated, (req, res) => {
     
     const query = `UPDATE "user" SET "access_level" = 0
-    WHERE "id" = $1`;
+    WHERE "id" = $1;`;
     const values = [req.body.id];
     pool.query(query, values)
         .then(result => {
@@ -49,6 +47,21 @@ router.put('/demote', rejectUnauthenticated, (req, res) => {
         })
         .catch(err => {
             console.log('ERROR DEMOTING USER IN ROUTER', err);
+            res.sendStatus(500)
+        })
+
+});
+
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    const query = `DELETE FROM "user" 
+    WHERE "id" = $1;`;
+    const values = [req.params.id];
+    pool.query(query, values)
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.log('ERROR DELETING USER IN ROUTER', err);
             res.sendStatus(500)
         })
 
