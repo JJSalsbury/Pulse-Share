@@ -5,7 +5,9 @@ const router = express.Router();
 // Get specific post details
 router.get('/:id', (req, res) => {
   query = `
-          SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".media, "posts".post, "posts".outcome_id, "posts".user_id FROM "posts"
+          SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+          to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+          "posts".outcome_id, "posts".user_id FROM "posts"
           JOIN "user" ON "posts".user_id = "user".id
           JOIN "profiles" ON "user".id = "profiles".user_id
           WHERE "posts".id = $1;

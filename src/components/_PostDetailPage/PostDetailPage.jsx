@@ -69,14 +69,25 @@ function PostDetailPage() {
 
                         <p>{post.post}</p>
                     </Box>
-                    </Box>
-                    <img src={post.media} />
-                    <ReactPlayer
-                        url={post.media}
-                        width='400px'
-                        height='600px'
-                        controls={true} />
-                
+                </Box>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                >
+                    {post.image &&
+                        <img src={post.image} />}
+
+                    {post.video &&
+                        <ReactPlayer
+                            url={post.video}
+                            width='640px'
+                            height='360px'
+                            controls={true} />}
+                </Box>
+
                 <Box className="btn-holder">
                     {user.id === post.user_id &&
                         <Button
