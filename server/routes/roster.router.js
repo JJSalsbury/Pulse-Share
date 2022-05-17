@@ -7,7 +7,7 @@ const {
 
 router.get('/', rejectUnauthenticated, (req, res) => {
 
-    const query = `SELECT * FROM "user"
+    const query = `SELECT "id", "username", "access_level" FROM "user"
     ORDER BY "access_level" DESC, "username";`;
     pool.query(query)
         .then(result => {
