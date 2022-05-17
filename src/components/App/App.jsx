@@ -112,7 +112,7 @@ function App() {
             exact
             path="/admin"
           >
-            {user.access_level < 1 || user.access_level == undefined ?
+            {user.access_level < 1 ?
               <Redirect to="/about" />
               :
               <AdminPage />
