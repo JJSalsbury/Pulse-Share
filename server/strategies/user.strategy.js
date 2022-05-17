@@ -37,7 +37,7 @@ passport.deserializeUser((id, done) => {
 // Does actual work of logging in
 passport.use(
   'local',
-  new LocalStrategy((email, password, done) => {
+  new LocalStrategy({usernameField: 'email'},(email, password, done) => {
     pool
       .query('SELECT * FROM "user" WHERE email = $1', [email])
       .then((result) => {

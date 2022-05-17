@@ -11,6 +11,15 @@ const {
 router.get('/', (req, res) => {
   // GET route code here
 });
+router.get('/:id', rejectUnauthenticated, (req, res) => {
+  const query = `SELECT * FROM "spinal_stim" WHERE "id" =$1;`
+
+  pool.query(query, [req.params.id])
+      .then((results) => res.send(results.rows))
+      .catch((err) => {
+          console.log('Error in PROFILE GET', err);
+      })
+});
 
 /**
  * POST route template
