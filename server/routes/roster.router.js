@@ -20,4 +20,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 });
 
+router.put('/promote', rejectUnauthenticated, (req, res) => {
+    
+    const query = `UPDATE "user" SET "access_level" = 1
+    WHERE "id" = $1`;
+    const values = [req.body.id];
+    pool.query(query, values)
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.log('ERROR PROMOTING USER IN ROUTER', err);
+            res.sendStatus(500)
+        })
+
+});
+
 module.exports = router;
