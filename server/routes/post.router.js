@@ -1,11 +1,14 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /**
  * GET route template
  */
-router.get('/outcomesList', (req, res) => {
+router.get('/outcomesList', rejectUnauthenticated,(req, res) => {
   // GET route code here
     const queryText = `
         SELECT * FROM "outcomes";
@@ -24,8 +27,35 @@ router.get('/outcomesList', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated,(req, res) => {
   // POST route code here
+  const title = req.body.postTitle;
+  const post = req.body.postBody;
+  const media = req.body.postMedia;
+  const outcome_id = req.body.postTag;
+  
+
+  const queryText = `
+    INSERT INTO "posts" ("title", "post", "media", "user_id", "outcome_id")
+    VALUES ($1, $2, $3, $4, $5);
+  `;
+
+  const values = [
+    title,
+    post,
+    media,
+    req.user.id,
+    outcome_id
+  ]
+  pool
+    .query(queryText, values)
+    .then(result => {
+      res.sendStatus(201)
+    })
+    .catch((err) => {
+      console.log('Create new post failed: ', err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

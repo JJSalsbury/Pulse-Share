@@ -12,8 +12,21 @@ function* getOutcomesList() {
     }
 }
 
+// saga createNewPost will insert new post to DB
+function* createNewPost(action) {
+    try {
+        yield axios.post('/post', action.payload);
+
+        // FIXME - once get route for all posts is made, update type
+        // yield put({ type: 'GET_POST'});
+    } catch (error) {
+        console.log('Create new post request failed', error);
+    }
+}
+
 function* postSaga() {
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
+    yield takeLatest('CREATE_NEW_POST', createNewPost)
 }
 
 export default postSaga;
