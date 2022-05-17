@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 
 function RosterMember({ member }) {
@@ -55,11 +62,11 @@ function RosterMember({ member }) {
 
     return (
         <>
-            <tr>
-                <td>{member.username}</td>
-                <td>{buttonRender()}</td>
-                <td>{member.access_level < 2 ? <button onClick={deleteUser}>DELETE</button> : <p></p>}</td>
-            </tr>
+            <TableRow>
+                <TableCell>{member.username}</TableCell>
+                <TableCell>{buttonRender()}</TableCell>
+                <TableCell>{member.access_level < 2 ? <button onClick={deleteUser}>DELETE</button> : <p></p>}</TableCell>
+            </TableRow>
         </>
     )
 

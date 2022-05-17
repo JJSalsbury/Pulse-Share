@@ -24,19 +24,25 @@ function AdminPage() {
         <div>
             <h2>Admin Page goes here</h2>
             <TableContainer component={Paper}>
-            <table>
-                <th>Username</th>
-                <th>Promote/Demote</th>
-                <th>Delete</th>
-            {roster.map(member => {
-                return (
-                    <RosterMember
-                        key={member.id}
-                        member={member}
-                    />
-                )
-            })}
-            </table>
+                <Table sx={{ maxWidth: 800 }}>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Username</TableCell>
+                            <TableCell>Promote/Demote</TableCell>
+                            <TableCell>Delete</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {roster.map(member => {
+                            return (
+                                <RosterMember
+                                    key={member.id}
+                                    member={member}
+                                />
+                            )
+                        })}
+                    </TableBody>
+                </Table>
             </TableContainer>
         </div>
     );
