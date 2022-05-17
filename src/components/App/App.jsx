@@ -27,6 +27,7 @@ import PostListPage from '../_PostListPage/PostListPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
+import AddCommentPage from '../_AddCommentPage/AddCommentPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -96,6 +97,14 @@ function App() {
             path="/addPost"
           >
             <AddPostPage />
+          </Route>
+
+          <Route
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path="/addComment"
+          >
+            <AddCommentPage />
           </Route>
 
           <Route
