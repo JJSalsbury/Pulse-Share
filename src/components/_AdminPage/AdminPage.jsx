@@ -16,7 +16,10 @@ function AdminPage() {
     return (
         <div>
             <h2>Admin Page goes here</h2>
-            <h3>Roster is:</h3>
+            <table>
+                <th>Username</th>
+                <th>Promote/Demote</th>
+                <th>Delete</th>
             {roster.map(member => {
                 return (
                     <RosterMember
@@ -25,6 +28,7 @@ function AdminPage() {
                     />
                 )
             })}
+            </table>
         </div>
     );
 }
