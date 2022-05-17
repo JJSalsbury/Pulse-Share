@@ -107,13 +107,17 @@ function App() {
             <PostHistoryPage />
           </Route>
 
-          <Route
-            // Shows AddPostPage
+          <ProtectedRoute
+            // Shows AdminPage
             exact
             path="/admin"
           >
-            <AdminPage />
-          </Route>
+            {user.access_level < 1 || user.access_level == undefined ?
+              <Redirect to="/about" />
+              :
+              <AdminPage />
+            }
+          </ProtectedRoute>
 
           <Route
             // logged in shows InfoPage else shows LoginPage
