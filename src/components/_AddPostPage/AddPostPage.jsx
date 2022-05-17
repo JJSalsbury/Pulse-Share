@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -13,17 +13,23 @@ import Dropzone from 'react-dropzone-uploader'
 import ReactPlayer from 'react-player'
 
 function AddPostPage() {
+    useEffect(() => {
+        dispatch({
+            type: 'GET_OUTCOMES_LIST'
+        });
+    }, []);
 
     const dispatch = useDispatch();
     const history = useHistory();
 
     const user = useSelector((store) => store.user);
     const image = useSelector(store => store.image);
+    const media = useSelector( store => store.mediaReducer);
+    const outcomesList = useSelector( store => store.outcomesListReducer);
 
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
-
-    // let imageUrl = '';
+    const [outcomeTag, setOutcomeTag] = useState('');
     
     // specify upload params and url for your files
     const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
@@ -32,12 +38,23 @@ function AddPostPage() {
     const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
     
     // receives array of files that are done uploading when submit button is clicked
-    const handleSubmit = async (files, allFiles) => {
+    const handleSubmit = (files, allFiles) => {
         console.log(files[0])
         const fileToUpload = files[0];
         console.log(fileToUpload['file']);
 
-        // get secure url from our server
+        dispatch({
+            type: 'SET_MEDIA',
+            payload: fileToUpload
+        })
+
+        // Empties Dropzone 
+        console.log(files.map(f => f.meta))
+        allFiles.forEach(f => f.remove())
+    }
+
+    const handleClick = async () => {
+         // get secure url from our server
         const { url } = await fetch("/s3Url").then(res => res.json())
         console.log(url)
 
@@ -47,21 +64,21 @@ function AddPostPage() {
             headers: {
             "Content-Type": "image/jpeg"
             },
-            body: fileToUpload['file']
+            body: media['file']
         })
 
         const imageUrl = url.split('?')[0]
         console.log(imageUrl)
 
-        // dispatch({
-        //   type: 'SET_IMAGE',
-        //   payload: imageUrl
-        // })
-        
-
-        // Empties Dropzone 
-        console.log(files.map(f => f.meta))
-        allFiles.forEach(f => f.remove())
+        dispatch({
+            type: 'CREATE_NEW_POST',
+            payload: {
+                postTitle: postTitle,
+                postBody: postBody,
+                postMedia: imageUrl,
+                postTag: outcomeTag
+            }
+        })
     }
 
     return (
@@ -92,9 +109,24 @@ function AddPostPage() {
                     />
                     </label>
                 </div>
+                <div>
+                <label htmlFor="outcome tag">
+                    tag:
+                    <select name="outcome tag" onChange={(event) => setOutcomeTag(event.target.value)}>
+                            <option>Choose Outcome Tag</option>
+                        {outcomesList?.map(outcome => {
+                            return (
+                                <option 
+                                    key={outcome.id} 
+                                    value={outcome.id}
+                                >{outcome.outcome}</option>
+                            )
+                        })}
+                    </select>
+                    </label>
+                </div>
             </div>
-
-            <Dropzone
+            {!media.file && <Dropzone
                 getUploadParams={getUploadParams}
                 onChangeStatus={handleChangeStatus}
                 onSubmit={handleSubmit}
@@ -111,7 +143,8 @@ function AddPostPage() {
                 dropzoneActive: { borderColor: "green" }
                 }}
                 accept="image/*,video/*"
-            />
+            />}
+            <button onClick={handleClick}>Submit Post</button>
             <img src={image}/>
             <ReactPlayer 
                 url={image}
