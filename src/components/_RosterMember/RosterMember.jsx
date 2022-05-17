@@ -19,9 +19,13 @@ function RosterMember({ member }) {
 
     const demoteUser = () => {
         console.log('clicked demote');
+        const id = member.id;
+        const user = {
+            id: id 
+        }
         dispatch({
             type: 'DEMOTE_USER',
-            payload: member.id
+            payload: user
         })
     }
 

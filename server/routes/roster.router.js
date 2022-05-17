@@ -37,3 +37,21 @@ router.put('/promote', rejectUnauthenticated, (req, res) => {
 });
 
 module.exports = router;
+
+router.put('/demote', rejectUnauthenticated, (req, res) => {
+    
+    const query = `UPDATE "user" SET "access_level" = 0
+    WHERE "id" = $1`;
+    const values = [req.body.id];
+    pool.query(query, values)
+        .then(result => {
+            res.sendStatus(201);
+        })
+        .catch(err => {
+            console.log('ERROR DEMOTING USER IN ROUTER', err);
+            res.sendStatus(500)
+        })
+
+});
+
+module.exports = router;

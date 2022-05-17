@@ -4,6 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* rosterSaga() {
     yield takeLatest('GET_ROSTER', getRoster);
     yield takeLatest('PROMOTE_USER', promoteUser);
+    yield takeLatest('DEMOTE_USER', demoteUser)
 }
 
 function* getRoster(action) {
@@ -23,6 +24,15 @@ function* promoteUser(action) {
     console.log(action.payload);
     
     yield axios.put('api/roster/promote', action.payload)
+    yield put({type: 'GET_ROSTER'})
+    
+}
+
+function* demoteUser(action) {
+    console.log('in demoteUser');
+    console.log(action.payload);
+    
+    yield axios.put('api/roster/demote', action.payload)
     yield put({type: 'GET_ROSTER'})
     
 }
