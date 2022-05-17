@@ -45,30 +45,38 @@ function PostDetailPage() {
             >
 
                 <Box
-                
+                    sx={{
+                        justifyContent: 'space-evenly',
+                        display: 'flex'
+                    }}
                 >
-                    <a onClick={sendToProfile}>
-                        <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
-                        <br />
-                        {post.username}</a>
-                </Box>
+                    <Box
+                        sx={{
+                            margin: '15px',
+                            marginTop: '26px',
+                            textAlign: 'center'
+                        }}
+                    >
+                        <a onClick={sendToProfile}>
+                            <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
+                            <br />
+                            {post.username}</a>
+                    </Box>
 
-                <Box>
-                    <h2>{post.title}</h2>
-                    <p>{post.date} {post.time}</p>
-                </Box>
+                    <Box>
+                        <h2>{post.title}</h2>
+                        <p>{post.date} {post.time}</p>
 
-
-                <Box>
-                    <p>{post.post}</p>
-                </Box>
-                {/* <img src={post.media} />
+                        <p>{post.post}</p>
+                    </Box>
+                    </Box>
+                    <img src={post.media} />
                     <ReactPlayer
                         url={post.media}
                         width='400px'
                         height='600px'
-                        controls={true} /> */}
-
+                        controls={true} />
+                
                 <Box className="btn-holder">
                     {user.id === post.user_id &&
                         <Button
