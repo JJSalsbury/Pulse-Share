@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 function AdminPage() {
     const user = useSelector(store => store.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch({
@@ -13,6 +14,7 @@ function AdminPage() {
     return (
         <div>
             <h2>Admin Page goes here</h2>
+            <h3>Roster is:</h3>
         </div>
     );
 }
