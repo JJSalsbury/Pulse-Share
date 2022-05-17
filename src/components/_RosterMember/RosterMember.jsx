@@ -63,9 +63,9 @@ function RosterMember({ member }) {
     return (
         <>
             <TableRow>
-                <TableCell>{member.username}</TableCell>
-                <TableCell>{buttonRender()}</TableCell>
-                <TableCell>{member.access_level < 2 ? <button onClick={deleteUser}>DELETE</button> : <p></p>}</TableCell>
+                <TableCell align={'center'}>{member.username}</TableCell>
+                <TableCell align={'center'}>{buttonRender()}</TableCell>
+                <TableCell align={'center'}>{member.access_level < 2 ? <button onClick={deleteUser}>DELETE</button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )

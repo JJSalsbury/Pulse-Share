@@ -24,12 +24,12 @@ function AdminPage() {
         <div>
             <h2>Admin Page goes here</h2>
             <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: 800 }}>
+                <Table style={{ width: 500, margin: 'auto' }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Username</TableCell>
-                            <TableCell>Promote/Demote</TableCell>
-                            <TableCell>Delete</TableCell>
+                            <TableCell align={'center'}>Username</TableCell>
+                            <TableCell align={'center'}>Promote/Demote</TableCell>
+                            <TableCell align={'center'}>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
