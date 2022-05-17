@@ -27,6 +27,7 @@ import PostListPage from '../_PostListPage/PostListPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
+import AdminPage from '../_AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -104,6 +105,14 @@ function App() {
             path="/postHistory"
           >
             <PostHistoryPage />
+          </Route>
+
+          <Route
+            // Shows AddPostPage
+            exact
+            path="/admin"
+          >
+            <AdminPage />
           </Route>
 
           <Route
