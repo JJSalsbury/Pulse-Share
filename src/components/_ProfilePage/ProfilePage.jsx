@@ -71,14 +71,39 @@ function ProfilePage() {
                     <div>
 
                         {/* <img src={profile.profile_picture}></img> */}
-                        <img src= 'https://www.pitpat.com/wp-content/uploads/2020/12/Dog_-rights_MS_outdoors_active_puppy_running_white_black_gold-dog-_@ilaanddrax-1.jpg' width={200} height={200}></img>
-                        <div><strong>User Name:</strong>{user.username}</div>
-                        <div><strong>Pronouns:</strong></div>
+                        <img src='https://www.pitpat.com/wp-content/uploads/2020/12/Dog_-rights_MS_outdoors_active_puppy_running_white_black_gold-dog-_@ilaanddrax-1.jpg' width={200} height={200}></img>
+                        <div><strong>User Name: </strong>{user.username}</div>
+                        <div><strong>Pronouns: </strong></div>
                         {editMode ? <input
                             type="text"
                             value={editProfile.pronouns}
                             onChange={(event) => handleChange(event, 'pronouns')}
                         /> : <div>{profile.pronouns}</div>}
+
+                        <div><strong>General Info </strong> </div>
+
+                        <strong> Location: </strong>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.location}
+                            onChange={(event) => handleChange(event, 'location')}
+                        /> : <div>{profile.location}</div>}
+
+                        <strong>Job Title: </strong>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.job_title}
+                            onChange={(event) => handleChange(event, 'job_title')}
+                        /> : <div>{profile.job_title}</div>}
+
+                        <strong>Company: </strong>
+
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.company}
+                            onChange={(event) => handleChange(event, 'company')}
+                        /> : <div>{profile.company}</div>}
+
                         <h2>Contact Info</h2>
                         <div><strong>Email: </strong>{user.email}</div>
 
