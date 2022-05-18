@@ -70,7 +70,8 @@ function ProfilePage() {
                 <Container >
                     <div>
 
-                        <img src={profile.profile_picture}></img>
+                        {/* <img src={profile.profile_picture}></img> */}
+                        <img src= 'https://www.pitpat.com/wp-content/uploads/2020/12/Dog_-rights_MS_outdoors_active_puppy_running_white_black_gold-dog-_@ilaanddrax-1.jpg' width={200} height={200}></img>
                         <div><strong>User Name:</strong>{user.username}</div>
                         <div><strong>Pronouns:</strong></div>
                         {editMode ? <input
