@@ -86,7 +86,7 @@ function App() {
           <Route
             // Shows postDetailPage
             exact
-            path="/postDetail"
+            path="/postDetail/:id"
           >
             <PostDetailPage />
           </Route>

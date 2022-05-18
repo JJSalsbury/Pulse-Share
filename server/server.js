@@ -14,6 +14,7 @@ const s3 = require('./s3');
 const userRouter = require('./routes/user.router');
 const profileRouter = require('./routes/profile.router');
 const commentRouter = require('./routes/comment.router')
+const postRouter = require('./routes/post.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -30,6 +31,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/comment', commentRouter);
+app.use('/post', postRouter);
 
 // GET route for aws bucket url
 app.get('/s3Url', async (req, res) => {
