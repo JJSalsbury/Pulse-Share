@@ -78,18 +78,9 @@ function PostDetailPage() {
                     sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        margin: '5px'
+                        margin: '15px'
                     }}
                 >
-                    <Box>
-                        {post.image &&
-                            <img
-                                src={post.image}
-                                maxheight='360px'
-                                maxwidth='640px'
-                            />}
-                    </Box>
-                            <br />
                     <Box>
                         {post.video &&
                             <ReactPlayer
@@ -98,6 +89,17 @@ function PostDetailPage() {
                                 height='360px'
                                 controls={true} />}
                     </Box>
+                    <br />
+                    <Box>
+                        {post.image &&
+                            <img
+                                src={post.image}
+                                maxheight='360px'
+                                maxwidth='640px'
+                            />}
+                    </Box>
+                           
+                    
                 </Box>
 
                 <Box className="btn-holder">
