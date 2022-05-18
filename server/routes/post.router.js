@@ -19,7 +19,7 @@ router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
         console.log('Outcomes GET failed ', err);
         res.sendStatus(500);
         });
-
+});
 // Get specific post details
 router.get('/:id', (req, res) => {
   query = `
@@ -33,6 +33,8 @@ router.get('/:id', (req, res) => {
 
   pool.query(query, [req.params.id])
     .then(result => {
+      console.log('post data', result.rows);
+      
       res.send(result.rows);
     }).catch(err => {
       console.log('Error in getting post', err);
@@ -50,7 +52,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   
   const queryText = `
     INSERT INTO "posts" ("title", "post", "image", "video", "user_id", "outcome_id")
-    VALUES ($1, $2, $3, $4, $5, $6);
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;
   `;
 
   const values = [
@@ -64,7 +66,9 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, values)
     .then(result => {
-      res.sendStatus(201)
+      console.log('returning id for post', result.rows);
+      
+      res.send(result.rows)
     })
     .catch((err) => {
       console.log('Create new post failed: ', err);

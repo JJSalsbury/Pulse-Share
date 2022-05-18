@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import './AddPostPage.css'
+
 // imports for MUI v5
 import {
     Box,
@@ -19,6 +20,9 @@ import {
     FormControl
 } from '@mui/material';
 
+// import for sweetalert2
+import Swal from 'sweetalert2'
+
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
@@ -31,6 +35,9 @@ function AddPostPage() {
         dispatch({
             type: 'GET_OUTCOMES_LIST'
         });
+        dispatch({
+            type: 'CLEAR_POST'
+        })
     }, []);
 
     const dispatch = useDispatch();
@@ -39,6 +46,7 @@ function AddPostPage() {
     const user = useSelector((store) => store.user);
     const image = useSelector( store => store.imageReducer);
     const video = useSelector( store => store.videoReducer);
+    const post = useSelector(store => store.post)
     const outcomesList = useSelector( store => store.outcomesListReducer);
 
     const [postTitle, setPostTitle] = useState('');
@@ -126,6 +134,7 @@ function AddPostPage() {
 
                 imageUrl = url.split('?')[0]
                 console.log(imageUrl)
+
             } else {
                 imageUrl = null;
             }
@@ -158,12 +167,29 @@ function AddPostPage() {
                     postTag: outcomeTag
                 }
             })
+            let id = post?.id
 
-            history.push('/postDetail')
+            Swal.fire({
+                title: 'Posted!',
+                icon: 'success',
+                confirmButtonText: 'Okay',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    history.push(`/postDetail/${id}`);
+                    // Swal.fire(
+                    //     'Posted!',
+                    //     'Your file has been deleted.',
+                    //     'success'
+                    // ).then(() => {
+
+                    // })
+                } 
+            })
+
+            
         }
     }
     
-
     return (
         <Container>
             

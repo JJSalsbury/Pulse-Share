@@ -49,7 +49,8 @@ CREATE TABLE "posts" (
 	"time" TIME DEFAULT NOW(),
 	"title" VARCHAR (100),
 	"post" VARCHAR (2000),
-	"media" VARCHAR (2000),
+	"image" VARCHAR (2000),
+	"video" VARCHAR (2000),
 	"user_id" INT REFERENCES "user" ON DELETE CASCADE,
 	"outcome_id" INT REFERENCES "outcomes"
 );
@@ -59,7 +60,8 @@ CREATE TABLE "comments" (
 	"date" DATE DEFAULT CURRENT_DATE,
 	"time" TIME DEFAULT NOW(),
 	"comment" VARCHAR (300),
-	"media" VARCHAR (2000),
+	"image" VARCHAR (2000),
+	"video" VARCHAR (2000),
 	"user_id" INT REFERENCES "user" ON DELETE CASCADE,
 	"post_id" INT REFERENCES "posts" ON DELETE CASCADE
 );

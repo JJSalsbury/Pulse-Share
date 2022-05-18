@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery } from 'redux-saga/effects';
 
 // saga getOutcomesList will get the list of outcomes from DB
 function* getOutcomesList() {
@@ -15,7 +15,8 @@ function* getOutcomesList() {
 // saga createNewPost will insert new post to DB
 function* createNewPost(action) {
     try {
-        yield axios.post('/post', action.payload);
+        const postId = yield axios.post('/post', action.payload);
+        yield put({type: 'GET_POST', payload: postId.data[0].id});
 
         // FIXME - once get route for all posts is made, update type
         // yield put({ type: 'GET_POST'});
