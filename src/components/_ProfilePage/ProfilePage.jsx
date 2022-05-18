@@ -2,105 +2,224 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import { Grid } from '@mui/material';
-import { Container } from '@mui/material';
-import { Box } from '@mui/material';
+import { Card, CardMedia, CardContent } from '@mui/material';
+import { Container } from "@mui/material";
 
 
 
 
 
 function ProfilePage() {
+    useEffect(() => {
+        dispatch({ type: 'GET_PROFILE', payload: id });
+    }, [id]);
+
+
     const history = useHistory();
     const dispatch = useDispatch();
     const { id } = useParams();
     const user = useSelector(store => store.user);
     const profile = useSelector(store => store.profile);
-    useEffect(() => {
-        dispatch({ type: 'GET_PROFILE', payload: id });
-    }, [id]);
+    const editProfile = useSelector(store => store.editProfileReducer);
 
-    // const [pronouns, setPronouns] = useState('');
-    // const [device, setDevice] = useState('')
-    // const [deviceSettings, setDeviceSettings] = useState('')
-    // const [injuryLevel, setInjuryLevel] = useState('')
-    // const [aisaLevel, setAisaLevel] = useState('')
-    // const [timeSinceInjury, setTimeSinceInjury] = useState('')
-    // const [baseline, setBaseline] = useState('')
-    // const [improvements, setImprovements] = useState('')
-    // const [location, setLocation] = useState('')
-    // const [jobTitle, setJobTitle] = useState('')
-    // const [company, setCompany] = useState('')
-    // const [aboutMe , setAboutMe] = useState('')
-    // const [public, setPublic] = useState('')
-    // const [biologicalGender, setBiologicalGender] = useState('')
-    // const [age, setAge] = useState('')
-    // const [height, setHeight] = useState('')
-    // const [weight, setWeight] = useState('')
-    // const [medicalCondition, setMedicalCondtion] = useState('')
-
+    const [editMode, setEditMode] = useState(false);
 
     const handleClick = () => {
         history.push('/postHistory')
     }
-    const handleEdit = () => {
+
+
+    const handleUpdate = () => {
         //switch to edit mode "form"
+        console.log('clicked update profile');
+        dispatch({
+            type: 'SET_PROFILE_T0_EDIT',
+            payload: profile
+        })
+        setEditMode(!editMode);
     }
+
+    const handleSubmit = () => {
+        console.log('save clicked');
+
+        dispatch({
+            type: 'PUT_PROFILE',
+            payload: editProfile
+        })
+        setEditMode(!editMode);
+    }
+    const handleChange = (event, property) => {
+        dispatch({
+            type: 'EDIT_ON_CHANGE',
+            payload: {
+                property: property,
+                value: event.target.value
+            }
+        })
+    }
+
+
+
+
     return (
         <>
             <div>
 
                 {/* this goes on the side bar */}
-                <Box sx={{ p: 2, border: '1px solid black'}}>
-                    <Container>
-                        <Box sx={{ p: 2}}>"Profile pic"{profile.profile_picture}</Box>
-                        <Box sx={{ p: 2 }}>{user.username}</Box>
+
+                <Container >
+                    <div>
+
+                        <img src={profile.profile_picture}></img>
+                        <div><strong>User Name:</strong>{user.username}</div>
+                        <div><strong>Pronouns:</strong></div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.pronouns}
+                            onChange={(event) => handleChange(event, 'pronouns')}
+                        /> : <div>{profile.pronouns}</div>}
                         <h2>Contact Info</h2>
-                        <Box sx={{ p: 2}}>{user.email}</Box>
+                        <div><strong>Email: </strong>{user.email}</div>
 
-                        <Box sx={{ p: 2 }}>
-                            <button onClick={handleClick}>Post History</button>
-                            <button onClick={handleEdit}>Edit Profile</button>
-                        </Box>
-                    </Container>
-                </Box>
+
+                    </div>
+                </Container>
+
                 {/* this will be a text box center top */}
-                <Box sx={{ p: 2, border: '1px solid black'}}>
-                <Container>
-                    <h2>About Me</h2>
-                    <box>{profile.about_me}</box>
-                </Container>
-                </Box>
+                <Container >
+                    <div>
 
-                {/* device and Biometrics placement left of Device settings*/}
-                <Box sx={{ p: 2, border: '1px solid black'}}>
-                <Container>
-                    <h2>My Device</h2>
-                    <div>{profile.device}</div>
+                        <h2>About Me</h2>
+
+                        <div>
+                            {editMode ? <input
+                                type="text"
+                                value={editProfile.about_me}
+                                onChange={(event) => handleChange(event, 'about_me')}
+                            /> : <div>{profile.about_me}</div>}
+                        </div>
+                    </div>
                 </Container>
-                </Box>
-                <Box sx={{ p: 2, border: '1px solid black'}}>
-                <Container>
-                    <h2>Biometrics</h2>
-                    <div>Age: {profile.age}</div>
-                    <div>Height: {profile.height}</div>
-                    <div>Weight: {profile.weight}</div>
-                    <div>Biological Gender: {profile.biological_gender}</div>
-                    <div>Injury Level: {profile.injury_level}</div>
-                    <div>Aisa Level: {profile.aisa_level}</div>
-                    <div>Time Since Injury: {profile.time_since_injury}</div>
+
+                <Container >
+                    <div >
+
+                        <h2>Device Information</h2>
+                        <div><strong>Device: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.device}
+                            onChange={(event) => handleChange(event, 'device')}
+                        /> : <div>{profile.device}</div>}
+                        <div><strong>Device Settings: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.device_settings}
+                            onChange={(event) => handleChange(event, 'device_settings')}
+                        /> : <div>{profile.device_settings}</div>}
+
+                        <div><strong>Baseline: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.baseline}
+                            onChange={(event) => handleChange(event, 'baseline')}
+                        /> : <div>{profile.baseline}</div>}
+
+                        <div><strong>Improvements: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.improvements}
+                            onChange={(event) => handleChange(event, 'improvements')}
+                        /> : <div>{profile.improvements}</div>}
+
+                    </div>
                 </Container>
-                </Box>
-                <Box sx={{ p: 2, border: '1px solid black'}}>
-                {/* Device settings is a lager text box placement to the right of device and biometrics */}
-                <Container>
-                    <h2>Device Settings</h2>
-                    <div>{profile.device_settings}</div>
-                </Container>
-                </Box>
 
 
 
+
+                <Container >
+                    <div>
+
+                        <h2>Biometrics</h2>
+                        <div><strong>Age: </strong></div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.age}
+                            onChange={(event) => handleChange(event, 'age')}
+                        /> : <div>{profile.age}</div>}
+
+
+
+                        <div><strong>Height: </strong>  </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.height}
+                            onChange={(event) => handleChange(event, 'height')}
+                        /> : <div>{profile.height}</div>}
+
+
+
+                        <div><strong>Weight: </strong>  {profile.weight}</div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.weight}
+                            onChange={(event) => handleChange(event, 'weight')}
+                        /> : <div>{profile.weight}</div>}
+
+
+
+
+                        <div><strong>Biological Gender: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.biological_gender}
+                            onChange={(event) => handleChange(event, 'biological_gender')}
+                        /> : <div>{profile.biological_gender}</div>}
+
+
+
+                        <div><strong>Injury Level: </strong>  </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.injury_level}
+                            onChange={(event) => handleChange(event, 'injury_level')}
+                        /> : <div>{profile.injury_level}</div>}
+
+
+
+                        <div><strong>Aisa Level:</strong>  </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.aisa_level}
+                            onChange={(event) => handleChange(event, 'aisa_level')}
+                        /> : <div>{profile.aisa_level}</div>}
+
+
+                        <div><strong>Time Since Injury: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.time_since_injury}
+                            onChange={(event) => handleChange(event, 'time_since_injury')}
+                        /> : <div>{profile.time_since_injury}</div>}
+
+
+                        <div><strong>Medical Condition: </strong> </div>
+                        {editMode ? <input
+                            type="text"
+                            value={editProfile.medical_conditions}
+                            onChange={(event) => handleChange(event, 'medical_conditions')}
+                        /> : <div>{profile.medical_conditions}</div>}
+
+
+                    </div>
+                </Container>
+
+
+                <div>
+                    <button onClick={handleClick}>Post History</button>
+                    <button onClick={handleUpdate}>Update Profile</button>
+                </div>
 
             </div>
         </>
@@ -108,3 +227,28 @@ function ProfilePage() {
 }
 
 export default ProfilePage;
+
+
+
+
+    // x const [pronouns, setPronouns] = useState('');
+    // x const [device, setDevice] = useState('')
+    // x  const [deviceSettings, setDeviceSettings] = useState('')
+    // x const [injuryLevel, setInjuryLevel] = useState('')
+    // x const [aisaLevel, setAisaLevel] = useState('')
+    // x const [timeSinceInjury, setTimeSinceInjury] = useState('')
+    // x const [baseline, setBaseline] = useState('')
+    // x const [improvements, setImprovements] = useState('')
+
+    // const [location, setLocation] = useState('')
+    // const [jobTitle, setJobTitle] = useState('')
+    // const [company, setCompany] = useState('')
+
+
+    // x const [aboutMe , setAboutMe] = useState('')
+    // const [public, setPublic] = useState('')
+    // x const [biologicalGender, setBiologicalGender] = useState('')
+    // x const [age, setAge] = useState('')
+    // x const [height, setHeight] = useState('')
+    // x const [weight, setWeight] = useState('')
+    // x const [medicalCondition, setMedicalCondtion] = useState('')
