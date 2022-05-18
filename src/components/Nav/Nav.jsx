@@ -35,8 +35,8 @@ function Nav() {
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/addPost">
+              Add Post
             </Link>
 
             <Link className="navLink" to="/profile">

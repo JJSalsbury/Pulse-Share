@@ -131,7 +131,6 @@ function PostDetailPage() {
                                 maxwidth='640px'
                             />}
                     </Box>
-                           
                     
                 </Box>
 
