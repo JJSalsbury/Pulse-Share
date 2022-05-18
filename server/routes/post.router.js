@@ -6,7 +6,7 @@ const {
 } = require('../modules/authentication-middleware');
 
  // GET route for outcomesList 
-router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
+router.get('/outcomesList', (req, res) => {
     const queryText = `
         SELECT * FROM "outcomes";
     `;
@@ -20,6 +20,24 @@ router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
         res.sendStatus(500);
         });
 });
+
+// GET route for Entire postList 
+router.get('/postList', (req, res) => {
+  const queryText = `
+    SELECT * FROM "posts"
+    ORDER BY "date" DESC, "time" DESC;
+  `;
+  pool
+      .query(queryText)
+      .then(result => {
+      res.send(result.rows)
+      })
+      .catch((err) => {
+      console.log('Entire postList GET failed ', err);
+      res.sendStatus(500);
+      });
+});
+
 // Get specific post details
 router.get('/:id', (req, res) => {
   query = `

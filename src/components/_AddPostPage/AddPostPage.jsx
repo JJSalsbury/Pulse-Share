@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -164,28 +163,10 @@ function AddPostPage() {
                     postBody: postBody,
                     postImage: imageUrl,
                     postVideo: videoUrl,
-                    postTag: outcomeTag
+                    postTag: outcomeTag,
+                    history: history
                 }
             })
-            let id = post?.id
-
-            Swal.fire({
-                title: 'Posted!',
-                icon: 'success',
-                confirmButtonText: 'Okay',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    history.push(`/postDetail/${id}`);
-                    // Swal.fire(
-                    //     'Posted!',
-                    //     'Your file has been deleted.',
-                    //     'success'
-                    // ).then(() => {
-
-                    // })
-                } 
-            })
-
             
         }
     }
@@ -400,7 +381,14 @@ function AddPostPage() {
                     </Box>
                 </Modal>
                 <Box>
-                    <Button variant="contained" onClick={handleClick} >Submit Post</Button>
+                    <Button 
+                        sx={{
+                            backgroundColor: '#4E9BB9',
+                            margin: '2px'
+                        }} 
+                        variant="contained" 
+                        onClick={handleClick} 
+                    >Submit Post</Button>
                 </Box>
             </Box>
             
