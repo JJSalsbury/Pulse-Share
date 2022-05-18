@@ -15,6 +15,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "profiles" (
 	"id" SERIAL PRIMARY KEY,
+    "pronouns" VARCHAR (50) DEFAULT '',
 	"profile_picture" VARCHAR (2000) DEFAULT '',
 	"device" VARCHAR (255) DEFAULT '',
 	"device_settings" VARCHAR (255) DEFAULT '',
@@ -28,7 +29,7 @@ CREATE TABLE "profiles" (
 	"company" VARCHAR (255) DEFAULT '',
 	"about_me" VARCHAR (255) DEFAULT '',
 	"contact" BOOLEAN DEFAULT FALSE,
-	"public" INT DEFAULT 0,
+	"public" INT DEFAULT 2,
 	"biological_gender" VARCHAR (255) DEFAULT '',
 	"age" VARCHAR (255) DEFAULT '',
 	"height" VARCHAR (255) DEFAULT '',
