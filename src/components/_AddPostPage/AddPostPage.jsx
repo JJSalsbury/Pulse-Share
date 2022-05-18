@@ -15,7 +15,8 @@ import {
     Button,
     Modal,
     Typography,
-    TextField
+    TextField,
+    FormControl
 } from '@mui/material';
 
 // imports for file upload
@@ -43,6 +44,8 @@ function AddPostPage() {
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
     const [outcomeTag, setOutcomeTag] = useState('');
+    let imageUrl = '';
+    let videoUrl = '';
 
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
@@ -109,7 +112,7 @@ function AddPostPage() {
         if (postTitle !== '' || postBody !== '') {
             if(image.file) {
                 // get secure url from our server
-                const { url } = await fetch("/s3Url").then(res => res.json())
+                const { url } = await fetch("/s3Url/image").then(res => res.json())
                 console.log(url)
 
                 // post the image directly to the s3 bucket
@@ -121,12 +124,14 @@ function AddPostPage() {
                     body: image['file']
                 })
 
-                const imageUrl = url.split('?')[0]
+                imageUrl = url.split('?')[0]
                 console.log(imageUrl)
+            } else {
+                imageUrl = null;
             }
 
             if(video.file) {
-                const { url } = await fetch("/s3Url").then(res => res.json())
+                const { url } = await fetch("/s3Url/video").then(res => res.json())
                 console.log(url)
 
                 await fetch(url, {
@@ -137,8 +142,10 @@ function AddPostPage() {
                     body: video['file']
                 })
     
-                const videoUrl = url.split('?')[0]
+                videoUrl = url.split('?')[0]
                 console.log(videoUrl)
+            } else {
+                videoUrl = null;
             }
             
             dispatch({
@@ -152,24 +159,26 @@ function AddPostPage() {
                 }
             })
 
-            history.push('/posts')
+            history.push('/postDetail')
         }
     }
+    
 
     return (
         <Container>
             
-            <h2>Add Post Page!</h2>
+            <h2>Add Post</h2>
             <Box 
                 component={Paper}
                 sx={{
                     padding: '15px',
                     borderRadius: '7px',
                     border: '1px solid black',
+                    boxShadow: 10,
+                    minHeight: '50vh'
                 }}
             >
                 <Box>
-                    
                     <TextField
                         required
                         id="outlined-required"
@@ -177,7 +186,7 @@ function AddPostPage() {
                         defaultValue={postTitle}
                         style={{
                             marginBottom: 15,
-                            minWidth: '80%'
+                            minWidth: '100%'
                         }}
                         onChange={(event) => setPostTitle(event.target.value)}
                     />
@@ -192,71 +201,49 @@ function AddPostPage() {
                         defaultValue={postBody}
                         style={{
                             marginBottom: 15,
-                            minWidth: '80%'
+                            minWidth: '100%'
                         }}
                         onChange={(event) => setPostBody(event.target.value)}
                     />
                 </Box>
                 <Box>
-                    <InputLabel id="demo-simple-select-label">Outcome Tag</InputLabel>
-                        <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={outcomeTag}
-                        label="Age"
-                        style={{
-                            marginBottom: 15,
-                            minWidth: '20%'
-                        }}
-                        onChange={(event) => setOutcomeTag(event.target.value)}
-                        >
-                            {outcomesList?.map(outcome => {
-                                return (
-                                    <MenuItem 
-                                        key={outcome.id} 
-                                        value={outcome.id}
-                                    >{outcome.outcome}</MenuItem>
-                                )
-                            })}
-                        </Select>
+                    <FormControl required sx={{minWidth: 150}}>
+                        <InputLabel id="demo-simple-select-autowidth-label">Outcome Tag</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-autowidth-label"
+                            id="demo-simple-select-autowidth"
+                            value={outcomeTag}
+                            label="Outcome Tag"
+                            required
+                            autoWidth
+                            style={{
+                                marginBottom: 15
+                            }}
+                            onChange={(event) => setOutcomeTag(event.target.value)}
+                            >
+                                {outcomesList?.map(outcome => {
+                                    return (
+                                        <MenuItem 
+                                            key={outcome.id} 
+                                            value={outcome.id}
+                                        >{outcome.outcome}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                    </FormControl>
                 </Box>
-                {/* <Box>
-                    {media.file ? 
+                <Box>
+                {image.file ?
+                    <Box>
+                        <p>{image.file.name}</p>
                         <Button 
                             onClick={handleChangeImage}
                             style={{
                                 marginBottom: 15,
                             }}
-                        >Change Photo
+                        >Remove Photo
                         </Button> 
-                        : 
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleSubmit}
-                            maxFiles={1}
-                            inputContent={(files, extra) => (extra.reject ? 
-                                'Image and video files only' 
-                                : 
-                                'Click Here or Drag 1 Picture/Video'
-                            )}
-                            styles={{
-                            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                            dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
-                            dropzoneActive: { borderColor: "green" }
-                            }}
-                            accept="image/*,video/*"
-                        />}
-                </Box> */}
-                {image.file ?
-                    <Button 
-                        onClick={handleChangeImage}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Change Photo
-                    </Button> 
+                    </Box>
                     : 
                     <Button 
                         onClick={handleOpenImageModal}
@@ -267,13 +254,16 @@ function AddPostPage() {
                     </Button>
                 }
                 {video.file ?
-                    <Button 
-                        onClick={handleChangeImage}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Change Video
-                    </Button> 
+                    <Box>
+                        <p>{video.file.name}</p>
+                        <Button 
+                            onClick={handleChangeVideo}
+                            style={{
+                                marginBottom: 15,
+                            }}
+                        >Remove Video
+                        </Button> 
+                    </Box>
                     : 
                     <Button 
                         onClick={handleOpenVideoModal}
@@ -283,6 +273,7 @@ function AddPostPage() {
                     >Add Video
                     </Button>
                 }
+                </Box>
                 <Modal
                     open={openImageModal}
                     onClose={handleCloseImageModal}
@@ -290,6 +281,7 @@ function AddPostPage() {
                     aria-describedby="modal-modal-description"
                     style={{
                         marginBottom: 15,
+                        textAlign: 'center'
                     }}
                 >
                     <Box sx={{
@@ -297,23 +289,18 @@ function AddPostPage() {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 400,
+                        width: '50%',
                         bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
+                        border: '1px solid #000',
+                        borderRadius: '7px',
+                        boxShadow: 10,
                         p: 4,
                     }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add A Photo Here!
+                        Add Photo Here!
                     </Typography>
                     {image.file ? 
-                        <Button 
-                            onClick={handleChangeImage}
-                            style={{
-                                marginBottom: 15,
-                            }}
-                        >Change Photo
-                        </Button> 
+                        <h1>{image.file.name} Has Been Added!</h1>
                         : 
                         <Dropzone
                             getUploadParams={getUploadParams}
@@ -328,7 +315,7 @@ function AddPostPage() {
                             styles={{
                             dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
                             inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                            dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
+                            dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
                             dropzoneActive: { borderColor: "green" }
                             }}
                             accept="image/*"
@@ -345,6 +332,7 @@ function AddPostPage() {
                     aria-describedby="modal-modal-description"
                     style={{
                         marginBottom: 15,
+                        textAlign: 'center'
                     }}
                 >
                     <Box sx={{
@@ -352,23 +340,18 @@ function AddPostPage() {
                         top: '50%',
                         left: '50%',
                         transform: 'translate(-50%, -50%)',
-                        width: 400,
+                        width: '50%',
                         bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
+                        border: '1px solid #000',
+                        borderRadius: '7px',
+                        boxShadow: 10,
                         p: 4,
                     }}>
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add A video Here!
+                        Add Video Here!
                     </Typography>
                     {video.file ? 
-                        <Button 
-                            onClick={handleChangeVideo}
-                            style={{
-                                marginBottom: 15,
-                            }}
-                        >Change Video
-                        </Button> 
+                        <h1>Video Added!</h1>
                         : 
                         <Dropzone
                             getUploadParams={getUploadParams}
@@ -383,7 +366,7 @@ function AddPostPage() {
                             styles={{
                             dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
                             inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                            dropzone: { width: 250, minHeight: 180, maxHeight: 180 },
+                            dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
                             dropzoneActive: { borderColor: "green" }
                             }}
                             accept="video/*"

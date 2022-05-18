@@ -99,7 +99,7 @@ function App() {
           </ProtectedRoute>
 
           <Route
-            // Shows AddPostPage
+            // Shows PostHistoryPage
             exact
             path="/postHistory"
           >
