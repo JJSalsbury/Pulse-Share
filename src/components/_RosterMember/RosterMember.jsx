@@ -20,23 +20,29 @@ function RosterMember({ member }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // function to determine which button to render next to user, Admins will get an empty p tag
     const buttonRender = () => {
         if (member.access_level === 2) {
             return <p></p>;
         } else if (member.access_level === 1) {
+            // if user access_level is 1, 'DEMOTE' button will render to call promoteUser function
             return <Button sx={{ backgroundColor: 'red' }} variant={'contained'} onClick={demoteUser}>DEMOTE</Button>;
         } else if (member.access_level === 0) {
+            // if user access_level is 0, 'PROMOTE' button will render to call promoteUser function
             return <Button sx={{ backgroundColor: 'green' }} variant={'contained'} onClick={promoteUser}>PROMOTE</Button>;
         }
 
     }
 
+    // function to demote a Moderator to a normal user
     const demoteUser = () => {
         console.log('clicked demote');
         const id = member.id;
+        // create object to send to server
         const user = {
             id: id
         }
+        // SweetAlert warning before demoting member
         Swal.fire({
             title: `Are you sure you want to demote ${member.username} to a normal user?`,
             text: "Click OK to Demote",
@@ -46,6 +52,7 @@ function RosterMember({ member }) {
             cancelButtonText: 'No, Cancel!',
             reverseButtons: true
         }).then((result) => {
+            // clicking 'OK' sends dispatch to demote user
             if (result.isConfirmed) {
 
                 dispatch({
@@ -69,14 +76,15 @@ function RosterMember({ member }) {
             }
         })
     }
-
+    // function to promote a normal user to a Moderator
     const promoteUser = () => {
         console.log('clicked promote');
         const id = member.id;
+        // create object to send to server
         const user = {
             id: id
         }
-
+        // SweetAlert warning before promoting member
         Swal.fire({
             title: `Are you sure you want to promote ${member.username} to a Moderator?`,
             text: "Click OK to Promote",
@@ -86,6 +94,7 @@ function RosterMember({ member }) {
             cancelButtonText: 'No, Cancel!',
             reverseButtons: true
         }).then((result) => {
+            // clicking 'OK' sends dispatch to promote user
             if (result.isConfirmed) {
 
                 dispatch({
@@ -112,12 +121,15 @@ function RosterMember({ member }) {
 
     }
 
+    // function to delete a user
     const deleteUser = () => {
         console.log('clicked delete');
         const id = member.id;
+        // create object to send to server
         const user = {
             id: id
         }
+        // SweetAlert warning before promoting member
         Swal.fire({
             title: `Are you sure you want to delete ${member.username}'s account?`,
             text: "Click OK to Delete",
@@ -127,6 +139,7 @@ function RosterMember({ member }) {
             cancelButtonText: 'No, Cancel!',
             reverseButtons: true
         }).then((result) => {
+            // clicking 'OK' sends dispatch to delete user
             if (result.isConfirmed) {
 
                 dispatch({
@@ -154,9 +167,12 @@ function RosterMember({ member }) {
     return (
         <>
             <TableRow>
-                <TableCell sx={{ width: 250}} align={'center'}><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></TableCell>
-                <TableCell sx={{ width: 250}} align={'center'}>{buttonRender()}</TableCell>
-                <TableCell sx={{ width: 250}} align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black' }} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
+                {/* username is a link, onClick will push user to that person's profile page */}
+                <TableCell sx={{ width: 250 }} align={'center'}><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></TableCell>
+                {/* call buttonRender function to determine which button to render */}
+                <TableCell sx={{ width: 250 }} align={'center'}>{buttonRender()}</TableCell>
+                {/* if the username is for a profile that is not an Admin, a DELETE button will render to delete that user using deleteUser function*/}
+                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black' }} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )

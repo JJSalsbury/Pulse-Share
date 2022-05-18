@@ -38,6 +38,7 @@ passport.deserializeUser((id, done) => {
 passport.use(
   'local',
   new LocalStrategy({usernameField:'email'}, (email, password, done) => {
+
     pool
       .query('SELECT * FROM "user" WHERE email = $1', [email])
       .then((result) => {

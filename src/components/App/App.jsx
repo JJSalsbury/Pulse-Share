@@ -86,21 +86,21 @@ function App() {
           <Route
             // Shows postDetailPage
             exact
-            path="/postDetail"
+            path="/postDetail/:id"
           >
             <PostDetailPage />
           </Route>
 
-          <Route
+          <ProtectedRoute
             // Shows AddPostPage
             exact
             path="/addPost"
           >
             <AddPostPage />
-          </Route>
+          </ProtectedRoute>
 
           <Route
-            // Shows AddPostPage
+            // Shows PostHistoryPage
             exact
             path="/postHistory"
           >

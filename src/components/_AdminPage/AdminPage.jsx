@@ -14,6 +14,7 @@ function AdminPage() {
     const roster = useSelector(store => store.rosterReducer);
     const dispatch = useDispatch();
 
+    // useEffect gets all of the users and puts them in the rosterReducer
     useEffect(() => {
         dispatch({
             type: 'GET_ROSTER'
@@ -23,6 +24,7 @@ function AdminPage() {
     return (
         <div>
             <h2>Manage Users</h2>
+            {/* table to display all of the users */}
             <TableContainer component={Paper}>
                 <Table sx={{ width: 750, margin: 'auto', borderRadius: 5, boxShadow: 5, mt: 5, mb: 5 }}>
                     <TableHead sx={{ backgroundColor: '#cfd8dc', borderBottom: 3, borderRadius: 5}}>
@@ -33,6 +35,7 @@ function AdminPage() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
+                        {/* map through the users using RosterMember component, passing down each member */}
                         {roster.map(member => {
                             return (
                                 <RosterMember
