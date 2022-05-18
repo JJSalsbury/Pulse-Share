@@ -14,13 +14,13 @@ function* getPostDetails(action) {
 }
 
 // Delete selected post
-function* deletePost() {
+function* deletePost(action) {
     try {
         console.log('IN DELETE SAGA');
-        
+        yield axios.delete(`/post/${action.payload}`)
+        // GET ALL POSTS HERE
     } catch (err) {
         console.log(err);
-        
     }
 }
 

@@ -36,6 +36,7 @@ function PostDetailPage() {
     const deletePost = () => {
         console.log('DeletingPost', id);
         dispatch({type: 'DELETE_POST', payload: id})
+        history.push('/allPosts')
     }
 
     console.log('POST IS', post);

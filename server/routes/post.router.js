@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Get specific post details
 router.get('/:id', (req, res) => {
-  query = `
+  const query = `
           SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
           to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
           "posts".outcome_id, "posts".user_id FROM "posts"
@@ -27,5 +27,17 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // POST route code here
 });
+
+router.delete('/:id', (req, res) => {
+  const query = `DELETE FROM "posts" WHERE "id" = $1 AND "user_id" = $2;`
+
+  pool.query(query, [req.params.id, req.user.id])
+        .then(result => {
+            res.sendStatus(204);
+        }).catch(err => {
+            console.log('Error in deleting post', err);
+        })
+
+})
 
 module.exports = router;
