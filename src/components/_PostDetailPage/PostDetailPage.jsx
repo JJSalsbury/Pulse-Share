@@ -5,6 +5,9 @@ import { useParams, useHistory } from 'react-router-dom'
 // Basic CSS
 import styling from './PostDetailPage.css'
 
+// Sweet Alert 2
+import Swal from 'sweetalert2';
+
 // import for playing videos on dom
 import ReactPlayer from 'react-player'
 
@@ -34,9 +37,33 @@ function PostDetailPage() {
 
     // Delete the post
     const deletePost = () => {
-        console.log('DeletingPost', id);
-        dispatch({type: 'DELETE_POST', payload: id})
-        history.push('/allPosts')
+
+        Swal.fire({
+            title: `Are you sure you want to delete this post?`,
+            text: `This action cannot be undone.`,
+            icon: 'warning',
+            background: 'white',
+            color: 'black',
+            showCancelButton: true,
+            confirmButtonColor: '#4E9BB9',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({type: 'DELETE_POST', payload: id})
+                history.push('/posts') 
+                Swal.fire({
+                    background: 'white',
+                    color: 'black',
+                    confirmButtonColor: '#4E9BB9',
+                    title: 'Deleted!',
+                    text: `Post has been deleted.`,
+                    icon: 'success'
+                })
+            }
+        })
+        
+        
     }
 
     console.log('POST IS', post);
@@ -120,7 +147,7 @@ function PostDetailPage() {
                             variant="contained"
                             className='buttons'
                         ><EditIcon /> Edit </Button>}
-                    {user.id === post.user_id &&
+                    {(user.access_level >= 1 || user.id === post.user_id) &&
                         <Button
                             variant="contained"
                             className='buttons'
