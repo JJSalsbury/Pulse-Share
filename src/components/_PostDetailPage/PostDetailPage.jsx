@@ -62,8 +62,6 @@ function PostDetailPage() {
                 })
             }
         })
-        
-        
     }
 
     console.log('POST IS', post);
