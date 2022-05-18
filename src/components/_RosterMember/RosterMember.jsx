@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,6 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import './RosterMember.css'
 
 
 
@@ -15,6 +17,7 @@ import Button from '@mui/material/Button';
 function RosterMember({ member }) {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const buttonRender = () => {
         if (member.access_level === 2) {
@@ -66,7 +69,7 @@ function RosterMember({ member }) {
     return (
         <>
             <TableRow>
-                <TableCell align={'center'}>{member.username}</TableCell>
+                <TableCell align={'center'}><a onClick={() => {history.push(`/profile/${member.id}`)}}>{member.username}</a></TableCell>
                 <TableCell align={'center'}>{buttonRender()}</TableCell>
                 <TableCell align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black'}} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
             </TableRow>
