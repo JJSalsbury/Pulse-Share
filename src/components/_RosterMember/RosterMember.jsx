@@ -154,9 +154,9 @@ function RosterMember({ member }) {
     return (
         <>
             <TableRow>
-                <TableCell align={'center'}><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></TableCell>
-                <TableCell align={'center'}>{buttonRender()}</TableCell>
-                <TableCell align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black' }} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
+                <TableCell sx={{ width: 250}} align={'center'}><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></TableCell>
+                <TableCell sx={{ width: 250}} align={'center'}>{buttonRender()}</TableCell>
+                <TableCell sx={{ width: 250}} align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black' }} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )

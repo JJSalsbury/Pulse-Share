@@ -6,3 +6,8 @@ a:hover {
     text-decoration: underline;
     font-weight: bold;
   }
+
+h2 {
+    margin: auto;
+    text-align: center;
+}

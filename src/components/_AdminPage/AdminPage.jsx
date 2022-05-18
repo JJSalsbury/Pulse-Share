@@ -22,9 +22,9 @@ function AdminPage() {
 
     return (
         <div>
-            <h2>Admin Page goes here</h2>
+            <h2>Manage Users</h2>
             <TableContainer component={Paper}>
-                <Table sx={{ width: 600, margin: 'auto', borderRadius: 5, boxShadow: 5, mt: 5, mb: 5 }}>
+                <Table sx={{ width: 750, margin: 'auto', borderRadius: 5, boxShadow: 5, mt: 5, mb: 5 }}>
                     <TableHead sx={{ backgroundColor: '#cfd8dc', borderBottom: 3, borderRadius: 5}}>
                         <TableRow>
                             <TableCell align={'center'}>Username</TableCell>
