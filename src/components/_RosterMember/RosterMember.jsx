@@ -118,9 +118,36 @@ function RosterMember({ member }) {
         const user = {
             id: id
         }
-        dispatch({
-            type: 'DELETE_USER',
-            payload: user
+        Swal.fire({
+            title: `Are you sure you want to delete ${member.username}'s account?`,
+            text: "Click OK to Delete",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete the account.',
+            cancelButtonText: 'No, Cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                dispatch({
+                    type: 'DELETE_USER',
+                    payload: user
+                })
+                Swal.fire(
+                    'Delete!',
+                    `You have deleted ${member.username}'s account.`,
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                Swal.fire(
+                    'Cancelled',
+                    `${member.username} will remain a user.`,
+                    'error'
+                )
+            }
         })
     }
 
