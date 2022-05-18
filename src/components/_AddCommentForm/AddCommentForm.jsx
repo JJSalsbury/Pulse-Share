@@ -1,15 +1,17 @@
 //imports
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 //styling imports
-import './AddCommentPage.css';
+import './AddCommentForm.css';
 import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
-function AddCommentPage () {
+
+function AddCommentForm ({ postId }) {
     const dispatch = useDispatch();
+    const user = useSelector(store => store.user);
 //     const history = useHistory();
 
 let [newComment, setNewComment] = useState('');
@@ -20,7 +22,7 @@ const handleChange = (event) => {
   //dispatch action type for reducer to run, and payload (user input in state).
   dispatch({
       type:'CREATE_NEW_COMMENT',
-      payload: {comment: newComment}           
+      payload: {post_id: postId, comment: newComment}           
   })
   // //Onclick, push new location to useHistory, changed location.
   // history.push('/comments');
@@ -48,6 +50,26 @@ return (
               value={newComment}
               onChange={(event) => setNewComment(event.target.value)} type="text" placeholder="Comments"
 />
+{/* <Box className="btn-holder">
+                    {user.id === comment.user_id &&
+                        <Button
+                            sx={{
+                                backgroundColor: '#4E9BB9',
+                                margin: '2px'
+                            }}
+                            variant="contained"
+                            className='buttons'
+                        ><EditIcon /> Edit </Button>}
+                    {user.id === comment.user_id &&
+                        <Button
+                            variant="contained"
+                            className='buttons'
+                            sx={{
+                                backgroundColor: 'red',
+                                margin: '2px'
+                            }}
+                        ><DeleteIcon /> Delete </Button>}
+                </Box> */}
 
 </Box>
 </Container>
@@ -60,4 +82,4 @@ return (
 
 }
 
-export default AddCommentPage;
+export default AddCommentForm;

@@ -27,7 +27,7 @@ import PostListPage from '../_PostListPage/PostListPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
-import AddCommentPage from '../_AddCommentPage/AddCommentPage';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -104,7 +104,7 @@ function App() {
             exact
             path="/addComment"
           >
-            <AddCommentPage />
+            <AddCommentForm />
           </Route>
 
           <Route
