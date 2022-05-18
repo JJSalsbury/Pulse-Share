@@ -24,7 +24,7 @@ function AdminPage() {
         <div>
             <h2>Admin Page goes here</h2>
             <TableContainer component={Paper}>
-                <Table style={{ width: 500, margin: 'auto' }}>
+                <Table style={{ width: 600, margin: 'auto' }}>
                     <TableHead>
                         <TableRow>
                             <TableCell align={'center'}>Username</TableCell>
