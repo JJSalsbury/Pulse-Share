@@ -42,23 +42,27 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.put('/:id', rejectUnauthenticated, (req, res) => {
+router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 
-//   const update = req.body
-//   const query = `UPDATE "profiles" SET  "edible" = $1, "description" = $2,`
+  const update = req.body
+  const query = `UPDATE "profiles" SET  "profile_picture" = $1, "device" = $2, "device_settings" = $3,
+  "injury_level" = $4, "aisa_level" = $5, "time_since_injury" = $6, "baseline" = $7,
+  "improvements" = $8,"location" = $9,"job_title" = $10,"company" = $11,"about_me" = $12,
+  "contact" = $13,"biological_gender" = $14,"age" = $15,"pronouns" = $16,"height" = $17,
+  "weight" = $18,  "medical_conditions" = $19 WHERE "id" = $20;`;
 
+  const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
+  update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
+  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions, req.params.id]
+  pool.query(query, values)
+    .then(result => {
+      res.sendStatus(200);
+    }).catch(error => {
+      console.log('error', error);
 
-//   const values = [update.edible, req.params.id]
-//   pool.query(query, values)
-//     .then(result => {
-//       res.sendStatus(200);
-//     }).catch(error => {
-//       console.log('error', error);
+    })
 
-//     })
-
-// });
-
+});
 
 module.exports = router;
