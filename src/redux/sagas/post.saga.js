@@ -13,13 +13,23 @@ function* getPostDetails(action) {
     }
 }
 
-
+// Delete selected post
+function* deletePost() {
+    try {
+        console.log('IN DELETE SAGA');
+        
+    } catch (err) {
+        console.log(err);
+        
+    }
+}
 
 
 
 
 function* postSaga() {
     yield takeEvery('GET_POST', getPostDetails);
+    yield takeEvery('DELETE_POST', deletePost)
 }
 
 export default postSaga;

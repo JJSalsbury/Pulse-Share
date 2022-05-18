@@ -27,8 +27,15 @@ function PostDetailPage() {
         dispatch({ type: 'GET_POST', payload: id });
     }, [id]);
 
+    // Navigate to poster's profile
     const sendToProfile = () => {
         history.push(`/profile/${post.user_id}`)
+    }
+
+    // Delete the post
+    const deletePost = () => {
+        console.log('DeletingPost', id);
+        dispatch({type: 'DELETE_POST', payload: id})
     }
 
     console.log('POST IS', post);
@@ -116,6 +123,7 @@ function PostDetailPage() {
                         <Button
                             variant="contained"
                             className='buttons'
+                            onClick={deletePost}
                             sx={{
                                 backgroundColor: 'red',
                                 margin: '2px'
