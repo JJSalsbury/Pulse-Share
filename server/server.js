@@ -32,7 +32,12 @@ app.use('/profile', profileRouter);
 app.use('/post', postRouter);
 
 // GET route for aws bucket url
-app.get('/s3Url', async (req, res) => {
+app.get('/s3Url/image', async (req, res) => {
+  const url = await s3();
+  res.send({url})
+})
+
+app.get('/s3Url/video', async (req, res) => {
   const url = await s3();
   res.send({url})
 })
