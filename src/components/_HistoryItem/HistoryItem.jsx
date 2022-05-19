@@ -13,9 +13,11 @@ function HistoryItem({ post }) {
     const history = useHistory();
     const dispatch = useDispatch();
 
+    // function to delete a post
     const handleDelete = () => {
         console.log(post.id);
 
+        // SweetAlert to warn user of deletion
         Swal.fire({
             title: `Are you sure you want to delete your post titled '${post.title}' ?`,
             text: "Click OK to Delete",
@@ -25,7 +27,7 @@ function HistoryItem({ post }) {
             cancelButtonText: 'No, Cancel!',
             reverseButtons: true
         }).then((result) => {
-            // clicking 'OK' sends dispatch to delete user
+            // clicking 'OK' sends dispatch to delete post
             if (result.isConfirmed) {
 
                 dispatch({
@@ -63,6 +65,7 @@ function HistoryItem({ post }) {
                 }}
             >
                 <Box>
+                    {/* clicking post title pushes user to that post */}
                     <h2 className="postTitle" onClick={() => { history.push(`/postDetail/${post.id}`) }}>{post.title}</h2>
                     <p>{post.date} {post.time}</p>
 
@@ -71,6 +74,7 @@ function HistoryItem({ post }) {
 
                 <Box className="btn-holder">
                     <Button
+                        // click of view post button pushes user to that post
                         onClick={() => { history.push(`/postDetail/${post.id}`) }}
                         sx={{
                             backgroundColor: '#4E9BB9',
@@ -80,6 +84,7 @@ function HistoryItem({ post }) {
                         className='buttons'
                     ><VisibilityIcon /> VIEW POST </Button>
                     <Button
+                        // click of delete button calls handleDelete function
                         onClick={handleDelete}
                         variant="contained"
                         className='buttons'

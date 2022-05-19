@@ -11,6 +11,7 @@ function PostHistoryPage() {
     const user = useSelector(store => store.user);
     const postHistory = useSelector(store => store.postHistoryReducer);
 
+    // dispatch will get the user's post history and set it in the postHistoryReducer
     useEffect(() => {
         dispatch({
             type: 'GET_POST_HISTORY'
@@ -19,8 +20,9 @@ function PostHistoryPage() {
 
     return (
         <div>
-            <h2>Post History goes here</h2>
+            <h2>{user.username}'s Post History</h2>
             <Container>
+                {/* map through the postHistoryReducer */}
                 {postHistory.map(post => {
                     return (
                         <HistoryItem
