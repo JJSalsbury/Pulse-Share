@@ -21,7 +21,14 @@ function PostHistoryPage() {
     return (
         <div>
             <h2>{user.username}'s Post History</h2>
-            <Container>
+            <Container
+            
+            
+            sx={{margin: 'auto', 
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'center'}}
+            >
                 <List>
                     {/* map through the postHistoryReducer */}
                     {postHistory.map(post => {
