@@ -40,7 +40,7 @@ function PostListItem({post}) {
                         variant="body2"
                         color="text.primary"
                     >
-                        {user.username}
+                        {post.username}
                     </Typography>
                 </ListItemAvatar>
                 <ListItemText
