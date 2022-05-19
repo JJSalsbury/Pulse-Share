@@ -16,12 +16,12 @@ function* getOutcomesList() {
 function* createNewPost(action) {
     try {
         const postId = yield axios.post('/post', action.payload);
-        yield put({type: 'GET_POST', payload: postId.data[0].id});
+        yield put({ type: 'GET_POST', payload: postId.data[0].id });
 
         // FIXME - once get route for all posts is made, update type
         // yield put({ type: 'GET_POST'});
-        yield put({type: 'CLEAR_IMAGE'})
-        yield put({type: 'CLEAR_VIDEO'})
+        yield put({ type: 'CLEAR_IMAGE' })
+        yield put({ type: 'CLEAR_VIDEO' })
     } catch (error) {
         console.log('Create new post request failed', error);
     }
@@ -32,9 +32,20 @@ function* getPostDetails(action) {
     try {
         console.log('GETTING POST DETAILS', action.payload);
         const details = yield axios.get(`/post/${action.payload}`);
-        yield put({type: 'SET_POST', payload: details.data[0]});
+        yield put({ type: 'SET_POST', payload: details.data[0] });
     } catch (err) {
         console.log(err);
+    }
+}
+
+// get user's previous posts
+function* getPostHistory() {
+    console.log('in getPostHistory');
+    try {
+        const postHistory = yield axios.get(`/post/history`);
+        yield put({ type: 'SET_POST_HISTORY', payload: postHistory.data });
+    } catch (err) {
+        console.log(`ERROR GETTING POST HISTORY`);
     }
 }
 
@@ -42,6 +53,7 @@ function* postSaga() {
     yield takeEvery('GET_POST', getPostDetails);
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
+    yield takeLatest('GET_POST_HISTORY', getPostHistory)
 }
 
 export default postSaga;
