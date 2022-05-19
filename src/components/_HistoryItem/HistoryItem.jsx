@@ -5,12 +5,51 @@ import Swal from 'sweetalert2';
 import { Box, Button, Container, Paper } from '@mui/material'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+import './HistoryItem.css'
 
 
 function HistoryItem({ post }) {
 
     const history = useHistory();
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        console.log(post.id);
+
+        Swal.fire({
+            title: `Are you sure you want to delete your post titled '${post.title}' ?`,
+            text: "Click OK to Delete",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Delete the post.',
+            cancelButtonText: 'No, Cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            // clicking 'OK' sends dispatch to delete user
+            if (result.isConfirmed) {
+
+                dispatch({
+                    type: 'DELETE_POST',
+                    payload: post.id
+                })
+                Swal.fire(
+                    'Delete!',
+                    `You have deleted your post.`,
+                    'success'
+                )
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                Swal.fire(
+                    'Cancelled',
+                    `Delete cancelled.`,
+                    'error'
+                )
+            }
+        })
+        
+    }
 
     return (
         <>
@@ -24,7 +63,7 @@ function HistoryItem({ post }) {
                 }}
             >
                 <Box>
-                    <h2>{post.title}</h2>
+                    <h2 className="postTitle" onClick={() => { history.push(`/postDetail/${post.id}`) }}>{post.title}</h2>
                     <p>{post.date} {post.time}</p>
 
                     <p>{post.post}</p>
@@ -41,6 +80,7 @@ function HistoryItem({ post }) {
                         className='buttons'
                     ><VisibilityIcon /> VIEW POST </Button>
                     <Button
+                        onClick={handleDelete}
                         variant="contained"
                         className='buttons'
                         sx={{
