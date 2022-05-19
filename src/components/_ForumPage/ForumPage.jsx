@@ -97,7 +97,11 @@ function ForumPage() {
             <List sx={{ 
                 width: '100%', 
                 maxWidth: 800, 
-                bgcolor: 'background.paper' 
+                bgcolor: 'background.paper',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+                
             }}>
             {postList?.map(post => {
                 return (

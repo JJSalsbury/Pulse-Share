@@ -44,8 +44,44 @@ function PostListItem({post}) {
     // }
 
     return (
-        <>
+        <Box 
+            component={Paper}
+            sx={{
+                padding: '15px',
+                borderRadius: '7px',
+                border: '1px solid black',
+                boxShadow: 10,
+                minHeight: '20vh',
+                marginBottom: '15px',
+                minWidth: '50vw'
+        }}>
             <ListItem alignItems="flex-start">
+            <ListItemText
+                primary={post.title}
+                secondary={
+                    <React.Fragment>
+                    <Typography
+                        // sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {post.date} {post.time}
+                    </Typography>
+                    <br/>
+                    <Typography
+                        // sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {outcomesList[post.outcome_id - 1].outcome}
+                    </Typography>
+                    </React.Fragment>
+                }
+                />
+            </ListItem>
+            {/* <ListItem alignItems="flex-start">
                 <ListItemAvatar >
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                 <Typography
@@ -81,8 +117,8 @@ function PostListItem({post}) {
                 }
                 />
             </ListItem>
-            <Divider variant="inset" component="li" />
-        </>
+            <Divider variant="inset" component="li" /> */}
+        </Box>
     );
 }
 
