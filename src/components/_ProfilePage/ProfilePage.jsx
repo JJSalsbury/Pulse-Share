@@ -46,6 +46,7 @@ function ProfilePage() {
             type: 'PUT_PROFILE',
             payload: editProfile
         })
+        dispatch({ type: 'CLEAR_EDIT' });
         setEditMode(!editMode);
     }
     const handleChange = (event, property) => {
@@ -131,12 +132,15 @@ function ProfilePage() {
                     <div >
 
                         <h2>Device Information</h2>
+                        
                         <div><strong>Device: </strong> </div>
                         {editMode ? <input
                             type="text"
                             value={editProfile.device}
                             onChange={(event) => handleChange(event, 'device')}
                         /> : <div>{profile.device}</div>}
+
+
                         <div><strong>Device Settings: </strong> </div>
                         {editMode ? <input
                             type="text"
@@ -144,12 +148,14 @@ function ProfilePage() {
                             onChange={(event) => handleChange(event, 'device_settings')}
                         /> : <div>{profile.device_settings}</div>}
 
+
                         <div><strong>Baseline: </strong> </div>
                         {editMode ? <input
                             type="text"
                             value={editProfile.baseline}
                             onChange={(event) => handleChange(event, 'baseline')}
                         /> : <div>{profile.baseline}</div>}
+
 
                         <div><strong>Improvements: </strong> </div>
                         {editMode ? <input
@@ -244,7 +250,7 @@ function ProfilePage() {
 
                 <div>
                     <button onClick={handleClick}>Post History</button>
-                    <button onClick={handleUpdate}>Update Profile</button>
+                    {editMode ? <button onClick={handleSubmit}>Submit</button>:<button onClick={handleUpdate}>Update Profile</button>}
                 </div>
 
             </div>
