@@ -87,7 +87,7 @@ function PostDetailPage() {
                         sx={{
                             margin: '15px',
                             marginTop: '26px',
-                            textAlign: 'center'
+                            textAlign: 'center',
                         }}
                     >
                         <a onClick={sendToProfile}>

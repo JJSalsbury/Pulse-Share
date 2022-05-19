@@ -20,7 +20,8 @@ import {
     List,
     Divider,
     ListItemAvatar,
-    ListItemText
+    ListItemText,
+    Chip
 } from '@mui/material';
 
 function PostListItem({post}) {
@@ -30,18 +31,17 @@ function PostListItem({post}) {
 
     const user = useSelector(store => store.user);
     const outcomesList = useSelector( store => store.outcomesListReducer);
+    const [outcomeTag, setOutcomeTag] = useState('');
 
     
 
-    // const handleOutcome = () => {
-    //     for(let outcome of outcomesList){
-    //         if(outcome.id === post.outcome_id){
-                
-    //             console.log('outcomeTag', outcome.outcome);
-                
-    //         }
-    //     }
-    // }
+    const handleSearchByOutcome = (event) => {
+        dispatch({
+            type: 'GET_POSTS_BY_OUTCOME',
+            payload: event.target.value
+        });
+        setOutcomeTag(event.target.value)
+    }
 
     return (
         <Box 
@@ -53,21 +53,38 @@ function PostListItem({post}) {
                 boxShadow: 10,
                 minHeight: '20vh',
                 marginBottom: '15px',
-                minWidth: '50vw'
+                minWidth: '60vw',
+                maxWidth: '60vw'
         }}>
             <ListItem alignItems="flex-start">
+            <ListItemAvatar >
+                <Avatar alt="Remy Sharp" src={post.profile_picture}/>
+                <Typography
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {post.username}
+                    </Typography>
+            </ListItemAvatar>
+            <Box>
             <ListItemText
                 primary={post.title}
                 secondary={
                     <React.Fragment>
-                    <Typography
+                    <Box sx={{
+                        marginTop: '10px'
+                    }}>
+                    {/* <Typography
                         // sx={{ display: 'inline' }}
                         component="span"
                         variant="body2"
                         color="text.primary"
                     >
                         {post.date} {post.time}
-                    </Typography>
+                    </Typography> */}
+                    {post.date} {post.time}
+                    </Box>
                     <br/>
                     <Typography
                         // sx={{ display: 'inline' }}
@@ -75,11 +92,22 @@ function PostListItem({post}) {
                         variant="body2"
                         color="text.primary"
                     >
-                        {outcomesList[post.outcome_id - 1].outcome}
+                        {outcomesList[post.outcome_id - 1]?.outcome}
                     </Typography>
+                    <br/>
+                    <Chip 
+                        label={outcomesList[post.outcome_id - 1]?.outcome} 
+                        variant="outlined" 
+                        sx={{
+                            color: '#4E9BB9',
+                            border: '1px solid #4E9BB9'
+                        }} 
+                        onClick={(event) => handleSearchByOutcome(event)}
+                    />
                     </React.Fragment>
                 }
                 />
+            </Box>
             </ListItem>
             {/* <ListItem alignItems="flex-start">
                 <ListItemAvatar >

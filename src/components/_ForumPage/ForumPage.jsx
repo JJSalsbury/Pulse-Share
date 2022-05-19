@@ -58,13 +58,17 @@ function ForumPage() {
     }
 
     return (
-        <Container >
+        <Container sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+            }}>
             <h2>Post List goes here</h2>
-            <Box >
+            <Box>
             <Button 
                 sx={{
                     backgroundColor: '#4E9BB9',
-                    margin: '2px'
+                    margin: '2px',
                 }}
                 variant="contained" 
                 onClick={handleClick}

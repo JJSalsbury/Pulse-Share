@@ -32,7 +32,7 @@ router.get('/postListByOutcome/:id', (req, res) => {
     JOIN "user" ON "posts".user_id = "user".id
     JOIN "profiles" ON "user".id = "profiles".user_id
     WHERE "posts".outcome_id = $1
-    ORDER BY "date" DESC, "time" DESC;
+    ORDER BY "posts".id DESC;
   `;
 
   const values = [outcomeId];
@@ -55,7 +55,7 @@ router.get('/postList', (req, res) => {
     "posts".outcome_id, "posts".user_id FROM "posts"
     JOIN "user" ON "posts".user_id = "user".id
     JOIN "profiles" ON "user".id = "profiles".user_id
-    ORDER BY "date" DESC, "time" DESC;
+    ORDER BY "posts".id DESC;
   `;
   pool
       .query(queryText)
