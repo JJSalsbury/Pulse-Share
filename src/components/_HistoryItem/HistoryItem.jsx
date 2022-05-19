@@ -30,14 +30,6 @@ function HistoryItem({ post }) {
 
                 <Box className="btn-holder">
                         <Button
-                            sx={{
-                                backgroundColor: '#4E9BB9',
-                                margin: '2px'
-                            }}
-                            variant="contained"
-                            className='buttons'
-                        ><EditIcon /> Edit </Button>
-                        <Button
                             variant="contained"
                             className='buttons'
                             sx={{
