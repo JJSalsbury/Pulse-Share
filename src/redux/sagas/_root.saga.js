@@ -3,6 +3,8 @@ import loginSaga from './login.saga';
 import postSaga from './post.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
+import profileSaga from './profile.saga';
+import editProfileSaga from './_editProfile.saga';
 import rosterSaga from './roster.saga';
 
 // rootSaga is the primary saga.
@@ -17,6 +19,8 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
+    profileSaga(),
+    editProfileSaga(),
     rosterSaga(),
     postSaga(),
   ]);
