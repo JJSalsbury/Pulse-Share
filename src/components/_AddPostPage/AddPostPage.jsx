@@ -360,7 +360,7 @@ function AddPostPage() {
                         Add Video Here!
                     </Typography>
                     {video.file ? 
-                        <h1>Video Added!</h1>
+                        <h1>{video.file.name} Has Been Added!</h1>
                         : 
                         <Dropzone
                             getUploadParams={getUploadParams}
