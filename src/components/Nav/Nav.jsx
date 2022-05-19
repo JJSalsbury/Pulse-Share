@@ -22,7 +22,7 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/user">
-            Home
+              Home
             </Link>
           </>
 
@@ -35,13 +35,20 @@ function Nav() {
               Home
             </Link>
 
-            <Link className="navLink" to="/info">
-              Info Page
+            <Link className="navLink" to="/addPost">
+              Add Post
             </Link>
 
             <Link className="navLink" to="/profile">
               Profile Page
             </Link>
+            {user.access_level === 2 && (
+              <>
+                <Link className="navLink" to="/admin">
+                  Admin Page
+                </Link>
+              </>
+            )}
 
             <LogOutButton className="navLink" />
           </>

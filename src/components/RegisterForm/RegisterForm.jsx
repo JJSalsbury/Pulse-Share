@@ -30,6 +30,18 @@ function RegisterForm() {
         </h3>
       )}
       <div>
+        <label htmlFor="email">
+          Email:
+          <input
+            type="text"
+            name="email"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
         <label htmlFor="username">
           Username:
           <input
@@ -50,18 +62,6 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="email">
-          Email:
-          <input
-            type="text"
-            name="email"
-            value={email}
-            required
-            onChange={(event) => setEmail(event.target.value)}
           />
         </label>
       </div>

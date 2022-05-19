@@ -14,7 +14,9 @@ const s3 = require('./s3');
 const userRouter = require('./routes/user.router');
 const profileRouter = require('./routes/profile.router');
 const commentRouter = require('./routes/comment.router')
+const rosterRouter = require('./routes/roster.router');
 const postRouter = require('./routes/post.router');
+
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,10 +33,17 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/profile', profileRouter);
 app.use('/comment', commentRouter);
+app.use('/api/roster', rosterRouter);
 app.use('/post', postRouter);
 
+
 // GET route for aws bucket url
-app.get('/s3Url', async (req, res) => {
+app.get('/s3Url/image', async (req, res) => {
+  const url = await s3();
+  res.send({url})
+})
+
+app.get('/s3Url/video', async (req, res) => {
   const url = await s3();
   res.send({url})
 })
