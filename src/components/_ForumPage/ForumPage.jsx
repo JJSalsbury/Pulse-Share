@@ -43,8 +43,18 @@ function ForumPage() {
     const postList = useSelector(store => store.postListReducer);
     const outcomesList = useSelector( store => store.outcomesListReducer);
 
+    const [outcomeTag, setOutcomeTag] = useState('');
+
     const handleClick = () => {
         history.push('/addPost')
+    }
+
+    const handleSearchByOutcome = (event) => {
+        dispatch({
+            type: 'GET_POSTS_BY_OUTCOME',
+            payload: event.target.value
+        });
+        setOutcomeTag(event.target.value)
     }
 
     return (
@@ -60,7 +70,34 @@ function ForumPage() {
                 onClick={handleClick}
             >Add Post
             </Button>
-            <List sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}>
+            <FormControl sx={{minWidth: 150}}>
+                <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-autowidth-label"
+                    id="demo-simple-select-autowidth"
+                    value={outcomeTag}
+                    label="Outcomes"
+                    autoWidth
+                    style={{
+                        marginBottom: 15
+                    }}
+                    onChange={(event) => handleSearchByOutcome(event)}
+                    >
+                        {outcomesList?.map(outcome => {
+                            return (
+                                <MenuItem 
+                                    key={outcome.id} 
+                                    value={outcome.id}
+                                >{outcome.outcome}</MenuItem>
+                            )
+                        })}
+                    </Select>
+            </FormControl>
+            <List sx={{ 
+                width: '100%', 
+                maxWidth: 800, 
+                bgcolor: 'background.paper' 
+            }}>
             {postList?.map(post => {
                 return (
                     <PostListItem 

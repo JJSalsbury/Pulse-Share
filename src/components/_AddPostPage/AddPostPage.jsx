@@ -31,6 +31,7 @@ import ReactPlayer from 'react-player'
 
 function AddPostPage() {
     useEffect(() => {
+        //List for outcomes dropdown
         dispatch({
             type: 'GET_OUTCOMES_LIST'
         });
@@ -116,7 +117,7 @@ function AddPostPage() {
 
     const handleClick = async () => {
         // if title or body text fields are empty, won't submit
-        if (postTitle !== '' || postBody !== '') {
+        if (postTitle !== '' || postBody !== '' || outcomeTag !== '') {
             if(image.file) {
                 // get secure url from our server
                 const { url } = await fetch("/s3Url/image").then(res => res.json())
@@ -167,7 +168,8 @@ function AddPostPage() {
                     history: history
                 }
             })
-            
+        } else {
+            disabled = true;
         }
     }
     
@@ -391,9 +393,6 @@ function AddPostPage() {
                     >Submit Post</Button>
                 </Box>
             </Box>
-            
-            
-            
             {/* <img src={image}/>
             <ReactPlayer 
                 url={image}
