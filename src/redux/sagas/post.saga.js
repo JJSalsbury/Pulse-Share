@@ -38,8 +38,20 @@ function* getPostDetails(action) {
     }
 }
 
+// Delete selected post
+function* deletePost(action) {
+    try {
+        console.log('IN DELETE SAGA');
+        yield axios.delete(`/post/${action.payload}`)
+        yield put({type: 'GET_ALL_POSTS'})
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 function* postSaga() {
     yield takeEvery('GET_POST', getPostDetails);
+    yield takeEvery('DELETE_POST', deletePost)
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
 }
