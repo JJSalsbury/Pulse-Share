@@ -42,7 +42,7 @@ function* getPostDetails(action) {
 function* getPostHistory() {
     console.log('in getPostHistory');
     try {
-        const postHistory = yield axios.get(`/post/history`);
+        const postHistory = yield axios.get(`/history`);
         yield put({ type: 'SET_POST_HISTORY', payload: postHistory.data });
     } catch (err) {
         console.log(`ERROR GETTING POST HISTORY`);

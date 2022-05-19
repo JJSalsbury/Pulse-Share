@@ -1,7 +1,13 @@
+const express = require('express');
+const pool = require('../modules/pool');
+const router = express.Router();
+const {
+    rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
+
 // GET route to get user's post history
 router.get('/', rejectUnauthenticated, (req, res) => {
     const id = req.user.id;
-    console.log(`the user id is:`, id)
     const queryText = `
         SELECT * FROM "posts"
         WHERE "user_id" = $1;
