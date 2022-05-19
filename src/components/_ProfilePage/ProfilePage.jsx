@@ -4,6 +4,12 @@ import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { Card, CardMedia, CardContent } from '@mui/material';
 import { Container } from "@mui/material";
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 
 
 
@@ -58,14 +64,32 @@ function ProfilePage() {
             }
         })
     }
-
+    const handlePrivacy = (event) =>{
+        let privacy = event.target.value;
+        dispatch({
+            type: 'EDIT_PRIVACY',
+            payload: {property: 'public', value: privacy }
+        })
+    }
 
 
 
     return (
         <>
-            <div>
-
+            <div>{editMode ?
+                <FormControl>
+                    <FormLabel id="demo-radio-buttons-group-label">Profile Privacy</FormLabel>
+                    <RadioGroup
+                        onChange={handlePrivacy}
+                        aria-labelledby="demo-radio-buttons-group-label"
+                        defaultValue={editProfile.public}
+                        name="radio-buttons-group"
+                    >
+                        <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
+                        <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
+                        <FormControlLabel value={2} control={<Radio />} label="Private" />
+                    </RadioGroup>
+                </FormControl> : ''}
                 {/* this goes on the side bar */}
 
                 <Container >
@@ -132,7 +156,7 @@ function ProfilePage() {
                     <div >
 
                         <h2>Device Information</h2>
-                        
+
                         <div><strong>Device: </strong> </div>
                         {editMode ? <input
                             type="text"
@@ -250,7 +274,7 @@ function ProfilePage() {
 
                 <div>
                     <button onClick={handleClick}>Post History</button>
-                    {editMode ? <button onClick={handleSubmit}>Submit</button>:<button onClick={handleUpdate}>Update Profile</button>}
+                    {editMode ? <button onClick={handleSubmit}>Submit</button> : <button onClick={handleUpdate}>Update Profile</button>}
                 </div>
 
             </div>
