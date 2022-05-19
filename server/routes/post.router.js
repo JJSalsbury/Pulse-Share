@@ -24,7 +24,11 @@ router.get('/outcomesList', (req, res) => {
 // GET route for Entire postList 
 router.get('/postList', (req, res) => {
   const queryText = `
-    SELECT * FROM "posts"
+    SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+    "posts".outcome_id, "posts".user_id FROM "posts"
+    JOIN "user" ON "posts".user_id = "user".id
+    JOIN "profiles" ON "user".id = "profiles".user_id
     ORDER BY "date" DESC, "time" DESC;
   `;
   pool

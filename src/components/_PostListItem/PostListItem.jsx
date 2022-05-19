@@ -14,15 +14,16 @@ import {
     Modal,
     Typography,
     TextField,
-    FormControl
+    FormControl,
+    Avatar,
+    ListItem,
+    List,
+    Divider,
+    ListItemAvatar,
+    ListItemText
 } from '@mui/material';
 
 function PostListItem({post}) {
-    useEffect(() => {
-        dispatch({
-            type: 'GET_ALL_POSTS'
-        });
-    }, []);
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -30,12 +31,37 @@ function PostListItem({post}) {
     const user = useSelector(store => store.user);
 
     return (
-        <Container>
-            <Box>
-                {post.post}
-            </Box>
-
-        </Container>
+        <>
+            <ListItem alignItems="flex-start">
+                <ListItemAvatar >
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Typography
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {user.username}
+                    </Typography>
+                </ListItemAvatar>
+                <ListItemText
+                primary={post.title}
+                secondary={
+                    <React.Fragment>
+                    <Typography
+                        sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {post.date} {post.time}
+                    </Typography>
+                    
+                    </React.Fragment>
+                }
+                />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+        </>
     );
 }
 

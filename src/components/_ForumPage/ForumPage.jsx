@@ -17,13 +17,22 @@ import {
     Modal,
     Typography,
     TextField,
-    FormControl
+    FormControl,
+    Avatar,
+    ListItem,
+    List,
+    Divider,
+    ListItemAvatar,
+    ListItemText
 } from '@mui/material';
 
 function ForumPage() {
     useEffect(() => {
         dispatch({
             type: 'GET_ALL_POSTS'
+        });
+        dispatch({
+            type: 'GET_OUTCOMES_LIST'
         });
     }, []);
 
@@ -32,13 +41,14 @@ function ForumPage() {
 
     const user = useSelector(store => store.user);
     const postList = useSelector(store => store.postListReducer);
+    const outcomesList = useSelector( store => store.outcomesListReducer);
 
     const handleClick = () => {
         history.push('/addPost')
     }
 
     return (
-        <Container>
+        <Container >
             <h2>Post List goes here</h2>
 
             <Button 
@@ -48,17 +58,18 @@ function ForumPage() {
                 }}
                 variant="contained" 
                 onClick={handleClick}
-            >Add Post</Button>
-            <Box>
+            >Add Post
+            </Button>
+            <List sx={{ width: '100%', maxWidth: 800, bgcolor: 'background.paper' }}>
             {postList?.map(post => {
                 return (
                     <PostListItem 
+                        key={post.id}
                         post={post}
                     />
                 )
             })}
-
-            </Box>
+            </List>
         </Container>
     );
 }
