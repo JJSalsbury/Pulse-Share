@@ -16,19 +16,21 @@ import FormLabel from '@mui/material/FormLabel';
 
 
 function ProfilePage() {
-    useEffect(() => {
-        dispatch({ type: 'GET_PROFILE', payload: id });
-    }, [id]);
-
-
+    const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
-    const { id } = useParams();
+
     const user = useSelector(store => store.user);
     const profile = useSelector(store => store.profile);
     const editProfile = useSelector(store => store.editProfileReducer);
 
     const [editMode, setEditMode] = useState(false);
+    useEffect(() => {
+        dispatch({ type: 'GET_PROFILE', payload: id });
+    }, [id]);
+
+
+
 
     const handleClick = () => {
         history.push('/postHistory')
@@ -64,32 +66,61 @@ function ProfilePage() {
             }
         })
     }
-    const handlePrivacy = (event) =>{
+    const handlePrivacy = (event) => {
         let privacy = event.target.value;
         dispatch({
             type: 'EDIT_PRIVACY',
-            payload: {property: 'public', value: privacy }
+            payload: { property: 'public', value: privacy }
         })
+    }
+
+    const profileRender = () =>{
+    
+
+
+            // if im logged in, and im looking at my profile, and my profile is private, i should still see it
+            // if im loggin in, and im looking at a different proile, and it is private, i should NOT see it
+            //if im logged in, and im looking at a different profile, and its visible, i should see it
+            // can move this into it's own component and return the profile page to render
+
+
+
+            if (profile.public === 2 && user.id == profile.user_id) {
+                return //<ProfilePage/ >;   
+            } else if (profile.public === 1 && user.id ) {
+               // yes show
+                return ;
+            } else if (profile.public === 0) {
+               //yes show
+                return ;
+            } else {
+                //NOPE, for whatever reason...
+            }
+
     }
 
 
 
     return (
         <>
-            <div>{editMode ?
-                <FormControl>
-                    <FormLabel id="demo-radio-buttons-group-label">Profile Privacy</FormLabel>
-                    <RadioGroup
-                        onChange={handlePrivacy}
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        defaultValue={editProfile.public}
-                        name="radio-buttons-group"
-                    >
-                        <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
-                        <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
-                        <FormControlLabel value={2} control={<Radio />} label="Private" />
-                    </RadioGroup>
-                </FormControl> : ''}
+            <div>
+
+                {editMode ? <button onClick={(event) => dispatch({ type: 'DELETE_USER', payload: user.id })}>Delete</button> : ''}
+
+                {editMode ?
+                    <FormControl>
+                        <FormLabel id="demo-radio-buttons-group-label">Profile Privacy</FormLabel>
+                        <RadioGroup
+                            onChange={handlePrivacy}
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue={editProfile.public}
+                            name="radio-buttons-group"
+                        >
+                            <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
+                            <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
+                            <FormControlLabel value={2} control={<Radio />} label="Private" />
+                        </RadioGroup>
+                    </FormControl> : ''}
                 {/* this goes on the side bar */}
 
                 <Container >
@@ -272,10 +303,10 @@ function ProfilePage() {
                 </Container>
 
 
-                <div>
+                {user.id == id&& <div>
                     <button onClick={handleClick}>Post History</button>
                     {editMode ? <button onClick={handleSubmit}>Submit</button> : <button onClick={handleUpdate}>Update Profile</button>}
-                </div>
+                </div>}
 
             </div>
         </>

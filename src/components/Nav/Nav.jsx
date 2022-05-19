@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  
 
   return (
     <div className="nav">
@@ -39,7 +40,7 @@ function Nav() {
               Add Post
             </Link>
 
-            <Link className="navLink" to="/profile">
+            <Link className="navLink" to='/profile'>
               Profile Page
             </Link>
             {user.access_level === 2 && (
