@@ -27,6 +27,7 @@ import ForumPage from '../_ForumPage/ForumPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
 import AdminPage from '../_AdminPage/AdminPage';
 
 function App() {
@@ -70,7 +71,7 @@ function App() {
           <Route
             // Shows ProfilePage
             exact
-            path="/profile"
+            path="/profile/:id"
           >
             <ProfilePage />
           </Route>
