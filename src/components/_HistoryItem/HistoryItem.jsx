@@ -14,6 +14,7 @@ function HistoryItem({ post }) {
         <>
             <Box
                 component={Paper}
+                onClick={() => {history.push(`/postDetail/${post.id}`)}}
                 sx={{
                     border: '1px solid black',
                     borderRadius: '7px',
