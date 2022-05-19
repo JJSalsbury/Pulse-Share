@@ -29,6 +29,19 @@ function PostListItem({post}) {
     const dispatch = useDispatch();
 
     const user = useSelector(store => store.user);
+    const outcomesList = useSelector( store => store.outcomesListReducer);
+
+    
+
+    // const handleOutcome = () => {
+    //     for(let outcome of outcomesList){
+    //         if(outcome.id === post.outcome_id){
+                
+    //             console.log('outcomeTag', outcome.outcome);
+                
+    //         }
+    //     }
+    // }
 
     return (
         <>
@@ -48,14 +61,22 @@ function PostListItem({post}) {
                 secondary={
                     <React.Fragment>
                     <Typography
-                        sx={{ display: 'inline' }}
+                        // sx={{ display: 'inline' }}
                         component="span"
                         variant="body2"
                         color="text.primary"
                     >
                         {post.date} {post.time}
                     </Typography>
-                    
+                    <br/>
+                    <Typography
+                        // sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {outcomesList[post.outcome_id - 1].outcome}
+                    </Typography>
                     </React.Fragment>
                 }
                 />

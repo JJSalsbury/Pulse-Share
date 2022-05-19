@@ -60,7 +60,7 @@ function ForumPage() {
     return (
         <Container >
             <h2>Post List goes here</h2>
-
+            <Box >
             <Button 
                 sx={{
                     backgroundColor: '#4E9BB9',
@@ -93,6 +93,7 @@ function ForumPage() {
                         })}
                     </Select>
             </FormControl>
+            </Box>
             <List sx={{ 
                 width: '100%', 
                 maxWidth: 800, 
