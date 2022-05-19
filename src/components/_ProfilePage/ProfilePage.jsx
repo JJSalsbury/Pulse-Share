@@ -81,7 +81,7 @@ function ProfilePage() {
                             onChange={(event) => handleChange(event, 'pronouns')}
                         /> : <div>{profile.pronouns}</div>}
 
-                        <div><strong>General Info </strong> </div>
+                        {/* <div><strong>General Info </strong> </div> */}
 
                         <strong> Location: </strong>
                         {editMode ? <input
@@ -105,8 +105,8 @@ function ProfilePage() {
                             onChange={(event) => handleChange(event, 'company')}
                         /> : <div>{profile.company}</div>}
 
-                        <h2>Contact Info</h2>
-                        <div><strong>Email: </strong>{user.email}</div>
+                        {/* <h2>Contact Info</h2>
+                        <div><strong>Email: </strong>{user.email}</div> */}
 
 
                     </div>
@@ -192,7 +192,7 @@ function ProfilePage() {
 
 
 
-                        <div><strong>Weight: </strong>  {profile.weight}</div>
+                        <div><strong>Weight: </strong> </div>
                         {editMode ? <input
                             type="text"
                             value={editProfile.weight}

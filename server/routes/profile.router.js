@@ -54,7 +54,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
   const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
   update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
-  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions, req.params.id]
+  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions, req.user.id]
   pool.query(query, values)
     .then(result => {
       res.sendStatus(200);
