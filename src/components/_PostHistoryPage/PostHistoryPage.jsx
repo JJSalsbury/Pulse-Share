@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Box, Button, Container, Paper } from '@mui/material'
+import { List, Container } from '@mui/material'
 import HistoryItem from '../_HistoryItem/HistoryItem';
 
 function PostHistoryPage() {
@@ -22,15 +22,17 @@ function PostHistoryPage() {
         <div>
             <h2>{user.username}'s Post History</h2>
             <Container>
-                {/* map through the postHistoryReducer */}
-                {postHistory.map(post => {
-                    return (
-                        <HistoryItem
-                        key={post.id}
-                        post={post}
-                        />
-                    )
-                })}
+                <List>
+                    {/* map through the postHistoryReducer */}
+                    {postHistory.map(post => {
+                        return (
+                            <HistoryItem
+                                key={post.id}
+                                post={post}
+                            />
+                        )
+                    })}
+                </List>
             </Container>
 
         </div>
