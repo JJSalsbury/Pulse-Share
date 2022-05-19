@@ -27,6 +27,7 @@ import PostListPage from '../_PostListPage/PostListPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
+import AdminPage from '../_AdminPage/AdminPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -105,6 +106,18 @@ function App() {
           >
             <PostHistoryPage />
           </Route>
+
+          <ProtectedRoute
+            // Shows AdminPage
+            exact
+            path="/admin"
+          >
+            {user.access_level < 2 ?
+              <Redirect to="/about" />
+              :
+              <AdminPage />
+            }
+          </ProtectedRoute>
 
           <Route
             // logged in shows InfoPage else shows LoginPage
