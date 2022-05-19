@@ -17,7 +17,6 @@ function PostListPage() {
         <div>
             <h2>Post List goes here</h2>
             <button onClick={handleClick}>Add Post</button>
-            <PostDetailPage />
         </div>
     );
 }
