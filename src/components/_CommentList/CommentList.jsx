@@ -4,6 +4,14 @@ import { useHistory } from 'react-router-dom'
 // import './CommentList.css'
 // import MovieItem from '../MovieItem/MovieItem';
 // import { makeStyles } from '@material-ui/core/styles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import Typography from '@mui/material/Typography';
+import { Paper, Container, Button, TextField, Box } from '@mui/material';
 
 import CommentItem from '../_CommentItem/CommentItem';
 
@@ -36,10 +44,18 @@ function CommentList( {postId} ) {
 
     //Render Return maps over comment list from DB making an item for each comment of the list
     return (
-        <>
-            <main>
-                <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button>
-                <h2>Comment List</h2>
+        <main>
+        <h2>Comment List</h2>
+        {/* <Box component={Paper}
+        sx={{
+          border: '1px solid black',
+          borderRadius: '7px',
+          padding: '15px',
+        }}> */}
+        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px' }}>
+            
+                {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
+                
                 <section className="comments">
                     {comments.map((comment) => {
                         return (
@@ -51,8 +67,10 @@ function CommentList( {postId} ) {
                         );
                     })}
                 </section>
+            
+            </List>
+            {/* </Box> */}
             </main>
-        </>
     );
 }
 

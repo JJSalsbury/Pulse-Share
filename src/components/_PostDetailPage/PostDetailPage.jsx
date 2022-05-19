@@ -55,7 +55,7 @@ function PostDetailPage() {
                     <Box
                         sx={{
                             margin: '15px',
-                            marginTop: '26px',
+                            // marginTop: '26px',
                             textAlign: 'center'
                         }}
                     >
