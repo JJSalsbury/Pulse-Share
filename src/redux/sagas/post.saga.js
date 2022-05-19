@@ -43,7 +43,7 @@ function* deletePost(action) {
     try {
         console.log('IN DELETE SAGA');
         yield axios.delete(`/post/${action.payload}`)
-        // GET ALL POSTS HERE
+        yield put({type: 'GET_ALL_POSTS'})
     } catch (err) {
         console.log(err);
     }

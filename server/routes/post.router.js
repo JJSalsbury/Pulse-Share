@@ -1,11 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
-
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // GET route for outcomesList 
 router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
@@ -22,6 +21,7 @@ router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
 // Get specific post details
 router.get('/:id', (req, res) => {
   const query = `
@@ -78,6 +78,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// Delete selected post
+// Can only delete if proper access level or if user id and post id are correct
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
   if (req.user.access_level >= 1) {
