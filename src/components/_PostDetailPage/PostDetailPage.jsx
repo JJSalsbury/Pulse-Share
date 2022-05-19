@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
+import CommentList from '../_CommentList/CommentList';
 
 // Basic CSS
 import styling from './PostDetailPage.css'
@@ -161,10 +163,11 @@ function PostDetailPage() {
 
 
             <div>
-                <p>COMMENT FORM WILL GO HERE</p>
+                <AddCommentForm postId={id} />
+
             </div>
             <div>
-                <p>COMMENTS WILL GO HERE</p>
+                <CommentList postId={id}/>
             </div>
 
 
