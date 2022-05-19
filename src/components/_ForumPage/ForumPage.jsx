@@ -63,40 +63,45 @@ function ForumPage() {
                 flexDirection: 'column',
                 alignItems: 'center',
             }}>
-            <h2>Post List goes here</h2>
-            <Box>
-            <Button 
+            <h2>Forum Page</h2>
+            <Box 
                 sx={{
-                    backgroundColor: '#4E9BB9',
-                    margin: '2px',
-                }}
-                variant="contained" 
-                onClick={handleClick}
-            >Add Post
-            </Button>
-            <FormControl sx={{minWidth: 150}}>
-                <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
-                    <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    value={outcomeTag}
-                    label="Outcomes"
-                    autoWidth
-                    style={{
-                        marginBottom: 15
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                }}>
+                <Button 
+                    sx={{
+                        backgroundColor: '#4E9BB9',
+                        margin: '2px',
                     }}
-                    onChange={(event) => handleSearchByOutcome(event)}
-                    >
-                        {outcomesList?.map(outcome => {
-                            return (
-                                <MenuItem 
-                                    key={outcome.id} 
-                                    value={outcome.id}
-                                >{outcome.outcome}</MenuItem>
-                            )
-                        })}
-                    </Select>
-            </FormControl>
+                    variant="contained" 
+                    onClick={handleClick}
+                >Add Post
+                </Button>
+                <FormControl sx={{minWidth: 150}}>
+                    <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-autowidth-label"
+                        id="demo-simple-select-autowidth"
+                        value={outcomeTag}
+                        label="Outcomes"
+                        autoWidth
+                        
+                        onChange={(event) => handleSearchByOutcome(event)}
+                        >
+                            {outcomesList?.map(outcome => {
+                                return (
+                                    <MenuItem 
+                                        key={outcome.id} 
+                                        value={outcome.id}
+                                    >{outcome.outcome}</MenuItem>
+                                )
+                            })}
+                        </Select>
+                </FormControl>
             </Box>
             <List sx={{ 
                 width: '100%', 
