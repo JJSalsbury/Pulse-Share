@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Box, Button, Container, Paper } from '@mui/material'
+import HistoryItem from '../_HistoryItem/HistoryItem';
 
 function PostHistoryPage() {
     const history = useHistory();
