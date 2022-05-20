@@ -13,7 +13,13 @@ router.get('/', (req, res) => {
 });
 // get specific users profile information for profile page
 router.get('/:id', (req, res) => {
-  const query = `SELECT * FROM "profiles" WHERE "user_id" =$1;`
+  const query = `SELECT "user".username, "profiles".id, "profiles".profile_picture, "profiles".device, "profiles".device_settings,
+  "profiles".injury_level,"profiles".aisa_level,"profiles".time_since_injury,"profiles".baseline,"profiles".improvements,"profiles".location,
+  "profiles".job_title,"profiles".company,"profiles".about_me,"profiles".contact,
+  "profiles".biological_gender,"profiles".age,"profiles".pronouns,"profiles".height,"profiles".weight,"profiles".medical_conditions,"profiles".public
+  FROM "profiles"
+                JOIN "user" ON "profiles".user_id = "user".id
+                WHERE "profiles".user_id =$1;`
 
   pool.query(query, [req.params.id])
     .then((results) => res.send(results.rows))
@@ -54,7 +60,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
   const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
   update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
-  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions,update.public, req.user.id]
+  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions, update.public, req.user.id]
   pool.query(query, values)
     .then(result => {
       res.sendStatus(200);
@@ -72,11 +78,11 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const query = `DELETE FROM "user" WHERE id = $1`;
   values = [id];
   pool.query(query, values)
-      .then(() => { res.sendStatus(200); })
-      .catch((err) => {
-          console.log('Error in Profile(user) DELETE', err);
-          res.sendStatus(500);
-      });
+    .then(() => { res.sendStatus(200); })
+    .catch((err) => {
+      console.log('Error in Profile(user) DELETE', err);
+      res.sendStatus(500);
+    });
 });
 
 module.exports = router;

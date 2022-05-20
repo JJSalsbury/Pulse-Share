@@ -15,8 +15,8 @@ import FormLabel from '@mui/material/FormLabel';
 
 
 
-function ProfilePage() {
-    const { id } = useParams();
+function ProfilePage({profileId}) {
+    // const { id } = useParams();
     const history = useHistory();
     const dispatch = useDispatch();
 
@@ -26,8 +26,8 @@ function ProfilePage() {
 
     const [editMode, setEditMode] = useState(false);
     useEffect(() => {
-        dispatch({ type: 'GET_PROFILE', payload: id });
-    }, [id]);
+        dispatch({ type: 'GET_PROFILE', payload: profileId });
+    }, [profileId]);
 
 
 
@@ -74,30 +74,32 @@ function ProfilePage() {
         })
     }
 
-    const profileRender = () =>{
+    // const profileRender = () =>{
     
 
 
             // if im logged in, and im looking at my profile, and my profile is private, i should still see it
-            // if im loggin in, and im looking at a different proile, and it is private, i should NOT see it
+            // if im logged in, and im looking at a different profile, and it is private, i should NOT see it
             //if im logged in, and im looking at a different profile, and its visible, i should see it
             // can move this into it's own component and return the profile page to render
+//<ProfilePage/ >
 
 
+//             if (profile.public === 2 && user.id == profile.user_id) {
+//                 // yes show
+//                 return ;  
+//             } else if (profile.public === 1 && user.id ) {
+//                // yes show
+//                 return ;
+//             } else if (profile.public === 0) {
+//                //yes show
+//                 return ;
+//             } else {
+// <p>profile is private</p>
+//                 //NOPE! profile view criteria not met
+//             }
 
-            if (profile.public === 2 && user.id == profile.user_id) {
-                return //<ProfilePage/ >;   
-            } else if (profile.public === 1 && user.id ) {
-               // yes show
-                return ;
-            } else if (profile.public === 0) {
-               //yes show
-                return ;
-            } else {
-                //NOPE, for whatever reason...
-            }
-
-    }
+//     }
 
 
 
@@ -128,7 +130,7 @@ function ProfilePage() {
 
                         {/* <img src={profile.profile_picture}></img> */}
                         <img src='https://www.pitpat.com/wp-content/uploads/2020/12/Dog_-rights_MS_outdoors_active_puppy_running_white_black_gold-dog-_@ilaanddrax-1.jpg' width={200} height={200}></img>
-                        <div><strong>User Name: </strong>{user.username}</div>
+                        <div><strong>User Name: </strong>{profile.username}</div>
                         <div><strong>Pronouns: </strong></div>
                         {editMode ? <input
                             type="text"
@@ -303,7 +305,7 @@ function ProfilePage() {
                 </Container>
 
 
-                {user.id == id&& <div>
+                {user.id == profileId&& <div>
                     <button onClick={handleClick}>Post History</button>
                     {editMode ? <button onClick={handleSubmit}>Submit</button> : <button onClick={handleUpdate}>Update Profile</button>}
                 </div>}
