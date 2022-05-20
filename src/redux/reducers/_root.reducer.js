@@ -12,6 +12,7 @@ import editPostReducer from './editPost.reducer';
 import postHistoryReducer from './postHistory.reducer';
 import postListReducer from './postList.reducer';
 import comment from './comment.reducer';
+import editCommentReducer from './_editComment.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -30,6 +31,8 @@ const rootReducer = combineReducers({
   videoReducer,
   outcomesListReducer,
   post,
+  comment,
+  editCommentReducer,
   editPostReducer,
   postHistoryReducer,
   postListReducer,

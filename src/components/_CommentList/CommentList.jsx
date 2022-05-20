@@ -16,6 +16,7 @@ import { Paper, Container, Button, TextField, Box } from '@mui/material';
 import CommentItem from '../_CommentItem/CommentItem';
 
 
+
 // const useStyles = makeStyles({
 //     root: {
 //         background: 'linear-gradient(45deg, #DB1F1F 30%, #5C0D15 90%)',
@@ -62,6 +63,7 @@ function CommentList( {postId} ) {
                             <CommentItem
                                 key={comment.id}
                                 comment={comment}
+                                postId={postId}
 
                             />
                         );
