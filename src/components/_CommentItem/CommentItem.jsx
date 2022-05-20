@@ -1,11 +1,12 @@
 //Imports
-import React from 'react';
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 //Styling Imports 
-import { Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem } from '@mui/material';
+import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
 import Swal from 'sweetalert2';
 
 
@@ -15,16 +16,29 @@ function CommentItem({ comment, postId }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
-    console.log('user:', user, 'id:', id);
+    console.log('USER:', user, 'POST ID:', id);
 
+    const [editMode, setEditMode] = useState(true);
 
+    const handleChange = (event, property) => {
+        dispatch({
+            type: 'EDIT_COMMENT_ON_CHANGE',
+            payload: {
+                property: property,
+                value: event.target.value
+            }
+        })
+    }
 
-
-    // const handleDetails = () => {
-    //     // console.log('clicked for comment details (description)');
-    //     dispatch({ type: 'FETCH_DETAILS', payload: comment.id });
-    //     history.push('/details');
-    // }
+    const handleCommentEdit = () => {
+        //switch to edit mode "form"
+        console.log('clicked update profile');
+        dispatch({
+            type: 'SET_COMMENT_TO_EDIT',
+            payload: comment
+        })
+        setEditMode(!editMode);
+    }
 
     // Delete the post
     const deleteComment = () => {
@@ -81,9 +95,44 @@ function CommentItem({ comment, postId }) {
                         display: 'flex-start'
                     }}
                 >
-                    <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom:'25px' }}>
-                    "{comment.comment}"
                     
+                    <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom:'25px' }}>
+                    <p>{comment.date} {comment.time}</p> 
+
+                    {editMode ? 
+                    <p>"{comment.comment}"</p> :
+                    <Box component={Paper}
+                    sx={{
+                      border: '1px solid black',
+                      borderRadius: '7px',
+                      padding: '15px',
+                    }}>
+                    <Paper elevation={5}>
+                      <Container className="commentContainer">
+                        <Box>
+                          <TextField
+                            elevation={15}
+                            fullWidth
+                            className="textField"
+                            id="outlined-multiline-flexible"
+                            label="Edit Your Comment"
+                            multiline
+                            maxRows={20}
+                            value={comment.comment}
+                            onChange={(event) => setEditMode(event.target.value)} type="text" placeholder="Comments"
+                          />
+                        </Box>
+                      </Container>
+                    </Paper>
+                    <Button onClick={handleChange}
+                      sx={{
+                        backgroundColor: '#4E9BB9',
+                        margin: '2px',
+                      }}
+                      variant="contained"
+                      className='buttons'
+                    ><SendIcon /> Submit </Button>
+                  </Box>} 
                     </Typography>
                     </Box> 
                     <Box className="btn-holder">
@@ -96,6 +145,7 @@ function CommentItem({ comment, postId }) {
                         }}
                         variant="contained"
                         className='buttons'
+                        onClick={handleCommentEdit}
                     ><EditIcon /> Edit </Button> : <div></div>} 
                 {user.id === comment.user_id &&
                     <Button

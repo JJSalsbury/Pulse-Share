@@ -15,6 +15,9 @@ function AddCommentForm({ postId }) {
   //     const history = useHistory();
 
   let [newComment, setNewComment] = useState('');
+  const editComment = useSelector(store => store.commentReducer);
+  console.log('COMMENT TO EDIT:', editComment);
+
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -27,10 +30,23 @@ function AddCommentForm({ postId }) {
     // //Onclick, push new location to useHistory, changed location.
     // history.push('/comments');
   }
-  // const user = useSelector((store) => store.user);
-  // useEffect(() => {
-  // dispatch({ type: 'CREATE_NEW_COMMENT' });
-  // }, []);
+
+  // send updated comment data to database
+  // const editComment = (event) => {
+  //   event.preventDefault();
+  //   console.log('edit Item:', editComment);
+
+  //   const editedComment = {
+  //     id: id,
+  //     name: name,
+  //     amount: amount,
+  //     unit_type: unit,
+  //     type: type,
+  //     par: par,
+  //     expected_amount: expectedAmount,
+  //     image: image
+
+  //   }
 
 
   return (
@@ -56,38 +72,17 @@ function AddCommentForm({ postId }) {
                 value={newComment}
                 onChange={(event) => setNewComment(event.target.value)} type="text" placeholder="Comments"
               />
-              {/* <Box className="btn-holder">
-                    {user.id === comment.user_id &&
-                        <Button
-                            sx={{
-                                backgroundColor: '#4E9BB9',
-                                margin: '2px'
-                            }}
-                            variant="contained"
-                            className='buttons'
-                        ><EditIcon /> Edit </Button>}
-                    {user.id === comment.user_id &&
-                        <Button
-                            variant="contained"
-                            className='buttons'
-                            sx={{
-                                backgroundColor: 'red',
-                                margin: '2px'
-                            }}
-                        ><DeleteIcon /> Delete </Button>}
-                </Box> */}
-
             </Box>
           </Container>
         </Paper>
-      <Button onClick={handleChange}
-                            sx={{
-                                backgroundColor: '#4E9BB9',
-                                margin: '2px',
-                            }}
-                            variant="contained"
-                            className='buttons'
-                        ><SendIcon /> Submit </Button>
+        <Button onClick={handleChange}
+          sx={{
+            backgroundColor: '#4E9BB9',
+            margin: '2px',
+          }}
+          variant="contained"
+          className='buttons'
+        ><SendIcon /> Submit </Button>
       </Box>
 
     </div>
