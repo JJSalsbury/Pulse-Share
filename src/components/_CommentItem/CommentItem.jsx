@@ -58,7 +58,7 @@ function CommentItem({ comment, postId }) {
     const deleteComment = () => {
 
         Swal.fire({
-            title: `Are you sure you want to delete this post?`,
+            title: `Are you sure you want to delete this comment?`,
             text: `This action cannot be undone.`,
             icon: 'warning',
             background: 'white',
@@ -76,7 +76,7 @@ function CommentItem({ comment, postId }) {
                     color: 'black',
                     confirmButtonColor: '#4E9BB9',
                     title: 'Deleted!',
-                    text: `Post has been deleted.`,
+                    text: `Comment has been deleted.`,
                     icon: 'success'
                 })
             }

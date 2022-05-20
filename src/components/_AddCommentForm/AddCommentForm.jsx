@@ -26,9 +26,10 @@ function AddCommentForm({ postId }) {
     dispatch({
       type: 'CREATE_NEW_COMMENT',
       payload: { post_id: postId, comment: newComment }
-    })
+    });
     // //Onclick, push new location to useHistory, changed location.
     // history.push('/comments');
+    setNewComment('');
   }
 
   // send updated comment data to database
