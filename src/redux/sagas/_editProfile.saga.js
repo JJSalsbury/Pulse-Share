@@ -1,6 +1,7 @@
 import axios from "axios";
 import { put, takeEvery } from 'redux-saga/effects';
 
+
 function* getEditProfile(action) {
     try {
         const response = yield axios.get(`/profile/${action.payload}`);
@@ -10,6 +11,28 @@ function* getEditProfile(action) {
         console.log(' GET in edit saga is failing', error);
     }
 }
+
+// function* submitImage(action) {
+
+//     try{
+//         yield put({
+//             type: 'EDIT_ON_CHANGE',
+//             payload: {
+//                 property: action.payload.property,
+//                 value: action.payload.value
+//             }
+//         });
+//         yield put({
+//             type: 'PUT_PROFILE',
+//             payload: editProfile
+//         });
+//         yield put({ type: 'CLEAR_EDIT' });
+//     }catch (error) {
+//         console.log(error);
+        
+//     }
+    
+// }
 
 function* updateProfile(action) {
     try{
@@ -26,6 +49,7 @@ function* updateProfile(action) {
 function* editProfileSaga() {
     yield takeEvery ('GET_PROFILE', getEditProfile)
     yield takeEvery('PUT_PROFILE', updateProfile)
+    // yield takeEvery('SUBMIT_IMAGE', submitImage)
 
 }
 export default editProfileSaga;
