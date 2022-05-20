@@ -4,7 +4,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 function* getEditProfile(action) {
     try {
         const response = yield axios.get(`/profile/${action.payload}`);
-        yield put({ type: 'SET_PROFILE_T0_EDIT', payload: response.data[0] });
+        yield put({ type: 'SET_PROFILE_TO_EDIT', payload: response.data[0] });
     }
     catch (error) {
         console.log(' GET in edit saga is failing', error);

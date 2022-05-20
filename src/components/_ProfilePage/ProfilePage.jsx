@@ -41,7 +41,7 @@ function ProfilePage({profileId}) {
         //switch to edit mode "form"
         console.log('clicked update profile');
         dispatch({
-            type: 'SET_PROFILE_T0_EDIT',
+            type: 'SET_PROFILE_TO_EDIT',
             payload: profile
         })
         setEditMode(!editMode);
