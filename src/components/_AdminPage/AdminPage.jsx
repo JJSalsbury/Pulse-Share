@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import './AdminPage.css';
 
 function AdminPage() {
     const user = useSelector(store => store.user);
@@ -25,8 +26,8 @@ function AdminPage() {
         <div>
             <h2>Manage Users</h2>
             {/* table to display all of the users */}
-            <TableContainer component={Paper} sx={{borderRadius: 5}}>
-                <Table sx={{ width: 750, margin: 'auto', borderRadius: 5, boxShadow: 5, mt: 5, mb: 5 }}>
+            <TableContainer component={Paper}>
+                <Table sx={{ width: 750, margin: 'auto', boxShadow: 5, mt: 5, mb: 5, borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
                     <TableHead sx={{ backgroundColor: '#cfd8dc', borderBottom: 3, borderRadius: 5}}>
                         <TableRow>
                             <TableCell sx={{borderTopLeftRadius: 5}} align={'center'}>Username</TableCell>
@@ -34,7 +35,7 @@ function AdminPage() {
                             <TableCell sx={{borderTopRightRadius: 5}} align={'center'}>Delete</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    <TableBody className="tableBody" sx={{borderBottomLeftRadius: 5, borderBottomRightRadius: 5}}>
                         {/* map through the users using RosterMember component, passing down each member */}
                         {roster.map(member => {
                             return (
