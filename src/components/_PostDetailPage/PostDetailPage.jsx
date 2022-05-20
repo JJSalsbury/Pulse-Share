@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
+import CommentList from '../_CommentList/CommentList';
 
 // Basic CSS
 import styling from './PostDetailPage.css'
+
+// Sweet Alert 2
+import Swal from 'sweetalert2';
 
 // import for playing videos on dom
 import ReactPlayer from 'react-player'
@@ -27,8 +32,38 @@ function PostDetailPage() {
         dispatch({ type: 'GET_POST', payload: id });
     }, [id]);
 
+    // Navigate to poster's profile
     const sendToProfile = () => {
         history.push(`/profile/${post.user_id}`)
+    }
+
+    // Delete the post
+    const deletePost = () => {
+
+        Swal.fire({
+            title: `Are you sure you want to delete this post?`,
+            text: `This action cannot be undone.`,
+            icon: 'warning',
+            background: 'white',
+            color: 'black',
+            showCancelButton: true,
+            confirmButtonColor: '#4E9BB9',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({type: 'DELETE_POST', payload: id})
+                history.push('/posts') 
+                Swal.fire({
+                    background: 'white',
+                    color: 'black',
+                    confirmButtonColor: '#4E9BB9',
+                    title: 'Deleted!',
+                    text: `Post has been deleted.`,
+                    icon: 'success'
+                })
+            }
+        })
     }
 
     console.log('POST IS', post);
@@ -54,7 +89,7 @@ function PostDetailPage() {
                         sx={{
                             margin: '15px',
                             marginTop: '26px',
-                            textAlign: 'center'
+                            textAlign: 'center',
                         }}
                     >
                         <a onClick={sendToProfile}>
@@ -111,10 +146,11 @@ function PostDetailPage() {
                             variant="contained"
                             className='buttons'
                         ><EditIcon /> Edit </Button>}
-                    {user.id === post.user_id &&
+                    {(user.access_level >= 1 || user.id === post.user_id) &&
                         <Button
                             variant="contained"
                             className='buttons'
+                            onClick={deletePost}
                             sx={{
                                 backgroundColor: 'red',
                                 margin: '2px'
@@ -127,10 +163,11 @@ function PostDetailPage() {
 
 
             <div>
-                <p>COMMENT FORM WILL GO HERE</p>
+                <AddCommentForm postId={id} />
+
             </div>
             <div>
-                <p>COMMENTS WILL GO HERE</p>
+                <CommentList postId={id}/>
             </div>
 
 

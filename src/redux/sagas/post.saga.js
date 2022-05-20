@@ -12,16 +12,37 @@ function* getOutcomesList() {
     }
 }
 
+// saga getOutcomesList will get the list of outcomes from DB
+function* getAllPosts() {
+    try {
+        const postList = yield axios.get('/post/postList');
+
+        yield put({ type: 'SET_POST_LIST', payload: postList.data });
+    } catch (error) {
+        console.log('Post List GET request failed', error);
+    }
+}
+
+// saga getPostByOutcome will get the list of posts using outcome_id from DB
+function* getPostByOutcome(action) {
+    try {
+        const postList = yield axios.get(`/post/postListByOutcome/${action.payload}`);
+
+        yield put({ type: 'SET_POST_LIST', payload: postList.data });
+    } catch (error) {
+        console.log('Post List by outcome_id GET request failed', error);
+    }
+}
+
 // saga createNewPost will insert new post to DB
 function* createNewPost(action) {
     try {
         const postId = yield axios.post('/post', action.payload);
-        yield put({ type: 'GET_POST', payload: postId.data[0].id });
+        yield put({type: 'GET_POST', payload: postId.data[0].id});
+        yield action.payload.history.push(`/postDetail/${postId.data[0].id}`)
 
-        // FIXME - once get route for all posts is made, update type
-        // yield put({ type: 'GET_POST'});
-        yield put({ type: 'CLEAR_IMAGE' })
-        yield put({ type: 'CLEAR_VIDEO' })
+        yield put({type: 'CLEAR_IMAGE'})
+        yield put({type: 'CLEAR_VIDEO'})
     } catch (error) {
         console.log('Create new post request failed', error);
     }
@@ -48,12 +69,26 @@ function* getPostHistory() {
         console.log(`ERROR GETTING POST HISTORY`);
     }
 }
+// Delete selected post
+function* deletePost(action) {
+    try {
+        console.log('IN DELETE SAGA');
+        yield axios.delete(`/post/${action.payload}`)
+        yield put({type: 'GET_ALL_POSTS'})
+        yield put({type: 'GET_POST_HISTORY'})
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 function* postSaga() {
-    yield takeEvery('GET_POST', getPostDetails);
+    yield takeLatest('GET_POST', getPostDetails);
+    yield takeLatest('GET_ALL_POSTS', getAllPosts);
+    yield takeLatest('GET_POSTS_BY_OUTCOME', getPostByOutcome);
+    yield takeLatest('DELETE_POST', deletePost)
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
-    yield takeLatest('GET_POST_HISTORY', getPostHistory)
+    yield takeLatest('GET_POST_HISTORY', getPostHistory);
 }
 
 export default postSaga;

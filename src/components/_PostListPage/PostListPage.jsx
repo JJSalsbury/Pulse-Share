@@ -15,9 +15,8 @@ function PostListPage() {
 
     return (
         <div>
-            <h2>Post List goes here</h2>
+            <h2>This page was replaced by ForumPage</h2>
             <button onClick={handleClick}>Add Post</button>
-            <PostDetailPage />
         </div>
     );
 }
