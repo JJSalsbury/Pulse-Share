@@ -8,6 +8,7 @@ import imageReducer from './image.reducer';
 import outcomesListReducer from './outcomesList.reducer';
 import videoReducer from './video.reducer';
 import post from './post.reducer';
+import editPostReducer from './editPost.reducer';
 import postHistoryReducer from './postHistory.reducer';
 import postListReducer from './postList.reducer';
 import comment from './comment.reducer';
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   videoReducer,
   outcomesListReducer,
   post,
+  editPostReducer,
   postHistoryReducer,
   postListReducer,
   comment,

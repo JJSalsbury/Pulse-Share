@@ -81,6 +81,17 @@ function* deletePost(action) {
     }
 }
 
+// Update post with new information
+function* updatePost(action) {
+    try  {
+        yield axios.put(`/post/${action.payload.id}`)
+        yield put({type: 'GET_POST', payload: action.payload.id})
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 function* postSaga() {
     yield takeLatest('GET_POST', getPostDetails);
     yield takeLatest('GET_ALL_POSTS', getAllPosts);

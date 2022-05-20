@@ -1,11 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  const history = useHistory();
+
+  const sendToProfile = () => {
+    history.push(`/profile/${user.id}`)
+  }
 
   return (
     <div className="nav">
@@ -39,7 +44,7 @@ function Nav() {
               Forum
             </Link>
 
-            <Link className="navLink" to="/profile">
+            <Link className="navLink" to={`/profile/${user.id}`}>
               Profile Page
             </Link>
             {user.access_level === 2 && (
