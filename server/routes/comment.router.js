@@ -54,7 +54,26 @@ router.post('/', (req, res) => {
     });
 });
 
-// Delete selected post
+//PUT ROUTE
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+
+
+  const update = req.body.comment;
+  console.log(update);
+  const query = `UPDATE "comments" SET  "comment" = $1 WHERE "comments".user_id = $2 AND "comments".id = $3;`;
+
+  const values = [update, req.user.id, req.params.id]
+  pool.query(query, values)
+    .then(result => {
+      res.sendStatus(200);
+    }).catch(error => {
+      console.log('error', error);
+
+    })
+
+});
+
+// DELETE ROUTE selected post
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
   const id = [req.params.id]

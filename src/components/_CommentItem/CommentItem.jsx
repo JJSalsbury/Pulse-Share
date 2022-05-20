@@ -16,15 +16,29 @@ function CommentItem({ comment, postId }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
-    console.log('USER:', user, 'POST ID:', id);
+    const editComment = useSelector(store => store.editCommentReducer);
+    console.log('USER:', user, 'POST ID:', id, 'COMMENT TO EDIT:', editComment);
 
     const [editMode, setEditMode] = useState(true);
 
-    const handleChange = (event, property) => {
+    const handleSubmit = () => {
+        console.log('save clicked');
+        
+        editComment.post_id = id;
+
+        dispatch({
+            type: 'PUT_COMMENT',
+            payload: editComment
+        })
+        dispatch({ type: 'CLEAR_EDIT' });
+        setEditMode(!editMode);
+    }
+
+    const handleChange = (event) => {
         dispatch({
             type: 'EDIT_COMMENT_ON_CHANGE',
             payload: {
-                property: property,
+                property: 'comment',
                 value: event.target.value
             }
         })
@@ -118,13 +132,13 @@ function CommentItem({ comment, postId }) {
                             label="Edit Your Comment"
                             multiline
                             maxRows={20}
-                            value={comment.comment}
-                            onChange={(event) => setEditMode(event.target.value)} type="text" placeholder="Comments"
+                            value={editComment.comment}
+                            onChange={(event) => handleChange(event)} type="text" placeholder="Comments"
                           />
                         </Box>
                       </Container>
                     </Paper>
-                    <Button onClick={handleChange}
+                    <Button onClick={handleSubmit}
                       sx={{
                         backgroundColor: '#4E9BB9',
                         margin: '2px',

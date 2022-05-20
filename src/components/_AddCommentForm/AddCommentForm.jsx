@@ -16,7 +16,7 @@ function AddCommentForm({ postId }) {
 
   let [newComment, setNewComment] = useState('');
   const editComment = useSelector(store => store.commentReducer);
-  console.log('COMMENT TO EDIT:', editComment);
+
 
 
   const handleChange = (event) => {
