@@ -30,7 +30,15 @@ function PostDetailPage() {
 
 
     useEffect(() => {
-        dispatch({ type: 'GET_POST', payload: id });
+        dispatch({ 
+            type: 'GET_POST', payload: id 
+        });
+        dispatch({
+            type: 'GET_OUTCOMES_LIST'
+        });
+        dispatch({
+            type: 'GET_POST_TO_EDIT', payload: id
+        });
     }, [id]);
 
     // Navigate to poster's profile
@@ -81,104 +89,104 @@ function PostDetailPage() {
             <div>
                 {editMode ?
 
-                <EditPost 
-                    setEditMode={setEditMode}
-                    postId={id}
-                />
+                    <EditPost
+                        setEditMode={setEditMode}
+                        postId={id}
+                    />
 
-                :
-
-                <Box
-                    component={Paper}
-                    sx={{
-                        border: '1px solid black',
-                        borderRadius: '7px',
-                        padding: '15px',
-                    }}
-                >
+                    :
 
                     <Box
+                        component={Paper}
                         sx={{
-                            justifyContent: 'space-evenly',
-                            display: 'flex'
+                            border: '1px solid black',
+                            borderRadius: '7px',
+                            padding: '15px',
                         }}
                     >
+
                         <Box
                             sx={{
-                                margin: '15px',
-                                marginTop: '26px',
-                                textAlign: 'center'
+                                justifyContent: 'space-evenly',
+                                display: 'flex'
                             }}
                         >
-                            <a onClick={sendToProfile}>
-                                {post.profile_picture == '' ?
-                                    <img className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" /> :
-                                    <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
-                                }
-                                <br />
-                                <h3>{post.username}</h3></a>
-                        </Box>
-
-                        <Box>
-                            <h2>{post.title}</h2>
-                            <p>{post.date} {post.time}</p>
-
-                            <p>{post.post}</p>
-                        </Box>
-                    </Box>
-
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            margin: '15px'
-                        }}
-                    >
-                        <Box>
-                            {post.video &&
-                                <ReactPlayer
-                                    url={post.video}
-                                    width='640px'
-                                    height='360px'
-                                    controls={true} />}
-                        </Box>
-                        <br />
-                        <Box>
-                            {post.image &&
-                                <img
-                                    src={post.image}
-                                    maxheight='360px'
-                                    maxwidth='640px'
-                                />}
-                        </Box>
-
-                    </Box>
-
-                    <Box className="btn-holder">
-                        {user.id === post.user_id &&
-                            <Button
+                            <Box
                                 sx={{
-                                    backgroundColor: '#4E9BB9',
-                                    margin: '2px'
+                                    margin: '15px',
+                                    marginTop: '26px',
+                                    textAlign: 'center'
                                 }}
-                                variant="contained"
-                                className='buttons'
-                                onClick={editPost}
-                            ><EditIcon /> Edit </Button>}
-                        {(user.access_level >= 1 || user.id === post.user_id) &&
-                            <Button
-                                variant="contained"
-                                className='buttons'
-                                onClick={deletePost}
-                                sx={{
-                                    backgroundColor: 'red',
-                                    margin: '2px'
-                                }}
-                            ><DeleteIcon /> Delete </Button>}
-                    </Box>
+                            >
+                                <a onClick={sendToProfile}>
+                                    {post.profile_picture == '' ?
+                                        <img className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" /> :
+                                        <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
+                                    }
+                                    <br />
+                                    <h3>{post.username}</h3></a>
+                            </Box>
 
-                </Box>
-            }
+                            <Box>
+                                <h2>{post.title}</h2>
+                                <p>{post.date} {post.time}</p>
+
+                                <p>{post.post}</p>
+                            </Box>
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                margin: '15px'
+                            }}
+                        >
+                            <Box>
+                                {post.video &&
+                                    <ReactPlayer
+                                        url={post.video}
+                                        width='640px'
+                                        height='360px'
+                                        controls={true} />}
+                            </Box>
+                            <br />
+                            <Box>
+                                {post.image &&
+                                    <img
+                                        src={post.image}
+                                        maxheight='360px'
+                                        maxwidth='640px'
+                                    />}
+                            </Box>
+
+                        </Box>
+
+                        <Box className="btn-holder">
+                            {user.id === post.user_id &&
+                                <Button
+                                    sx={{
+                                        backgroundColor: '#4E9BB9',
+                                        margin: '2px'
+                                    }}
+                                    variant="contained"
+                                    className='buttons'
+                                    onClick={editPost}
+                                ><EditIcon /> Edit </Button>}
+                            {(user.access_level >= 1 || user.id === post.user_id) &&
+                                <Button
+                                    variant="contained"
+                                    className='buttons'
+                                    onClick={deletePost}
+                                    sx={{
+                                        backgroundColor: 'red',
+                                        margin: '2px'
+                                    }}
+                                ><DeleteIcon /> Delete </Button>}
+                        </Box>
+
+                    </Box>
+                }
             </div>
 
             <div>

@@ -49,11 +49,23 @@ function* deletePost(action) {
     }
 }
 
+// Update post with new information
+function* updatePost(action) {
+    try  {
+        yield axios.put(`/post/${action.payload.id}`)
+        yield put({type: 'GET_POST', payload: action.payload.id})
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 function* postSaga() {
     yield takeEvery('GET_POST', getPostDetails);
     yield takeEvery('DELETE_POST', deletePost)
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
+    
 }
 
 export default postSaga;

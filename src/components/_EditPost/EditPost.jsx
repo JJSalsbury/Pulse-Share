@@ -31,17 +31,7 @@ import Dropzone from 'react-dropzone-uploader'
 import ReactPlayer from 'react-player'
 
 function EditPost({setEditMode, postId}) {
-    useEffect(() => {
-        dispatch({
-            type: 'GET_OUTCOMES_LIST'
-        });
-        dispatch({
-            type: 'CLEAR_POST'
-        });
-        dispatch({ 
-            type: 'GET_POST', payload: postId 
-        });
-    }, []);
+   
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -49,7 +39,8 @@ function EditPost({setEditMode, postId}) {
     const user = useSelector((store) => store.user);
     const image = useSelector( store => store.imageReducer);
     const video = useSelector( store => store.videoReducer);
-    const post = useSelector(store => store.post)
+    const post = useSelector(store => store.post);
+    const editPost = useSelector(store => store.editPostReducer);
     const outcomesList = useSelector( store => store.outcomesListReducer);
 
 
@@ -119,10 +110,20 @@ function EditPost({setEditMode, postId}) {
         })
     }
 
+     // Update and store the information to edit as it is being input
+     const handleChange = (event, property) => {
+        dispatch({
+            type: 'EDIT_POST_ON_CHANGE',
+            payload: { property: property, value: event.target.value }
+        })
+    }
+
     const handleClick = async () => {
 
         setEditMode(false);
-        dispatch({ type: 'GET_POST', payload: postId })
+        dispatch({type: 'UPDATE_POST', payload: editPost});
+        dispatch({ type: 'GET_POST', payload: postId });
+        dispatch({type: 'CLEAR_POST_EDIT'});
         // if title or body text fields are empty, won't submit
         // if (postTitle !== '' || postBody !== '') {
         //     if(image.file) {
@@ -221,7 +222,7 @@ function EditPost({setEditMode, postId}) {
                             marginBottom: 15,
                             minWidth: '100%'
                         }}
-                        onChange={(event) => setPostTitle(event.target.value)}
+                        onChange={(event) => handleChange(event, 'title')}
                     />
                 </Box>
                 <Box>
@@ -236,7 +237,7 @@ function EditPost({setEditMode, postId}) {
                             marginBottom: 15,
                             minWidth: '100%'
                         }}
-                        onChange={(event) => setPostBody(event.target.value)}
+                        onChange={(event) => handleChange(event, 'post')}
                     />
                 </Box>
                 <Box>
@@ -252,7 +253,7 @@ function EditPost({setEditMode, postId}) {
                             style={{
                                 marginBottom: 15
                             }}
-                            onChange={(event) => setOutcomeTag(event.target.value)}
+                            onChange={(event) => handleChange(event, 'outcome_id')}
                             >
                                 {outcomesList?.map(outcome => {
                                     return (

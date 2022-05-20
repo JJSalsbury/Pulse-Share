@@ -35,7 +35,7 @@ router.get('/:id', (req, res) => {
 
   pool.query(query, [req.params.id])
     .then(result => {
-      console.log('post data', result.rows);
+      // console.log('post data', result.rows);
 
       res.send(result.rows);
     }).catch(err => {
@@ -68,7 +68,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   pool
     .query(queryText, values)
     .then(result => {
-      console.log('returning id for post', result.rows);
+      // console.log('returning id for post', result.rows);
 
       res.send(result.rows)
     })
@@ -101,6 +101,23 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         console.log('Error in deleting post', err);
       })
   }
+})
+
+router.put('/:id', rejectUnauthenticated, (req, res) => {
+  const update = req.body;
+  const query = `
+                  UPDATE "posts"
+                  SET "title" = $1, "post" = $2, "image" = $3, "video" = $4, outcome_id = $5
+                  WHERE "id" = $6;
+                  `;
+  const values = [update.title, update.post, update.image, update.video, update.outcome_id, req.params.id];
+
+  pool.query(query, values)
+    .then(result => {
+      res.sendStatus(200);
+    }).catch(err => {
+      console.log('Error in updating post', err);
+    })
 })
 
 module.exports = router;
