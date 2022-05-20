@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom'
 import EditPost from '../_EditPost/EditPost';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
+import CommentList from '../_CommentList/CommentList';
 
 // Basic CSS
 import styling from './PostDetailPage.css'
@@ -30,8 +32,8 @@ function PostDetailPage() {
 
 
     useEffect(() => {
-        dispatch({ 
-            type: 'GET_POST', payload: id 
+        dispatch({
+            type: 'GET_POST', payload: id
         });
         dispatch({
             type: 'GET_OUTCOMES_LIST'
@@ -46,7 +48,7 @@ function PostDetailPage() {
     // Edit selected post
     const editPost = () => {
         console.log('Editing post', id);
-        dispatch({type: 'GET_POST_TO_EDIT', payload: id});
+        dispatch({ type: 'GET_POST_TO_EDIT', payload: id });
         setEditMode(true);
     }
 
@@ -118,8 +120,19 @@ function PostDetailPage() {
                             >
                                 <a onClick={sendToProfile}>
                                     {post.profile_picture == '' ?
-                                        <img className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" /> :
-                                        <img className='profile-pic' src={post.profile_picture} alt="profile picture" />
+                                        <Avatar
+                                            sx={{
+                                                width: 150,
+                                                height: 150,
+                                            }}
+                                            className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" />
+                                        :
+                                        <Avatar
+                                            sx={{
+                                                width: 150,
+                                                height: 150,
+                                            }}
+                                            className='profile-pic' src={post.profile_picture} alt="profile picture" />
                                     }
                                     <br />
                                     <h3>{post.username}</h3></a>
@@ -188,10 +201,11 @@ function PostDetailPage() {
             </div>
 
             <div>
-                <p>COMMENT FORM WILL GO HERE</p>
+                <AddCommentForm postId={id} />
+
             </div>
             <div>
-                <p>COMMENTS WILL GO HERE</p>
+                <CommentList postId={id} />
             </div>
 
 

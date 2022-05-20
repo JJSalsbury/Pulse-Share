@@ -9,6 +9,8 @@ import outcomesListReducer from './outcomesList.reducer';
 import videoReducer from './video.reducer';
 import post from './post.reducer';
 import editPostReducer from './editPost.reducer';
+import postListReducer from './postList.reducer';
+import comment from './comment.reducer';
 
 
 // rootReducer is the primary reducer for our entire project
@@ -28,6 +30,8 @@ const rootReducer = combineReducers({
   outcomesListReducer,
   post,
   editPostReducer,
+  postListReducer,
+  comment,
 });
 
 export default rootReducer;

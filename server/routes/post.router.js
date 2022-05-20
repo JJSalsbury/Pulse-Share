@@ -6,9 +6,9 @@ const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
-// GET route for outcomesList 
-router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
-  const queryText = `
+ // GET route for outcomesList 
+router.get('/outcomesList', (req, res) => {
+    const queryText = `
         SELECT * FROM "outcomes";
     `;
   pool
@@ -20,6 +20,52 @@ router.get('/outcomesList', rejectUnauthenticated, (req, res) => {
       console.log('Outcomes GET failed ', err);
       res.sendStatus(500);
     });
+});
+
+// GET route for Entire postList 
+router.get('/postListByOutcome/:id', (req, res) => {
+  const outcomeId = req.params.id
+  const queryText = `
+    SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+    "posts".outcome_id, "posts".user_id FROM "posts"
+    JOIN "user" ON "posts".user_id = "user".id
+    JOIN "profiles" ON "user".id = "profiles".user_id
+    WHERE "posts".outcome_id = $1
+    ORDER BY "posts".id DESC;
+  `;
+
+  const values = [outcomeId];
+  pool
+      .query(queryText, values)
+      .then(result => {
+      res.send(result.rows)
+      })
+      .catch((err) => {
+      console.log('Entire postList GET failed ', err);
+      res.sendStatus(500);
+      });
+});
+
+// GET route for Entire postList 
+router.get('/postList', (req, res) => {
+  const queryText = `
+    SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+    "posts".outcome_id, "posts".user_id FROM "posts"
+    JOIN "user" ON "posts".user_id = "user".id
+    JOIN "profiles" ON "user".id = "profiles".user_id
+    ORDER BY "posts".id DESC;
+  `;
+  pool
+      .query(queryText)
+      .then(result => {
+      res.send(result.rows)
+      })
+      .catch((err) => {
+      console.log('Entire postList GET failed ', err);
+      res.sendStatus(500);
+      });
 });
 
 // Get specific post details
