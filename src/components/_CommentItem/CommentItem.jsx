@@ -1,82 +1,95 @@
-import React from 'react';
-// import * as React from 'react';
+//Imports
+import React, {useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-// import Card from '@material-ui/core/Card';
-// import CardContent from '@material-ui/core/CardContent';
-// import CardMedia from '@material-ui/core/CardMedia';
-// import Typography from '@material-ui/core/Typography';
-// import { Button, CardActionArea, CardActions } from '@material-ui/core';
-// import { makeStyles } from '@material-ui/core/styles';
-
-import { Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, Paper } from '@mui/material';
+import { useHistory, useParams } from 'react-router-dom';
+//Styling Imports 
+import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ListItem from '@mui/material/ListItem';
+import SendIcon from '@mui/icons-material/Send';
+import Swal from 'sweetalert2';
 
 
 
-// const useStyles = makeStyles({
-//     root: {
-//         maxWidth: 300,
-//         margin: "3rem",
-//     },
-// });
-
-
-function CommentItem({ comment }) {
+function CommentItem({ comment, postId }) {
     const user = useSelector(store => store.user);
     const dispatch = useDispatch();
+    const history = useHistory();
+    const { id } = useParams();
+    const editComment = useSelector(store => store.editCommentReducer);
+    console.log('USER:', user, 'POST ID:', id, 'COMMENT TO EDIT:', editComment);
 
-    const history = useHistory()
+    const [editMode, setEditMode] = useState(true);
 
-    // const classes = useStyles();
+    const handleSubmit = () => {
+        console.log('save clicked');
+        
+        editComment.post_id = id;
 
-    // useEffect(() => {
-    //     dispatch({ type: 'GET_COMMENTS', payload: comment.post_id});
-    // }, [id]);
+        dispatch({
+            type: 'PUT_COMMENT',
+            payload: editComment
+        })
+        dispatch({ type: 'CLEAR_EDIT' });
+        setEditMode(!editMode);
+    }
 
-    // const handleDetails = () => {
-    //     // console.log('clicked for comment details (description)');
-    //     dispatch({ type: 'FETCH_DETAILS', payload: comment.id });
-    //     history.push('/details');
-    // }
+    const handleChange = (event) => {
+        dispatch({
+            type: 'EDIT_COMMENT_ON_CHANGE',
+            payload: {
+                property: 'comment',
+                value: event.target.value
+            }
+        })
+    }
 
-    // style={{width: 175, height: 375}}
-    // style={{width: 175, height: 100}}  
+    const handleCommentEdit = () => {
+        //switch to edit mode "form"
+        console.log('clicked update profile');
+        dispatch({
+            type: 'SET_COMMENT_TO_EDIT',
+            payload: comment
+        })
+        setEditMode(!editMode);
+    }
 
-    //Render return all comments in DB
+    // Delete the post
+    const deleteComment = () => {
+
+        Swal.fire({
+            title: `Are you sure you want to delete this post?`,
+            text: `This action cannot be undone.`,
+            icon: 'warning',
+            background: 'white',
+            color: 'black',
+            showCancelButton: true,
+            confirmButtonColor: '#4E9BB9',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({type: 'DELETE_COMMENT', payload: {id:comment.id, post_id: postId}})
+                history.push(`/postDetail/${id}`) 
+                Swal.fire({
+                    background: 'white',
+                    color: 'black',
+                    confirmButtonColor: '#4E9BB9',
+                    title: 'Deleted!',
+                    text: `Post has been deleted.`,
+                    icon: 'success'
+                })
+            }
+        })
+    }
+
+    console.log('COMMENT:', comment.comment);
+
     return (
         <ListItem alignItems="flex-start">
             <Container>
-                {/* <Box
-                component={Paper}
-                sx={{
-                    border: '1px solid black',
-                    borderRadius: '7px',
-                    padding: '15px',
-                }}
-            > */}
-                {/* <ListItemAvatar >
-                <Avatar alt=“Remy Sharp” src=“/static/images/avatar/1.jpg” />
-                <Typography
-                        component=“span”
-                        variant=“body2”
-                        color=“text.primary”
-                    >
-                        {post.username}
-                    </Typography>
-                </ListItemAvatar> */}
-                                    {/* <Box
-                        sx={{
-                            margin: '15px',
-                            marginTop: '26px',
-                            textAlign: 'center'
-                        }}
-                    > */}
-
                 <ListItemAvatar> {comment.profile_picture == '' ?
-                    <Avatar alt="profile picture" src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" /> :
+                    <Avatar alt="profile picture" src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" /> :
                     <Avatar alt="profile picture" src={comment.profile_picture} />}
                 </ListItemAvatar>
                 {/* </Box> */}
@@ -84,7 +97,7 @@ function CommentItem({ comment }) {
                     <Typography
                         sx={{ display: 'inline' }}
                         component="span"
-                        variant="body2"
+                        variant="body1"
                         color="text.primary"
                     >
                         {comment.username}
@@ -96,9 +109,44 @@ function CommentItem({ comment }) {
                         display: 'flex-start'
                     }}
                 >
-                    <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom:'25px' }}>
-                    "{comment.comment}"
                     
+                    <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom:'25px' }}>
+                    <p>{comment.date} {comment.time}</p> 
+
+                    {editMode ? 
+                    <p>"{comment.comment}"</p> :
+                    <Box component={Paper}
+                    sx={{
+                      border: '1px solid black',
+                      borderRadius: '7px',
+                      padding: '15px',
+                    }}>
+                    <Paper elevation={5}>
+                      <Container className="commentContainer">
+                        <Box>
+                          <TextField
+                            elevation={15}
+                            fullWidth
+                            className="textField"
+                            id="outlined-multiline-flexible"
+                            label="Edit Your Comment"
+                            multiline
+                            maxRows={20}
+                            value={editComment.comment}
+                            onChange={(event) => handleChange(event)} type="text" placeholder="Comments"
+                          />
+                        </Box>
+                      </Container>
+                    </Paper>
+                    <Button onClick={handleSubmit}
+                      sx={{
+                        backgroundColor: '#4E9BB9',
+                        margin: '2px',
+                      }}
+                      variant="contained"
+                      className='buttons'
+                    ><SendIcon /> Submit </Button>
+                  </Box>} 
                     </Typography>
                     </Box> 
                     <Box className="btn-holder">
@@ -111,11 +159,13 @@ function CommentItem({ comment }) {
                         }}
                         variant="contained"
                         className='buttons'
+                        onClick={handleCommentEdit}
                     ><EditIcon /> Edit </Button> : <div></div>} 
                 {user.id === comment.user_id &&
                     <Button
                         variant="contained"
                         className='buttons'
+                        onClick={deleteComment}
                         sx={{
                             backgroundColor: 'red',
                             margin: '2px',
