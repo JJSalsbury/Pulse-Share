@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { Card, CardMedia, CardContent } from '@mui/material';
-
+import Swal from 'sweetalert2'
 
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css'
@@ -187,13 +187,39 @@ function ProfilePage({ profileId }) {
 
         dispatch({ type: 'CLEAR_EDIT' });
 
-
-
         setEditMode(!editMode);
+    }
+
+
+    const handleDelete = () => {
+        Swal.fire({
+            title: `Are you sure you want to delete your profile?`,
+            text: `This action cannot be undone.`,
+            icon: 'warning',
+            background: 'white',
+            color: 'black',
+            showCancelButton: true,
+            confirmButtonColor: '#4E9BB9',
+            cancelButtonColor: 'red',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch({ type: 'DELETE_USER', payload: user.id })
+                //history.push('/profile') 
+                Swal.fire({
+                    background: 'white',
+                    color: 'black',
+                    confirmButtonColor: '#4E9BB9',
+                    title: 'Deleted!',
+                    text: `Profile has been deleted.`,
+                    icon: 'success'
+                })
+            }
+        })
+
 
 
     }
-
 
 
 
@@ -349,8 +375,6 @@ function ProfilePage({ profileId }) {
 
 
             </Paper>
-
-
             {/* this will be a text box center top */}
 
             <Paper sx={{
@@ -551,7 +575,7 @@ function ProfilePage({ profileId }) {
             {user.id == profileId && <Container>
                 <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={toPostHistory}>Post History</Button >
                 {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={(event) => dispatch({ type: 'DELETE_USER', payload: user.id })}>Delete Profile</Button> : ''}
+                {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={handleDelete}>Delete Profile</Button> : ''}
             </Container>}
 
 
