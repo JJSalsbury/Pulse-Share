@@ -6,15 +6,11 @@ import { useSelector } from 'react-redux';
 
 function Nav() {
   const user = useSelector((store) => store.user);
-<<<<<<< HEAD
-  
-=======
   const history = useHistory();
 
   const sendToProfile = () => {
     history.push(`/profile/${user.id}`)
   }
->>>>>>> main
 
   return (
     <div className="nav">
@@ -48,11 +44,7 @@ function Nav() {
               Forum
             </Link>
 
-<<<<<<< HEAD
-            <Link className="navLink" to='/profile'>
-=======
             <Link className="navLink" to={`/profile/${user.id}`}>
->>>>>>> main
               Profile Page
             </Link>
             {user.access_level === 2 && (
