@@ -22,6 +22,8 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
+//import ProfilePage from '../_ProfilePage/ProfilePage';
+import PostListPage from '../_PostListPage/PostListPage';
 import ProfilePage from '../_ProfilePage/ProfilePage';
 import ForumPage from '../_ForumPage/ForumPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
@@ -29,6 +31,7 @@ import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
 import AddCommentForm from '../_AddCommentForm/AddCommentForm';
 import AdminPage from '../_AdminPage/AdminPage';
+import ProfileRender from '../_ProfileRender/_ProfileRender';
 
 function App() {
   const dispatch = useDispatch();
@@ -73,7 +76,7 @@ function App() {
             exact
             path="/profile/:id"
           >
-            <ProfilePage />
+            < ProfileRender/>
           </Route>
 
           <Route
