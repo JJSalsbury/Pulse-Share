@@ -36,9 +36,6 @@ function PostDetailPage() {
         dispatch({
             type: 'GET_OUTCOMES_LIST'
         });
-        dispatch({
-            type: 'GET_POST_TO_EDIT', payload: id
-        });
     }, [id]);
 
     // Navigate to poster's profile
@@ -49,6 +46,7 @@ function PostDetailPage() {
     // Edit selected post
     const editPost = () => {
         console.log('Editing post', id);
+        dispatch({type: 'GET_POST_TO_EDIT', payload: id});
         setEditMode(true);
     }
 
