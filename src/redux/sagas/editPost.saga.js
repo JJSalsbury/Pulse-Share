@@ -15,8 +15,10 @@ function* getEditPost(action) {
 function* updatePost(action) {
     try {
         console.log(action.payload)
-        yield axios.put(`/post/${action.payload.id}`, action.payload)
-        yield put({ type: 'GET_POST', payload: action.payload.id })
+        yield axios.put(`/post/${action.payload.id}`, action.payload);
+        yield put({ type: 'GET_POST', payload: action.payload.id });
+        yield put({type: 'CLEAR_IMAGE'});
+        yield put({type: 'CLEAR_VIDEO'});
     } catch (err) {
         console.log(err);
     }

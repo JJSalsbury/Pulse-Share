@@ -178,6 +178,7 @@ function EditPost({ setEditMode }) {
                     title: editPost.title,
                     post: editPost.post,
                     image: imageUrl,
+                    video: editPost.video,
                     outcome_id: editPost.outcome_id
 
                 }
@@ -191,6 +192,7 @@ function EditPost({ setEditMode }) {
                     id: editPost.id,
                     title: editPost.title,
                     post: editPost.post,
+                    image: editPost.image,
                     video: videoUrl,
                     outcome_id: editPost.outcome_id
 
@@ -201,6 +203,7 @@ function EditPost({ setEditMode }) {
             dispatch({ type: 'UPDATE_POST', payload: editPost })
         }
         dispatch({ type: 'CLEAR_POST_EDIT' });
+
         setEditMode(false);
     }
 
