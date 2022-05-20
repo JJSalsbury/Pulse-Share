@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -32,6 +31,7 @@ import ReactPlayer from 'react-player'
 
 function AddPostPage() {
     useEffect(() => {
+        //List for outcomes dropdown
         dispatch({
             type: 'GET_OUTCOMES_LIST'
         });
@@ -117,7 +117,7 @@ function AddPostPage() {
 
     const handleClick = async () => {
         // if title or body text fields are empty, won't submit
-        if (postTitle !== '' || postBody !== '') {
+        if (postTitle !== '' || postBody !== '' || outcomeTag !== '') {
             if(image.file) {
                 // get secure url from our server
                 const { url } = await fetch("/s3Url/image").then(res => res.json())
@@ -164,29 +164,12 @@ function AddPostPage() {
                     postBody: postBody,
                     postImage: imageUrl,
                     postVideo: videoUrl,
-                    postTag: outcomeTag
+                    postTag: outcomeTag,
+                    history: history
                 }
             })
-            let id = post?.id
-
-            Swal.fire({
-                title: 'Posted!',
-                icon: 'success',
-                confirmButtonText: 'Okay',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    history.push(`/postDetail/${id}`);
-                    // Swal.fire(
-                    //     'Posted!',
-                    //     'Your file has been deleted.',
-                    //     'success'
-                    // ).then(() => {
-
-                    // })
-                } 
-            })
-
-            
+        } else {
+            disabled = true;
         }
     }
     
@@ -377,7 +360,7 @@ function AddPostPage() {
                         Add Video Here!
                     </Typography>
                     {video.file ? 
-                        <h1>Video Added!</h1>
+                        <h1>{video.file.name} Has Been Added!</h1>
                         : 
                         <Dropzone
                             getUploadParams={getUploadParams}
@@ -400,12 +383,24 @@ function AddPostPage() {
                     </Box>
                 </Modal>
                 <Box>
-                    <Button variant="contained" onClick={handleClick} >Submit Post</Button>
+                    <Button 
+                        sx={{
+                            backgroundColor: '#4E9BB9',
+                            margin: '2px'
+                        }} 
+                        variant="contained" 
+                        onClick={handleClick} 
+                    >Submit Post</Button>
+                    <Button 
+                        sx={{
+                            backgroundColor: 'red',
+                            margin: '2px'
+                        }} 
+                        variant="contained" 
+                        onClick={handleClick} 
+                    >Cancel</Button>
                 </Box>
             </Box>
-            
-            
-            
             {/* <img src={image}/>
             <ReactPlayer 
                 url={image}

@@ -24,9 +24,12 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 //import ProfilePage from '../_ProfilePage/ProfilePage';
 import PostListPage from '../_PostListPage/PostListPage';
+import ProfilePage from '../_ProfilePage/ProfilePage';
+import ForumPage from '../_ForumPage/ForumPage';
 import PostDetailPage from '../_PostDetailPage/PostDetailPage';
 import AddPostPage from '../_AddPostPage/AddPostPage';
 import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
+import AddCommentForm from '../_AddCommentForm/AddCommentForm';
 import AdminPage from '../_AdminPage/AdminPage';
 import ProfileRender from '../_ProfileRender/_ProfileRender';
 
@@ -81,7 +84,7 @@ function App() {
             exact
             path="/posts"
           >
-            <PostListPage />
+            <ForumPage />
           </Route>
 
           <Route

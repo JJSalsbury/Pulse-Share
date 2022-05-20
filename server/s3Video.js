@@ -29,11 +29,11 @@ const s3 = new aws.S3({
 async function generateUploadURL() {
     // const rawBytes = await randomBytes(16);
     //rawBytes.toString('hex');
-    const imageName = cryptoRandomString(16); 
+    const videoName = cryptoRandomString(16); 
     
     const params = ({
         Bucket: bucketName,
-        Key: imageName,
+        Key: videoName + '.mp4',
         Expires: 60
     })
     console.log(params);
