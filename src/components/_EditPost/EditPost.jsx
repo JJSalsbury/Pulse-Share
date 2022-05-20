@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import '../_AddPostPage/AddPostPage.css'
@@ -30,23 +30,17 @@ import Dropzone from 'react-dropzone-uploader'
 // import for playing videos on dom
 import ReactPlayer from 'react-player'
 
-function EditPost({setEditMode, postId}) {
-   
+function EditPost({ setEditMode, postId }) {
+
 
     const dispatch = useDispatch();
-    const history = useHistory();
 
-    const user = useSelector((store) => store.user);
-    const image = useSelector( store => store.imageReducer);
-    const video = useSelector( store => store.videoReducer);
+    const image = useSelector(store => store.imageReducer);
+    const video = useSelector(store => store.videoReducer);
     const post = useSelector(store => store.post);
     const editPost = useSelector(store => store.editPostReducer);
-    const outcomesList = useSelector( store => store.outcomesListReducer);
+    const outcomesList = useSelector(store => store.outcomesListReducer);
 
-
-    const [postTitle, setPostTitle] = useState('');
-    const [postBody, setPostBody] = useState('');
-    const [outcomeTag, setOutcomeTag] = useState('');
     let imageUrl = '';
     let videoUrl = '';
 
@@ -57,13 +51,13 @@ function EditPost({setEditMode, postId}) {
     const [openVideoModal, setOpenVideoModal] = React.useState(false);
     const handleOpenVideoModal = () => setOpenVideoModal(true);
     const handleCloseVideoModal = () => setOpenVideoModal(false);
-    
+
     // specify upload params and url for your files
     const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
-        
+
     // called every time a file's `status` changes
     const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
-    
+
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmitImage = (files, allFiles) => {
         console.log(files[0])
@@ -80,7 +74,7 @@ function EditPost({setEditMode, postId}) {
         allFiles.forEach(f => f.remove())
     }
 
-     // receives array of files that are done uploading when submit button is clicked
+    // receives array of files that are done uploading when submit button is clicked
     const handleSubmitVideo = (files, allFiles) => {
         console.log(files[0])
         const videoToUpload = files[0];
@@ -96,22 +90,22 @@ function EditPost({setEditMode, postId}) {
         allFiles.forEach(f => f.remove())
     }
 
-    // function will clear media reducer and allow user to input new media
+    // function will clear image reducer and allow user to input new media
     const handleChangeImage = () => {
         dispatch({
             type: 'CLEAR_IMAGE'
         })
     }
 
-    // function will clear media reducer and allow user to input new media
+    // function will clear video reducer and allow user to input new media
     const handleChangeVideo = () => {
         dispatch({
             type: 'CLEAR_VIDEO'
         })
     }
 
-     // Update and store the information to edit as it is being input
-     const handleChange = (event, property) => {
+    // Update and store the information to edit as it is being input
+    const handleChange = (event, property) => {
         dispatch({
             type: 'EDIT_POST_ON_CHANGE',
             payload: { property: property, value: event.target.value }
@@ -120,89 +114,66 @@ function EditPost({setEditMode, postId}) {
 
     const handleClick = async () => {
 
-        setEditMode(false);
-        dispatch({type: 'UPDATE_POST', payload: editPost});
+        dispatch({
+            type: 'UPDATE_POST',
+
+            payload: {
+                title: editPost.title,
+                post: editPost.post,
+                image: image,
+                video: video,
+                outcome_id: editPost.outcome_id
+
+            }
+        });
         dispatch({ type: 'GET_POST', payload: postId });
-        dispatch({type: 'CLEAR_POST_EDIT'});
-        // if title or body text fields are empty, won't submit
-        // if (postTitle !== '' || postBody !== '') {
-        //     if(image.file) {
-        //         // get secure url from our server
-        //         const { url } = await fetch("/s3Url/image").then(res => res.json())
-        //         console.log(url)
+        dispatch({ type: 'CLEAR_POST_EDIT' });
+        setEditMode(false);
+        if (image.file) {
+            // get secure url from our server
+            const { url } = await fetch("/s3Url/image").then(res => res.json())
+            console.log(url)
 
-        //         // post the image directly to the s3 bucket
-        //         await fetch(url, {
-        //             method: "PUT",
-        //             headers: {
-        //             "Content-Type": "image/jpeg"
-        //             },
-        //             body: image['file']
-        //         })
+            // post the image directly to the s3 bucket
+            await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "image/jpeg"
+                },
+                body: image['file']
+            })
 
-        //         imageUrl = url.split('?')[0]
-        //         console.log(imageUrl)
+            imageUrl = url.split('?')[0]
+            console.log(imageUrl)
 
-        //     } else {
-        //         imageUrl = null;
-        //     }
+        } else {
+            imageUrl = null;
+        }
 
-        //     if(video.file) {
-        //         const { url } = await fetch("/s3Url/video").then(res => res.json())
-        //         console.log(url)
+        if (video.file) {
+            const { url } = await fetch("/s3Url/video").then(res => res.json())
+            console.log(url)
 
-        //         await fetch(url, {
-        //             method: "PUT",
-        //             headers: {
-        //             "Content-Type": "video/mp4"
-        //             },
-        //             body: video['file']
-        //         })
-    
-        //         videoUrl = url.split('?')[0]
-        //         console.log(videoUrl)
-        //     } else {
-        //         videoUrl = null;
-        //     }
-            
-        //     dispatch({
-        //         type: 'CREATE_NEW_POST',
-        //         payload: {
-        //             postTitle: postTitle,
-        //             postBody: postBody,
-        //             postImage: imageUrl,
-        //             postVideo: videoUrl,
-        //             postTag: outcomeTag
-        //         }
-        //     })
-        //     let id = post?.id
+            await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "video/mp4"
+                },
+                body: video['file']
+            })
 
-        //     Swal.fire({
-        //         title: 'Posted!',
-        //         icon: 'success',
-        //         confirmButtonText: 'Okay',
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             history.push(`/postDetail/${id}`);
-        //             // Swal.fire(
-        //             //     'Posted!',
-        //             //     'Your file has been deleted.',
-        //             //     'success'
-        //             // ).then(() => {
-
-        //             // })
-        //         } 
-        //     })
-
-            
-        // }
+            videoUrl = url.split('?')[0]
+            console.log(videoUrl)
+        } else {
+            videoUrl = null;
+        }
     }
-    
+
     return (
         <Container>
-            
+
             <h2>Edit Post</h2>
-            <Box 
+            <Box
                 component={Paper}
                 sx={{
                     padding: '15px',
@@ -241,9 +212,9 @@ function EditPost({setEditMode, postId}) {
                     />
                 </Box>
                 <Box>
-                    <FormControl required sx={{minWidth: 150}}>
+                    <FormControl required sx={{ minWidth: 150 }}>
                         <InputLabel id="demo-simple-select-autowidth-label">Outcome Tag</InputLabel>
-                            <Select
+                        <Select
                             labelId="demo-simple-select-autowidth-label"
                             id="demo-simple-select-autowidth"
                             defaultValue={post.outcome_id}
@@ -254,59 +225,59 @@ function EditPost({setEditMode, postId}) {
                                 marginBottom: 15
                             }}
                             onChange={(event) => handleChange(event, 'outcome_id')}
-                            >
-                                {outcomesList?.map(outcome => {
-                                    return (
-                                        <MenuItem 
-                                            key={outcome.id} 
-                                            value={outcome.id}
-                                        >{outcome.outcome}</MenuItem>
-                                    )
-                                })}
-                            </Select>
+                        >
+                            {outcomesList?.map(outcome => {
+                                return (
+                                    <MenuItem
+                                        key={outcome.id}
+                                        value={outcome.id}
+                                    >{outcome.outcome}</MenuItem>
+                                )
+                            })}
+                        </Select>
                     </FormControl>
                 </Box>
                 <Box>
-                {image.file ?
-                    <Box>
-                        <p>{image.file.name}</p>
-                        <Button 
-                            onClick={handleChangeImage}
+                    {image.file ?
+                        <Box>
+                            <p>{image.file.name}</p>
+                            <Button
+                                onClick={handleChangeImage}
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Photo
+                            </Button>
+                        </Box>
+                        :
+                        <Button
+                            onClick={handleOpenImageModal}
                             style={{
                                 marginBottom: 15,
                             }}
-                        >Remove Photo
-                        </Button> 
-                    </Box>
-                    : 
-                    <Button 
-                        onClick={handleOpenImageModal}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Update Photo
-                    </Button>
-                }
-                {video.file ?
-                    <Box>
-                        <p>{video.file.name}</p>
-                        <Button 
-                            onClick={handleChangeVideo}
+                        >Update Photo
+                        </Button>
+                    }
+                    {video.file ?
+                        <Box>
+                            <p>{video.file.name}</p>
+                            <Button
+                                onClick={handleChangeVideo}
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Video
+                            </Button>
+                        </Box>
+                        :
+                        <Button
+                            onClick={handleOpenVideoModal}
                             style={{
                                 marginBottom: 15,
                             }}
-                        >Remove Video
-                        </Button> 
-                    </Box>
-                    : 
-                    <Button 
-                        onClick={handleOpenVideoModal}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Update Video
-                    </Button>
-                }
+                        >Update Video
+                        </Button>
+                    }
                 </Box>
                 <Modal
                     open={openImageModal}
@@ -330,31 +301,31 @@ function EditPost({setEditMode, postId}) {
                         boxShadow: 10,
                         p: 4,
                     }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Photo Here!
-                    </Typography>
-                    {image.file ? 
-                        <h1>{image.file.name} Has Been Added!</h1>
-                        : 
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleSubmitImage}
-                            maxFiles={1}
-                            inputContent={(files, extra) => (extra.reject ? 
-                                'Image files only' 
-                                : 
-                                'Click or Drag 1 Image Here'
-                            )}
-                            styles={{
-                            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                            dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
-                            dropzoneActive: { borderColor: "green" }
-                            }}
-                            accept="image/*"
-                        />}
-                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Add Photo Here!
+                        </Typography>
+                        {image.file ?
+                            <h1>{image.file.name} Has Been Added!</h1>
+                            :
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmitImage}
+                                maxFiles={1}
+                                inputContent={(files, extra) => (extra.reject ?
+                                    'Image files only'
+                                    :
+                                    'Click or Drag 1 Image Here'
+                                )}
+                                styles={{
+                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                    dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
+                                    dropzoneActive: { borderColor: "green" }
+                                }}
+                                accept="image/*"
+                            />}
+                        {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                         Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
                     </Typography> */}
                     </Box>
@@ -381,39 +352,39 @@ function EditPost({setEditMode, postId}) {
                         boxShadow: 10,
                         p: 4,
                     }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Video Here!
-                    </Typography>
-                    {video.file ? 
-                        <h1>Video Added!</h1>
-                        : 
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleSubmitVideo}
-                            maxFiles={1}
-                            inputContent={(files, extra) => (extra.reject ? 
-                                'Video files only' 
-                                : 
-                                'Click or Drag 1 Video Here'
-                            )}
-                            styles={{
-                            dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                            inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                            dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
-                            dropzoneActive: { borderColor: "green" }
-                            }}
-                            accept="video/*"
-                        />}
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Add Video Here!
+                        </Typography>
+                        {video.file ?
+                            <h1>Video Added!</h1>
+                            :
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmitVideo}
+                                maxFiles={1}
+                                inputContent={(files, extra) => (extra.reject ?
+                                    'Video files only'
+                                    :
+                                    'Click or Drag 1 Video Here'
+                                )}
+                                styles={{
+                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                    dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
+                                    dropzoneActive: { borderColor: "green" }
+                                }}
+                                accept="video/*"
+                            />}
                     </Box>
                 </Modal>
                 <Box>
                     <Button variant="contained" onClick={handleClick} >Submit Post</Button>
                 </Box>
             </Box>
-            
-            
-            
+
+
+
             {/* <img src={image}/>
             <ReactPlayer 
                 url={image}
