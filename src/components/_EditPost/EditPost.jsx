@@ -30,7 +30,7 @@ import Dropzone from 'react-dropzone-uploader'
 // import for playing videos on dom
 import ReactPlayer from 'react-player'
 
-function EditPost({ setEditMode, postId }) {
+function EditPost({ setEditMode }) {
 
 
     const dispatch = useDispatch();
@@ -114,21 +114,8 @@ function EditPost({ setEditMode, postId }) {
 
     const handleClick = async () => {
 
-        dispatch({
-            type: 'UPDATE_POST',
+        
 
-            payload: {
-                title: editPost.title,
-                post: editPost.post,
-                image: image,
-                video: video,
-                outcome_id: editPost.outcome_id
-
-            }
-        });
-        dispatch({ type: 'GET_POST', payload: postId });
-        dispatch({ type: 'CLEAR_POST_EDIT' });
-        setEditMode(false);
         if (image.file) {
             // get secure url from our server
             const { url } = await fetch("/s3Url/image").then(res => res.json())
@@ -146,8 +133,6 @@ function EditPost({ setEditMode, postId }) {
             imageUrl = url.split('?')[0]
             console.log(imageUrl)
 
-        } else {
-            imageUrl = null;
         }
 
         if (video.file) {
@@ -164,9 +149,59 @@ function EditPost({ setEditMode, postId }) {
 
             videoUrl = url.split('?')[0]
             console.log(videoUrl)
-        } else {
-            videoUrl = null;
         }
+
+        // Check if new video or image has been added
+        // Update anything AND both image and video
+        if (image.file && video.file){
+            dispatch({
+                type: 'UPDATE_POST',
+
+                payload: {
+                    id: editPost.id,
+                    title: editPost.title,
+                    post: editPost.post,
+                    image: imageUrl,
+                    video: videoUrl,
+                    outcome_id: editPost.outcome_id
+
+                }
+            })
+        }
+        // Update anything AND image
+        else if (image.file) {
+            dispatch({
+                type: 'UPDATE_POST',
+
+                payload: {
+                    id: editPost.id,
+                    title: editPost.title,
+                    post: editPost.post,
+                    image: imageUrl,
+                    outcome_id: editPost.outcome_id
+
+                }
+            })
+        // Update anything AND video
+        } else if (video.file) {
+            dispatch({
+                type: 'UPDATE_POST',
+
+                payload: {
+                    id: editPost.id,
+                    title: editPost.title,
+                    post: editPost.post,
+                    video: videoUrl,
+                    outcome_id: editPost.outcome_id
+
+                }
+            })
+            // Update anything BUT image or video
+        } else {
+            dispatch({ type: 'UPDATE_POST', payload: editPost })
+        }
+        dispatch({ type: 'CLEAR_POST_EDIT' });
+        setEditMode(false);
     }
 
     return (
