@@ -25,13 +25,13 @@ function AdminPage() {
         <div>
             <h2>Manage Users</h2>
             {/* table to display all of the users */}
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} sx={{borderRadius: 5}}>
                 <Table sx={{ width: 750, margin: 'auto', borderRadius: 5, boxShadow: 5, mt: 5, mb: 5 }}>
                     <TableHead sx={{ backgroundColor: '#cfd8dc', borderBottom: 3, borderRadius: 5}}>
                         <TableRow>
-                            <TableCell align={'center'}>Username</TableCell>
+                            <TableCell sx={{borderTopLeftRadius: 5}} align={'center'}>Username</TableCell>
                             <TableCell align={'center'}>Promote/Demote</TableCell>
-                            <TableCell align={'center'}>Delete</TableCell>
+                            <TableCell sx={{borderTopRightRadius: 5}} align={'center'}>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
