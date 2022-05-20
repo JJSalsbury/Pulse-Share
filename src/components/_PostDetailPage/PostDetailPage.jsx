@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import ReactPlayer from 'react-player'
 
 // Material UI
-import { Box, Button, Container, Paper, Avatar, Typography } from '@mui/material'
+import { Box, Button, Container, Paper, Avatar, Typography, Chip } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -27,6 +27,7 @@ function PostDetailPage() {
 
     const user = useSelector(store => store.user);
     const post = useSelector(store => store.post);
+    const outcomesList = useSelector(store => store.outcomesListReducer);
 
     const [editMode, setEditMode] = useState(false);
 
@@ -140,9 +141,23 @@ function PostDetailPage() {
 
                             <Box>
                                 <Typography variant='h4'>{post.title}</Typography>
-                                <p>{post.date} {post.time}</p>
+
+                                <p>{post.date} {post.time}
+                                    <Chip
+                                        label={outcomesList[post.outcome_id - 1]?.outcome}
+                                        variant="outlined"
+                                        sx={{
+                                            color: '#4E9BB9',
+                                            border: '1px solid #4E9BB9',
+                                            marginLeft: '15px'
+                                        }}
+                                    />
+                                </p>
+
+
 
                                 <p>{post.post}</p>
+
                             </Box>
                         </Box>
 
@@ -153,22 +168,23 @@ function PostDetailPage() {
                                 margin: '15px'
                             }}
                         >
-                            <Box>
-                                {post.video &&
-                                    <ReactPlayer
-                                        url={post.video}
-                                        width='640px'
-                                        height='360px'
-                                        controls={true} />}
-                            </Box>
-                            <br />
-                            <Box>
-                                {post.image &&
-                                    <img
-                                        src={post.image}
-                                        maxheight='360px'
-                                        maxwidth='640px'
-                                    />}
+                            <Box
+                                sx={{
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Box>
+                                    {post.video &&
+                                        <ReactPlayer
+                                            url={post.video}
+                                            width='50vw'
+                                            height='360px'
+                                            controls={true} />}
+                                </Box>
+                                <br />
+                                <Box>
+                                    {post.image && <img src={post.image} />}
+                                </Box>
                             </Box>
 
                         </Box>
