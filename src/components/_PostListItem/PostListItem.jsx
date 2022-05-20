@@ -52,7 +52,13 @@ function PostListItem({post}) {
                 maxWidth: '60vw',
         }}>
             <ListItem alignItems="flex-start">
-            <ListItemAvatar >
+            <ListItemAvatar 
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                paddingRight: 3
+            }}>
                 <Avatar className="hoverForPointer" alt="Profile Picture" src={post.profile_picture} onClick={() => { history.push(`/profile/${post.user_id}`) }}/>
                 <Typography
                         component="span"
