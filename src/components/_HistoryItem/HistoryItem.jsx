@@ -56,12 +56,12 @@ function HistoryItem({ post }) {
     return (
         <>
             <ListItem
-            sx={{
-                
-                borderRadius: '7px',
-                padding: '7px',
-                
-            }}
+                sx={{
+
+                    borderRadius: '7px',
+                    padding: '7px',
+
+                }}
             >
                 <Box
                     component={Paper}
@@ -80,7 +80,6 @@ function HistoryItem({ post }) {
                         {/* clicking post title pushes user to that post */}
                         <h2 className="postTitle" onClick={() => { history.push(`/postDetail/${post.id}`) }}>{post.title}</h2>
                         <p>{post.date} {post.time}</p>
-
                         <p>{post.post}</p>
                     </Box>
 
