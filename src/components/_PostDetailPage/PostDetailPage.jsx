@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 import ReactPlayer from 'react-player'
 
 // Material UI
-import { Box, Button, Container, Paper, Avatar } from '@mui/material'
+import { Box, Button, Container, Paper, Avatar, Typography } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -139,7 +139,7 @@ function PostDetailPage() {
                             </Box>
 
                             <Box>
-                                <h2>{post.title}</h2>
+                                <Typography variant='h4'>{post.title}</Typography>
                                 <p>{post.date} {post.time}</p>
 
                                 <p>{post.post}</p>

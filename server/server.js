@@ -17,6 +17,7 @@ const profileRouter = require('./routes/profile.router');
 const commentRouter = require('./routes/comment.router')
 const rosterRouter = require('./routes/roster.router');
 const postRouter = require('./routes/post.router');
+const historyRouter = require('./routes/history.router');
 
 
 // Body parser middleware
@@ -36,6 +37,7 @@ app.use('/profile', profileRouter);
 app.use('/comment', commentRouter);
 app.use('/api/roster', rosterRouter);
 app.use('/post', postRouter);
+app.use('/history', historyRouter);
 
 
 // GET route for aws bucket url

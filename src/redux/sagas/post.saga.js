@@ -53,18 +53,29 @@ function* getPostDetails(action) {
     try {
         console.log('GETTING POST DETAILS', action.payload);
         const details = yield axios.get(`/post/${action.payload}`);
-        yield put({type: 'SET_POST', payload: details.data[0]});
+        yield put({ type: 'SET_POST', payload: details.data[0] });
     } catch (err) {
         console.log(err);
     }
 }
 
+// get user's previous posts
+function* getPostHistory() {
+    console.log('in getPostHistory');
+    try {
+        const postHistory = yield axios.get(`/history`);
+        yield put({ type: 'SET_POST_HISTORY', payload: postHistory.data });
+    } catch (err) {
+        console.log(`ERROR GETTING POST HISTORY`);
+    }
+}
 // Delete selected post
 function* deletePost(action) {
     try {
         console.log('IN DELETE SAGA');
         yield axios.delete(`/post/${action.payload}`)
         yield put({type: 'GET_ALL_POSTS'})
+        yield put({type: 'GET_POST_HISTORY'})
     } catch (err) {
         console.log(err);
     }
@@ -88,7 +99,7 @@ function* postSaga() {
     yield takeLatest('DELETE_POST', deletePost)
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
-    
+    yield takeLatest('GET_POST_HISTORY', getPostHistory);
 }
 
 export default postSaga;
