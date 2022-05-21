@@ -87,8 +87,8 @@ function HistoryItem({ post }) {
                         <Button
                             // click of view post button pushes user to that post
                             onClick={() => { history.push(`/postDetail/${post.id}`) }}
+                            color='primary'
                             sx={{
-                                backgroundColor: '#4E9BB9',
                                 margin: '2px'
                             }}
                             variant="contained"
@@ -99,8 +99,8 @@ function HistoryItem({ post }) {
                             onClick={handleDelete}
                             variant="contained"
                             className='buttons'
+                            color='error'
                             sx={{
-                                backgroundColor: 'red',
                                 margin: '2px'
                             }}
                         ><DeleteIcon /> Delete </Button>
