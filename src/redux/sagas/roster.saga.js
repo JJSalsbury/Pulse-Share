@@ -6,6 +6,7 @@ function* rosterSaga() {
     yield takeLatest('PROMOTE_USER', promoteUser);
     yield takeLatest('DEMOTE_USER', demoteUser);
     yield takeLatest('DELETE_USER', deleteUser);
+    yield takeLatest('SEARCH_FOR_USER', searchForUser);
 }
 
 function* getRoster(action) {
@@ -56,6 +57,17 @@ function* deleteUser(action) {
         console.log('ERROR DELETING USER');
 
     }
+}
+
+function* searchForUser(action) {
+    try {
+        const searches = yield axios.get('api/roster/search', action.payload)
+        yield put({ type: 'SET_SEARCHED_USER', payload: searches.data })
+    } catch {
+        console.log('ERROR SEARCHING FOR A USER');
+
+    }
+    
 }
 
 export default rosterSaga;
