@@ -91,7 +91,6 @@ function* updatePost(action) {
     }
 }
 
-
 function* postSaga() {
     yield takeLatest('GET_POST', getPostDetails);
     yield takeLatest('GET_ALL_POSTS', getAllPosts);
@@ -100,6 +99,7 @@ function* postSaga() {
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
     yield takeLatest('GET_POST_HISTORY', getPostHistory);
+
 }
 
 export default postSaga;

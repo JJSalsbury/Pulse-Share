@@ -36,6 +36,12 @@ function AddPostPage() {
             type: 'GET_OUTCOMES_LIST'
         });
         dispatch({
+            type: 'CLEAR_VIDEO'
+        })
+        dispatch({
+            type: 'CLEAR_IMAGE'
+        })
+        dispatch({
             type: 'CLEAR_POST'
         })
     }, []);
@@ -171,6 +177,19 @@ function AddPostPage() {
         } else {
             disabled = true;
         }
+    }
+
+    const cancelPost = () => {
+        dispatch({
+            type: 'CLEAR_VIDEO'
+        })
+        dispatch({
+            type: 'CLEAR_IMAGE'
+        })
+        dispatch({
+            type: 'CLEAR_POST'
+        })
+        history.push('/posts')
     }
     
     return (
@@ -397,7 +416,7 @@ function AddPostPage() {
                             margin: '2px'
                         }} 
                         variant="contained" 
-                        onClick={handleClick} 
+                        onClick={cancelPost} 
                     >Cancel</Button>
                 </Box>
             </Box>
