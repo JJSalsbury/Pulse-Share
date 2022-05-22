@@ -51,23 +51,31 @@ function AdminPage() {
     return (
         <div>
             <h2>Manage Users</h2>
-            <TextField
-                label="username"
-                helperText="SEARCH FOR A USER"
-                variant="filled"
-                value={searchUser}
-                onChange={(event) => handleChange(event)}
-            />
-            <Button
-                // click of delete button calls handleDelete function
-                onClick={handleReset}
-                variant="contained"
-                className='buttons'
-                color='error'
-                sx={{
-                    margin: '2px'
-                }}
-            >Reset Search</Button>
+            <Box
+            sx={{mt: 2, display: 'flex', justifyContent: 'space-around'}}
+            >
+                <Box>
+                    <TextField
+                        label="username"
+                        helperText="SEARCH FOR A USER"
+                        variant="filled"
+                        value={searchUser}
+                        onChange={(event) => handleChange(event)}
+                        sx={{width: 300}}
+                    />
+                    <Button
+                        // click of reset search button re-renders page and clears input
+                        onClick={handleReset}
+                        variant="contained"
+                        color='primary'
+                        sx={{
+                            margin: '2px',
+                            ml: 2,
+                            mt: 2
+                        }}
+                    >Reset Search</Button>
+                </Box>
+            </Box>
             {/* table to display all of the users */}
 
             <Table sx={{ width: 750, margin: 'auto', boxShadow: 5, mt: 5, mb: 5, borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
