@@ -20,14 +20,14 @@ function AdminPage() {
     const handleChange = (event) => {
 
         const user = {
-            userName: event.target.value
+            userName: event.target.value.toLowerCase()
         }
 
         dispatch({
             type: 'SEARCH_FOR_USER',
             payload: user
         })
-
+        console.log(user);
     }
     // useEffect gets all of the users and puts them in the rosterReducer
     useEffect(() => {

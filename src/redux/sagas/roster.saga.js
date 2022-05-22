@@ -60,14 +60,17 @@ function* deleteUser(action) {
 }
 
 function* searchForUser(action) {
+    const user = action.payload.userName;
+    console.log(user);
+    
     try {
-        const searches = yield axios.get('api/roster/search', action.payload)
+        const searches = yield axios.get(`/search/${user}`, action.payload)
         yield put({ type: 'SET_SEARCHED_USER', payload: searches.data })
     } catch {
         console.log('ERROR SEARCHING FOR A USER');
 
     }
-    
+
 }
 
 export default rosterSaga;
