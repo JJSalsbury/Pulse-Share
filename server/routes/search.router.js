@@ -13,7 +13,8 @@ router.get('/:user', rejectUnauthenticated, (req, res) => {
     
     if (req.user.access_level === 2) {
     const query = `SELECT * FROM "user"
-    WHERE LOWER ("username") LIKE $1;`;
+    WHERE LOWER ("username") LIKE $1
+    ORDER BY "access_level" DESC, "username";`;
     const values = [user];
     pool.query(query, values)
         .then(result => {
