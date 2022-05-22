@@ -24,12 +24,17 @@ function AdminPage() {
         const user = {
             userName: event.target.value.toLowerCase()
         }
-
-        dispatch({
-            type: 'SEARCH_FOR_USER',
-            payload: user
-        })
-        console.log(user);
+        if (user.userName.length < 1) {
+            dispatch({
+                type: 'GET_ROSTER'
+            })
+        } else {
+            dispatch({
+                type: 'SEARCH_FOR_USER',
+                payload: user
+            })
+            console.log(user);
+        }
     }
 
     const handleReset = () => {
@@ -54,15 +59,15 @@ function AdminPage() {
                 onChange={(event) => handleChange(event)}
             />
             <Button
-                            // click of delete button calls handleDelete function
-                            onClick={handleReset}
-                            variant="contained"
-                            className='buttons'
-                            color='error'
-                            sx={{
-                                margin: '2px'
-                            }}
-                        >Reset Search</Button>
+                // click of delete button calls handleDelete function
+                onClick={handleReset}
+                variant="contained"
+                className='buttons'
+                color='error'
+                sx={{
+                    margin: '2px'
+                }}
+            >Reset Search</Button>
             {/* table to display all of the users */}
 
             <Table sx={{ width: 750, margin: 'auto', boxShadow: 5, mt: 5, mb: 5, borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
