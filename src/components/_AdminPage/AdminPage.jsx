@@ -10,6 +10,8 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './AdminPage.css';
 import TextField from '@mui/material/TextField';
+import { Box, Button, ListItem } from '@mui/material'
+import { render } from 'react-dom';
 
 function AdminPage() {
     const user = useSelector(store => store.user);
@@ -29,6 +31,11 @@ function AdminPage() {
         })
         console.log(user);
     }
+
+    const handleReset = () => {
+        window.location.reload(false);
+
+    }
     // useEffect gets all of the users and puts them in the rosterReducer
     useEffect(() => {
         dispatch({
@@ -46,6 +53,16 @@ function AdminPage() {
                 value={searchUser}
                 onChange={(event) => handleChange(event)}
             />
+            <Button
+                            // click of delete button calls handleDelete function
+                            onClick={handleReset}
+                            variant="contained"
+                            className='buttons'
+                            color='error'
+                            sx={{
+                                margin: '2px'
+                            }}
+                        >Reset Search</Button>
             {/* table to display all of the users */}
 
             <Table sx={{ width: 750, margin: 'auto', boxShadow: 5, mt: 5, mb: 5, borderBottomLeftRadius: 5, borderBottomRightRadius: 5 }}>
