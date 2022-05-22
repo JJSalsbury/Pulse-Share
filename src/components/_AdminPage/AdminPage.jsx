@@ -15,7 +15,20 @@ function AdminPage() {
     const user = useSelector(store => store.user);
     const roster = useSelector(store => store.rosterReducer);
     const dispatch = useDispatch();
+    const [searchUser, setSearchUser] = useState();
 
+    const handleChange = (event) => {
+
+        const user = {
+            userName: event.target.value
+        }
+
+        dispatch({
+            type: 'SEARCH_FOR_USER',
+            payload: user
+        })
+
+    }
     // useEffect gets all of the users and puts them in the rosterReducer
     useEffect(() => {
         dispatch({
@@ -30,6 +43,8 @@ function AdminPage() {
                 label="username"
                 helperText="SEARCH FOR A USER"
                 variant="filled"
+                value={searchUser}
+                onChange={(event) => handleChange(event)}
             />
             {/* table to display all of the users */}
 
