@@ -7,11 +7,14 @@ const {
 
 router.get('/:user', rejectUnauthenticated, (req, res) => {
     console.log('user is:', req.params.user);
+    const user = `%${req.params.user}%`;
+    console.log(user);
+    
     
     if (req.user.access_level === 2) {
     const query = `SELECT * FROM "user"
-    WHERE LOWER ("username") LIKE %$1%;`;
-    const values = [req.params.user];
+    WHERE LOWER ("username") LIKE $1;`;
+    const values = [user];
     pool.query(query, values)
         .then(result => {
             res.send(result.rows);
