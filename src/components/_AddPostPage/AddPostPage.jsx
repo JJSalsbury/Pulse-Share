@@ -391,6 +391,14 @@ function AddPostPage() {
                         variant="contained" 
                         onClick={handleClick} 
                     >Submit Post</Button>
+                    <Button 
+                        sx={{
+                            backgroundColor: 'red',
+                            margin: '2px'
+                        }} 
+                        variant="contained" 
+                        onClick={handleClick} 
+                    >Cancel</Button>
                 </Box>
             </Box>
             {/* <img src={image}/>

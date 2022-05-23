@@ -207,6 +207,12 @@ function EditPost({ setEditMode }) {
         setEditMode(false);
     }
 
+    // Cancel edit input
+    const cancelEdit = () => {
+        setEditMode(false);
+        dispatch({ type: 'CLEAR_POST_EDIT' });
+    }
+
     return (
         <Container>
 
@@ -417,7 +423,22 @@ function EditPost({ setEditMode }) {
                     </Box>
                 </Modal>
                 <Box>
-                    <Button variant="contained" onClick={handleClick} >Submit Post</Button>
+                <Button
+                        variant="contained"
+                        onClick={handleClick}
+                        sx={{
+                            backgroundColor: '#4E9BB9',
+                            margin: '2px'
+                        }}
+                    >Submit Post</Button>
+                    <Button
+                        variant="contained"
+                        onClick={cancelEdit}
+                        sx={{
+                            backgroundColor: 'red',
+                            margin: '2px'
+                        }}
+                    >Cancel</Button>
                 </Box>
             </Box>
 
