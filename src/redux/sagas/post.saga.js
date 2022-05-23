@@ -12,7 +12,7 @@ function* getOutcomesList() {
     }
 }
 
-// saga getOutcomesList will get the list of outcomes from DB
+// saga getAllPosts will get the list of posts from DB
 function* getAllPosts() {
     try {
         const postList = yield axios.get('/post/postList');
@@ -40,7 +40,6 @@ function* createNewPost(action) {
         const postId = yield axios.post('/post', action.payload);
         yield put({type: 'GET_POST', payload: postId.data[0].id});
         yield action.payload.history.push(`/postDetail/${postId.data[0].id}`)
-
         yield put({type: 'CLEAR_IMAGE'})
         yield put({type: 'CLEAR_VIDEO'})
     } catch (error) {
