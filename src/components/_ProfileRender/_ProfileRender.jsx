@@ -10,6 +10,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 const profileRender = () => {
     useEffect(() => {
+        dispatch({type: 'CLEAR_PROFILE'})
         dispatch({ type: 'GET_PROFILE', payload: id });
     }, [id]);
 
