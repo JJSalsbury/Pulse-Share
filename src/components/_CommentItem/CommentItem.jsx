@@ -24,14 +24,23 @@ function CommentItem({ comment, postId }) {
     const handleSubmit = () => {
         console.log('save clicked');
 
-        editComment.post_id = id;
-
-        dispatch({
-            type: 'PUT_COMMENT',
-            payload: editComment
-        })
-        dispatch({ type: 'CLEAR_EDIT' });
-        setEditMode(!editMode);
+       if (editComment.comment === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please enter your comment in the comment field!',
+                footer: 'Please fill the comment field to submit.'
+            })
+        } else {
+            editComment.post_id = id;
+            dispatch({
+                type: 'PUT_COMMENT',
+                payload: editComment,
+                callback: setEditMode(true)
+            })
+        }
+        // dispatch({ type: 'CLEAR_EDIT',  });
+        // setEditMode(!editMode);
     }
 
     const handleChange = (event) => {
@@ -98,94 +107,94 @@ function CommentItem({ comment, postId }) {
                         <Avatar alt="profile picture" src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" /> :
                         <Avatar alt="profile picture" src={comment.profile_picture} />}
                     </ListItemAvatar>
-                    </Stack>
-                    {/* </Box> */}
-                    <React.Fragment>
-                        <Typography
-                            sx={{ display: 'inline' }}
-                            component="span"
-                            variant="body1"
-                            color="text.primary"
-                        >
-                            {comment.username}
-                            {/* <br /> */}
-                        </Typography>
-                        <Box
-                            sx={{
-                                justifyContent: 'space-evenly',
-                                display: 'flex-start'
-                            }}
-                        >
+                </Stack>
+                {/* </Box> */}
+                <React.Fragment>
+                    <Typography
+                        sx={{ display: 'inline' }}
+                        component="span"
+                        variant="body1"
+                        color="text.primary"
+                    >
+                        {comment.username}
+                        {/* <br /> */}
+                    </Typography>
+                    <Box
+                        sx={{
+                            justifyContent: 'space-evenly',
+                            display: 'flex-start'
+                        }}
+                    >
 
-                            <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
-                                <p>{comment.date} {comment.time}</p>
+                        <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
+                            <p>{comment.date} {comment.time}</p>
 
-                                {editMode ?
-                                    <p>"{comment.comment}"</p> :
-                                    <Box component={Paper}
+                            {editMode ?
+                                <p>"{comment.comment}"</p> :
+                                <Box component={Paper}
+                                    sx={{
+                                        border: '1px solid black',
+                                        borderRadius: '7px',
+                                        padding: '15px',
+                                    }}>
+                                    <Paper elevation={5}>
+                                        <Container className="commentContainer">
+                                            <Box>
+                                                <TextField
+                                                    elevation={15}
+                                                    fullWidth
+                                                    className="textField"
+                                                    id="outlined-multiline-flexible"
+                                                    label="Edit Your Comment"
+                                                    multiline
+                                                    maxRows={20}
+                                                    value={editComment.comment}
+                                                    onChange={(event) => handleChange(event)} type="text" placeholder="Comments"
+                                                />
+                                            </Box>
+                                        </Container>
+                                    </Paper>
+                                    <Button onClick={handleSubmit}
                                         sx={{
-                                            border: '1px solid black',
-                                            borderRadius: '7px',
-                                            padding: '15px',
-                                        }}>
-                                        <Paper elevation={5}>
-                                            <Container className="commentContainer">
-                                                <Box>
-                                                    <TextField
-                                                        elevation={15}
-                                                        fullWidth
-                                                        className="textField"
-                                                        id="outlined-multiline-flexible"
-                                                        label="Edit Your Comment"
-                                                        multiline
-                                                        maxRows={20}
-                                                        value={editComment.comment}
-                                                        onChange={(event) => handleChange(event)} type="text" placeholder="Comments"
-                                                    />
-                                                </Box>
-                                            </Container>
-                                        </Paper>
-                                        <Button onClick={handleSubmit}
-                                            sx={{
-                                                backgroundColor: '#4E9BB9',
-                                                margin: '2px',
-                                            }}
-                                            variant="contained"
-                                            className='buttons'
-                                        ><SendIcon /> Submit </Button>
-                                    </Box>}
-                            </Typography>
-                        </Box>
-                        <Box className="btn-holder">
-                            {user.id === comment.user_id ?
-                                <Button
-                                    sx={{
-                                        backgroundColor: '#4E9BB9',
-                                        margin: '2px',
-                                        marginBottom: '5px',
-                                    }}
-                                    variant="contained"
-                                    className='buttons'
-                                    onClick={handleCommentEdit}
-                                ><EditIcon /> Edit </Button> : <div></div>}
-                            {user.id === comment.user_id &&
-                                <Button
-                                    variant="contained"
-                                    className='buttons'
-                                    onClick={deleteComment}
-                                    sx={{
-                                        backgroundColor: 'red',
-                                        margin: '2px',
-                                        marginBottom: '5px'
-                                    }}
-                                ><DeleteIcon /> Delete </Button>}
-                        </Box>
-                    </React.Fragment>
+                                            backgroundColor: '#4E9BB9',
+                                            margin: '2px',
+                                        }}
+                                        variant="contained"
+                                        className='buttons'
+                                    ><SendIcon /> Submit </Button>
+                                </Box>}
+                        </Typography>
+                    </Box>
+                    <Box className="btn-holder">
+                        {user.id === comment.user_id ?
+                            <Button
+                                sx={{
+                                    backgroundColor: '#4E9BB9',
+                                    margin: '2px',
+                                    marginBottom: '5px',
+                                }}
+                                variant="contained"
+                                className='buttons'
+                                onClick={handleCommentEdit}
+                            ><EditIcon /> Edit </Button> : <div></div>}
+                        {(user.access_level >= 1 || user.id === comment.user_id) &&
+                            <Button
+                                variant="contained"
+                                className='buttons'
+                                onClick={deleteComment}
+                                sx={{
+                                    backgroundColor: 'red',
+                                    margin: '2px',
+                                    marginBottom: '5px'
+                                }}
+                            ><DeleteIcon /> Delete </Button>}
+                    </Box>
+                </React.Fragment>
 
-                    {/* <p>Comment: "{comment.comment}" </p> */}
-                    <br />
+                {/* <p>Comment: "{comment.comment}" </p> */}
+                <br />
 
-                    <Divider variant="inset" />
+                <Divider variant="inset" />
             </Container>
         </ListItem>
     )

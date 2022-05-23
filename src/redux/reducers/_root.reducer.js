@@ -36,7 +36,6 @@ const rootReducer = combineReducers({
   editPostReducer,
   postHistoryReducer,
   postListReducer,
-  comment,
 });
 
 export default rootReducer;

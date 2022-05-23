@@ -1,8 +1,8 @@
-//imports
+//Imports
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-//styling imports
+//Styling Imports
 import './AddCommentForm.css';
 import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box } from '@mui/material';
