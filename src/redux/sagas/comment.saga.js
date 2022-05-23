@@ -29,6 +29,8 @@ function* editComment(action) {
     try{
         yield axios.put(`/comment/${action.payload.id}`, action.payload);
         yield put({type: 'GET_COMMENTS', payload: action.payload.post_id});
+        yield put({type: 'CLEAR_EDIT'});
+        yield action.callback;
         console.log('EDIT Comment SAGA:', action.payload);
     }catch (error) {
         console.log('EDIT Comments error:', error);

@@ -28,10 +28,11 @@ function CommentItem({ comment, postId }) {
 
         dispatch({
             type: 'PUT_COMMENT',
-            payload: editComment
+            payload: editComment,
+            callback: setEditMode(true)
         })
-        dispatch({ type: 'CLEAR_EDIT' });
-        setEditMode(!editMode);
+        // dispatch({ type: 'CLEAR_EDIT',  });
+        // setEditMode(!editMode);
     }
 
     const handleChange = (event) => {
@@ -168,7 +169,7 @@ function CommentItem({ comment, postId }) {
                                     className='buttons'
                                     onClick={handleCommentEdit}
                                 ><EditIcon /> Edit </Button> : <div></div>}
-                            {user.id === comment.user_id &&
+                            {(user.access_level >= 1 || user.id === comment.user_id) &&
                                 <Button
                                     variant="contained"
                                     className='buttons'
