@@ -11,6 +11,9 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
 import './RosterMember.css'
+import NorthIcon from '@mui/icons-material/North';
+import SouthIcon from '@mui/icons-material/South';
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 
 
 
@@ -20,16 +23,27 @@ function RosterMember({ member }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const titleRender = () => {
+        if (member.access_level === 2) {
+            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Administrator</a>
+        } else if (member.access_level === 1) {
+            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Moderator</a>
+        } else if (member.access_level ===0 ) {
+            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a>
+        }
+
+    };
+
     // function to determine which button to render next to user, Admins will get an empty p tag
     const buttonRender = () => {
         if (member.access_level === 2) {
             return <p></p>;
         } else if (member.access_level === 1) {
             // if user access_level is 1, 'DEMOTE' button will render to call promoteUser function
-            return <Button sx={{ backgroundColor: 'red' }} variant={'contained'} onClick={demoteUser}>DEMOTE</Button>;
+            return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon fontSize='small'/> DEMOTE</Button>;
         } else if (member.access_level === 0) {
             // if user access_level is 0, 'PROMOTE' button will render to call promoteUser function
-            return <Button sx={{ backgroundColor: 'green' }} variant={'contained'} onClick={promoteUser}>PROMOTE</Button>;
+            return <Button color='success' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon fontSize='small'/> PROMOTE</Button>;
         }
 
     }
@@ -168,11 +182,11 @@ function RosterMember({ member }) {
         <>
             <TableRow>
                 {/* username is a link, onClick will push user to that person's profile page */}
-                <TableCell sx={{ width: 250 }} align={'center'}><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></TableCell>
+                <TableCell sx={{ width: 250 }} align={'center'}>{titleRender()}</TableCell>
                 {/* call buttonRender function to determine which button to render */}
                 <TableCell sx={{ width: 250 }} align={'center'}>{buttonRender()}</TableCell>
                 {/* if the username is for a profile that is not an Admin, a DELETE button will render to delete that user using deleteUser function*/}
-                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button sx={{ backgroundColor: 'black' }} variant={'contained'} onClick={deleteUser}>DELETE</Button> : <p></p>}</TableCell>
+                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button color='common' sx={{ backgroundColor: 'black', boxShadow: 1, color: 'white' }} variant={'contained'} onClick={deleteUser}><DisabledByDefaultIcon fontSize='small'/>DELETE USER</Button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )
