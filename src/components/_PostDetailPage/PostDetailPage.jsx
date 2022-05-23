@@ -147,7 +147,8 @@ function PostDetailPage() {
                                         label={outcomesList[post.outcome_id - 1]?.outcome}
                                         variant="outlined"
                                         sx={{
-                                            color: '#4E9BB9',
+                                            bgcolor: '#4E9BB9',
+                                            color: 'white',
                                             border: '1px solid #4E9BB9',
                                             marginLeft: '15px'
                                         }}

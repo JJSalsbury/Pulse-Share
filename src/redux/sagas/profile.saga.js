@@ -11,8 +11,29 @@ function* getProfile(action) {
 
     }
 }
+
+// deletes users entire profile
+
+function* deleteProfile(action) {
+    const id = action.payload;
+    console.log('delete profile saga id:', id);
+    try {
+        yield axios.delete(`/profile/${id}`)
+        yield put ({type: 'SET_USER'})
+    } catch (error) {
+        console.log('error in delete profile catch', error);
+        
+    }
+    
+    
+}
+
+
+
 function* profileSaga() {
     yield takeEvery('GET_PROFILE', getProfile)
-
+    yield takeEvery('DELETE_USER', deleteProfile)
 }
+
+
 export default profileSaga;

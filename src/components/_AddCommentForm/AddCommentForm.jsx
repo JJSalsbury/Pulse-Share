@@ -11,10 +11,13 @@ import SendIcon from '@mui/icons-material/Send';
 
 function AddCommentForm({ postId }) {
   const dispatch = useDispatch();
-  const user = useSelector(store => store.user);
+  // const user = useSelector(store => store.user);
   //     const history = useHistory();
 
   let [newComment, setNewComment] = useState('');
+  // const editComment = useSelector(store => store.commentReducer);
+
+
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -23,15 +26,9 @@ function AddCommentForm({ postId }) {
     dispatch({
       type: 'CREATE_NEW_COMMENT',
       payload: { post_id: postId, comment: newComment }
-    })
-    // //Onclick, push new location to useHistory, changed location.
-    // history.push('/comments');
+    });
+    setNewComment('');
   }
-  // const user = useSelector((store) => store.user);
-  // useEffect(() => {
-  // dispatch({ type: 'CREATE_NEW_COMMENT' });
-  // }, []);
-
 
   return (
     <div className="container">
@@ -50,49 +47,26 @@ function AddCommentForm({ postId }) {
                 fullWidth
                 className="textField"
                 id="outlined-multiline-flexible"
-                label="Add Comment Here"
+                label="Add Comment"
                 multiline
                 maxRows={20}
                 value={newComment}
                 onChange={(event) => setNewComment(event.target.value)} type="text" placeholder="Comments"
               />
-              {/* <Box className="btn-holder">
-                    {user.id === comment.user_id &&
-                        <Button
-                            sx={{
-                                backgroundColor: '#4E9BB9',
-                                margin: '2px'
-                            }}
-                            variant="contained"
-                            className='buttons'
-                        ><EditIcon /> Edit </Button>}
-                    {user.id === comment.user_id &&
-                        <Button
-                            variant="contained"
-                            className='buttons'
-                            sx={{
-                                backgroundColor: 'red',
-                                margin: '2px'
-                            }}
-                        ><DeleteIcon /> Delete </Button>}
-                </Box> */}
-
             </Box>
           </Container>
         </Paper>
-      <Button onClick={handleChange}
-                            sx={{
-                                backgroundColor: '#4E9BB9',
-                                margin: '2px',
-                            }}
-                            variant="contained"
-                            className='buttons'
-                        ><SendIcon /> Submit </Button>
+        <Button onClick={handleChange}
+          sx={{
+            backgroundColor: '#4E9BB9',
+            margin: '2px',
+          }}
+          variant="contained"
+          className='buttons'
+        ><SendIcon /> Submit </Button>
       </Box>
-
     </div>
   )
-
 }
 
 export default AddCommentForm;

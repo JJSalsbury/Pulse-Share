@@ -1,5 +1,5 @@
 const editProfileReducer = (state={}, action) => {
-    if (action.type === 'SET_PROFILE_T0_EDIT') {
+    if (action.type === 'SET_PROFILE_TO_EDIT') {
         console.log(action.payload);
         return action.payload;
     }  else if (action.type === 'EDIT_PRIVACY') {
