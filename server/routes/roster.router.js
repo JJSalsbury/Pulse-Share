@@ -59,7 +59,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
     if (req.user.access_level === 2) {
     const query = `DELETE FROM "user" 
-    WHERE "id" = $1;`;
+    WHERE "id" = $1 AND "access_level" < 2;`;
     const values = [req.params.id];
     pool.query(query, values)
         .then(result => {
