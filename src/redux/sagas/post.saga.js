@@ -100,7 +100,7 @@ function* updatePost(action) {
         yield put({type: 'CLEAR_POST_EDIT'})
         yield put({type: 'CLEAR_IMAGE'});
         yield put({type: 'CLEAR_VIDEO'});
-        yield action.callback();
+        yield action.callback;
     } catch (err) {
         console.log(err);
     }
