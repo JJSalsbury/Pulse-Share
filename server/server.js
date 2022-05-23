@@ -3,13 +3,8 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const app = express();
-
 const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
-
-// import for s3.js - creates url route for aws bucket
-const s3Image = require('./s3Image');
-const s3Video = require('./s3Video')
 
 // Route includes
 const userRouter = require('./routes/user.router');
@@ -18,6 +13,8 @@ const commentRouter = require('./routes/comment.router')
 const rosterRouter = require('./routes/roster.router');
 const postRouter = require('./routes/post.router');
 const historyRouter = require('./routes/history.router');
+const searchRouter = require('./routes/search.router');
+const s3Router = require('./routes/s3.router')
 
 
 // Body parser middleware
@@ -38,18 +35,8 @@ app.use('/comment', commentRouter);
 app.use('/api/roster', rosterRouter);
 app.use('/post', postRouter);
 app.use('/history', historyRouter);
-
-
-// GET route for aws bucket url
-app.get('/s3Url/image', async (req, res) => {
-  const url = await s3Image();
-  res.send({url})
-})
-
-app.get('/s3Url/video', async (req, res) => {
-  const url = await s3Video();
-  res.send({url})
-})
+app.use('/search', searchRouter);
+app.use('/s3Url', s3Router);
 
 // Serve static files
 app.use(express.static('build'));

@@ -204,7 +204,7 @@ function ProfilePage({ profileId }) {
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({ type: 'DELETE_USER', payload: user.id })
+                dispatch({ type: 'DELETE_PROFILE', payload: user.id })
                 //history.push('/profile') 
                 Swal.fire({
                     background: 'white',

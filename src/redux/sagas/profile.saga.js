@@ -32,7 +32,7 @@ function* deleteProfile(action) {
 
 function* profileSaga() {
     yield takeEvery('GET_PROFILE', getProfile)
-    yield takeEvery('DELETE_USER', deleteProfile)
+    yield takeEvery('DELETE_PROFILE', deleteProfile)
 }
 
 
