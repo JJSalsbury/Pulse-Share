@@ -239,7 +239,9 @@ function ProfilePage({ profileId }) {
                     padding: 3,
                     display: 'inline-block',
                     margin: 1,
-                    boxShadow: 10
+                    boxShadow: 10,
+                    overflow: 'auto',
+                    maxheight: '35vw'
 
                 }}>
 
@@ -341,7 +343,7 @@ function ProfilePage({ profileId }) {
 
                     <Box><strong>User Name: </strong>{profile.username}</Box>
                     <Box><strong>Pronouns: </strong></Box>
-                    {editMode ? <input
+                    {editMode ? <TextField
                         type="text"
                         value={editProfile.pronouns}
                         onChange={(event) => handleChange(event, 'pronouns')}
@@ -350,14 +352,14 @@ function ProfilePage({ profileId }) {
 
 
                     <Box> <strong> Location: </strong></Box>
-                    {editMode ? <input
+                    {editMode ? <TextField
                         type="text"
                         value={editProfile.location}
                         onChange={(event) => handleChange(event, 'location')}
                     /> : <Box>{profile.location}</Box>}
 
                     <Box>  <strong>Job Title: </strong></Box>
-                    {editMode ? <input
+                    {editMode ? <TextField
                         type="text"
                         value={editProfile.job_title}
                         onChange={(event) => handleChange(event, 'job_title')}
@@ -365,7 +367,7 @@ function ProfilePage({ profileId }) {
 
                     <Box>    <strong>Company: </strong></Box>
 
-                    {editMode ? <input
+                    {editMode ? <TextField
                         type="text"
                         value={editProfile.company}
                         onChange={(event) => handleChange(event, 'company')}
@@ -374,7 +376,7 @@ function ProfilePage({ profileId }) {
                     {/* <h2>Contact Info</h2>
                         <div><strong>Email: </strong>{user.email}</div> */}
                 </Paper>
-
+                {/* ABOUT ME STYLING HERE */}
                 <Paper sx={{
                     gap: 2,
                     borderRadius: 2,
@@ -383,7 +385,7 @@ function ProfilePage({ profileId }) {
                     display: 'inline-block',
                     boxShadow: 10,
                     flex: 'auto',
-                    minWidth: '50vw',
+                    minWidth: '30vw',
                     maxWidth: '50vw'
 
                 }}>
@@ -398,12 +400,12 @@ function ProfilePage({ profileId }) {
                             maxRows={5}
                             fullWidth
                             onChange={(event) => handleChange(event, 'about_me')}
-                        /> : <Box>{profile.about_me}</Box>}
+                        /> : <Box sx={{ overflowY: 'scroll', height: '20vw' }}>{profile.about_me}</Box>}
                     </Box>
                 </Paper>
             </Grid>
 
-
+            {/* DEVICE STYLING HERE */}
             <Grid>
                 <Box>
                     <Paper sx={{
@@ -415,44 +417,45 @@ function ProfilePage({ profileId }) {
                         boxShadow: 10,
                         margin: 1,
                         flex: 'auto',
-                        minWidth: '15vw',
-                        maxWidth: '50vw'
-
+                        minWidth: '50vw',
+                        maxWidth: '50vw',
+                        overflowY: 'scroll',
+                        height: '20vw'
 
                     }}>
 
                         <h3>Device Information</h3>
 
                         <Box><strong>Device: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.device}
                             onChange={(event) => handleChange(event, 'device')}
-                        /> : <span>{profile.device}</span>}
+                        /> : <Box>{profile.device}</Box>}
 
 
                         <Box><strong>Device Settings: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.device_settings}
                             onChange={(event) => handleChange(event, 'device_settings')}
-                        /> : <span>{profile.device_settings}</span>}
+                        /> : <Box>{profile.device_settings}</Box>}
 
 
                         <Box><strong>Baseline: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.baseline}
                             onChange={(event) => handleChange(event, 'baseline')}
-                        /> : <span>{profile.baseline}</span>}
+                        /> : <Box>{profile.baseline}</Box>}
 
 
                         <Box><strong>Improvements: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.improvements}
                             onChange={(event) => handleChange(event, 'improvements')}
-                        /> : <span>{profile.improvements}</span>}
+                        /> : <Box>{profile.improvements}</Box>}
 
                     </Paper>
 
@@ -460,7 +463,7 @@ function ProfilePage({ profileId }) {
 
 
 
-
+                    {/* BIOMETRICS STYLING HERE */}
                     <Paper sx={{
                         gap: 2,
                         borderRadius: 2,
@@ -470,9 +473,11 @@ function ProfilePage({ profileId }) {
                         margin: 1,
                         boxShadow: 10,
                         flex: 'auto',
-                        minWidth: '15vw',
+                        minWidth: '50vw',
                         maxWidth: '50vw',
-                        maxHeight: '30vw'
+                        overflowY: 'scroll',
+                        height: '20vw'
+
 
 
 
@@ -484,71 +489,75 @@ function ProfilePage({ profileId }) {
 
 
                         <Box><strong>Age: </strong></Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.age}
                             onChange={(event) => handleChange(event, 'age')}
-                        /> : <span>{profile.age}</span>}
+                        /> : <Box>{profile.age}</Box>}
 
 
 
                         <Box><strong>Height: </strong>  </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.height}
                             onChange={(event) => handleChange(event, 'height')}
-                        /> : <span>{profile.height}</span>}
+                        /> : <Box>{profile.height}</Box>}
 
 
 
                         <Box><strong>Weight: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.weight}
                             onChange={(event) => handleChange(event, 'weight')}
-                        /> : <span>{profile.weight}</span>}
+                        /> : <Box>{profile.weight}</Box>}
 
 
 
 
                         <Box><strong>Biological Gender: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.biological_gender}
                             onChange={(event) => handleChange(event, 'biological_gender')}
-                        /> : <span>{profile.biological_gender}</span>}
+                        /> : <Box>{profile.biological_gender}</Box>}
 
 
                         <Box><strong>Injury Level: </strong>  </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.injury_level}
                             onChange={(event) => handleChange(event, 'injury_level')}
-                        /> : <span>{profile.injury_level}</span>}
+                        /> : <Box>{profile.injury_level}</Box>}
 
 
 
                         <Box><strong>Aisa Level:</strong>  </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
                             value={editProfile.aisa_level}
                             onChange={(event) => handleChange(event, 'aisa_level')}
-                        /> : <span>{profile.aisa_level}</span>}
-                        
+                        /> : <Box>{profile.aisa_level}</Box>}
+
                         <Box><strong>Time Since Injury: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
+                            multiline
                             value={editProfile.time_since_injury}
                             onChange={(event) => handleChange(event, 'time_since_injury')}
-                        /> : <span>{profile.time_since_injury}</span>}
+                        /> : <Box>{profile.time_since_injury}</Box>}
 
 
                         <Box><strong>Medical Condition: </strong> </Box>
-                        {editMode ? <input
+                        {editMode ? <TextField
                             type="text"
+                            multiline
+                            maxRows={5}
+                            fullWidth
                             value={editProfile.medical_conditions}
                             onChange={(event) => handleChange(event, 'medical_conditions')}
-                        /> : <span>{profile.medical_conditions}</span>}
+                        /> : <Box >{profile.medical_conditions}</Box>}
 
 
                     </Paper>
@@ -568,7 +577,7 @@ function ProfilePage({ profileId }) {
                         >
                             <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
                             <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
-                            <FormControlLabel value={2} control={<Radio />} label="Private" />
+                            <FormControlLabel value={2} control={<Radio />} label="Private, no one can see profile details." />
                         </RadioGroup>
                     </FormControl> : ''
             }
