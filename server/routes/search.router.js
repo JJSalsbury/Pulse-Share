@@ -7,7 +7,7 @@ const {
 
 router.get('/:user', rejectUnauthenticated, (req, res) => {
     console.log('user is:', req.params.user);
-    const user = `%${req.params.user}%`;
+    const user = `${req.params.user}%`;
     console.log(user);
     
     
