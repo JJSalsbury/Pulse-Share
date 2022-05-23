@@ -3,8 +3,8 @@ const rosterReducer = (state = [], action) => {
         case 'SET_ROSTER':
             return action.payload;
         case 'SET_SEARCHED_USER':
-            return action.payload;    
-        case 'RESET_ALL':
+            return action.payload;
+        case 'LOGOUT':
             return [];
         default:
             return state;

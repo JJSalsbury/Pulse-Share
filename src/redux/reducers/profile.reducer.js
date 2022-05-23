@@ -1,7 +1,9 @@
-const profileReducer = (state= {}, action )=>{
-    if (action.type === 'SET_PROFILE'){
+const profileReducer = (state = {}, action) => {
+    if (action.type === 'SET_PROFILE') {
         return action.payload;
-    }else{
+    } else if (action.type === 'LOGOUT')
+        return {};
+    else {
         return state;
     }
 }

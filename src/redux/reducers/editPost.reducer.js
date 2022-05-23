@@ -9,6 +9,8 @@ const editPostReducer = (state = {}, action) => {
         };
     } else if (action.type === 'CLEAR_POST_EDIT') {
         return {};
+    } else if (action.type === 'LOGOUT') {
+        return {};
     }
     return state;
 }
