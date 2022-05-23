@@ -4,6 +4,8 @@ const postReducer = (state = {}, action) => {
         return action.payload;
       case 'CLEAR_POST':
         return {};
+      case 'LOGOUT':
+        return {};
       default:
         return state;
     }

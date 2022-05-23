@@ -8,10 +8,6 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
-  const sendToProfile = () => {
-    history.push(`/profile/${user.id}`)
-  }
-
   return (
     <div className="nav">
       <Link to="/home">
