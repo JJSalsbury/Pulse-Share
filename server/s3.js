@@ -28,4 +28,27 @@ async function generateUploadURL(mediaType) {
     return uploadURL;
 }
 
-module.exports = generateUploadURL;
+async function objectDeleter(objectToDelete) {
+    const params = {
+        Bucket: bucketName,
+        Key: objectToDelete //if any sub folder-> path/of/the/folder.ext
+    }
+
+    try {
+        await s3.headObject(params).promise()
+        console.log("File Found in S3")
+        try {
+            await s3.deleteObject(params).promise()
+            console.log("file deleted Successfully")
+            return "file deleted";
+        } catch (err) {
+            console.log("ERROR in file Deleting : " + JSON.stringify(err))
+            return "ERROR in file Deleting : " + JSON.stringify(err);
+        }
+    } catch (err) {
+            console.log("File not Found ERROR : " + err.code)
+            return "File not Found ERROR : " + err.code
+    }
+}
+
+module.exports = { generateUploadURL, objectDeleter };

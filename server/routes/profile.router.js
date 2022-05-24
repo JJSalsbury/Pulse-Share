@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
   "profiles".user_id
   FROM "profiles"
   JOIN "user" ON "profiles".user_id = "user".id
-  WHERE "profiles".user_id =$1;`
+  WHERE "profiles".user_id = $1;`
   
   pool.query(query, [req.params.id])
 // security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
@@ -84,7 +84,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
   "injury_level" = $4, "aisa_level" = $5, "time_since_injury" = $6, "baseline" = $7,
   "improvements" = $8,"location" = $9,"job_title" = $10,"company" = $11,"about_me" = $12,
   "contact" = $13,"biological_gender" = $14,"age" = $15,"pronouns" = $16,"height" = $17,
-  "weight" = $18,  "medical_conditions" = $19, "public" = $20 WHERE "id" = $21;`;
+  "weight" = $18,  "medical_conditions" = $19, "public" = $20 WHERE "user_id" = $21;`;
 
   const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
   update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
