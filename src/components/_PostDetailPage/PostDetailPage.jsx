@@ -211,7 +211,9 @@ function PostDetailPage() {
                                                 controls={true} />}
                                     </Box>
                                     <br />
-                                    <Box>
+                                    <Box
+                                        component='image'
+                                    >
                                         {post.image && <img src={post.image} />}
                                     </Box>
                                 </Box>

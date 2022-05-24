@@ -73,4 +73,12 @@ VALUES ('Legs'), ('Arms'), ('Trunk/Core'), ('Sensation'), ('Blood Pressure'), ('
 
 -- temp data
 INSERT INTO "posts" ("date", "time", "title", "post", "user_id", "outcome_id")
-VALUES ('05/06/2022', '15:00', 'Looking for a good setting for low blood ressure', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 1), ('05/07/2022', '15:30', 'I reduced my leg pain with these settings', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 13, 2), ('05/06/2022', '15:00', 'Trying to increase arm mobility', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 3), ('05/08/2022', '17:00', 'Tips for improving sensation?', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 13, 4), ('05/010/2022', '21:00', 'Best pain relief settings?', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 5);
+VALUES ('05/06/2022', '15:00', 'Looking for a good setting for low blood ressure', 'Lorem ipsum dolor sit amet, 
+consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 1), 
+('05/07/2022', '15:30', 'I reduced my leg pain with these settings', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 13, 2), 
+('05/06/2022', '15:00', 'Trying to increase arm mobility', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 3), 
+('05/08/2022', '17:00', 'Tips for improving sensation?', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 13, 4), ('05/010/2022', '21:00', 'Best pain relief settings?', 
+'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', 12, 5);
