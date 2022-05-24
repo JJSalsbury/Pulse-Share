@@ -25,9 +25,12 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
-    Grid
+    Grid,
+    Stack,
+
 } from '@mui/material';
-import { display, maxWidth, width } from '@mui/system';
+
+import { display, maxWidth, width, spacing } from '@mui/system';
 
 
 
@@ -99,17 +102,6 @@ function ProfilePage({ profileId }) {
         })
         setEditMode(!editMode);
     }
-
-    // const handleSubmit = () => {
-    //     console.log('save clicked');
-
-    //     dispatch({
-    //         type: 'PUT_PROFILE',
-    //         payload: editProfile
-    //     })
-    //     dispatch({ type: 'CLEAR_EDIT' });
-    //     setEditMode(!editMode);
-    // }
 
 
 
@@ -229,20 +221,24 @@ function ProfilePage({ profileId }) {
         <>
 
 
-
-            <Grid>
+ {/* STYLING FOR profile pic, pronouns, location, job title, company  */}
+            <Stack
+                direction='row'
+                spacing={2}
+                justifyContent="center"
+                alignItems="center"
+    
+                >
 
                 <Paper sx={{
-                    gap: 2,
+
                     borderRadius: 2,
-                    border: 1,
                     padding: 3,
-                    display: 'inline-block',
-                    margin: 1,
+                    ml: 3,
                     boxShadow: 10,
                     overflow: 'auto',
-                    maxheight: '35vw',
-
+                    maxWidth: '35vw',
+                    height: '40vh'
 
                 }}>
 
@@ -346,7 +342,7 @@ function ProfilePage({ profileId }) {
                         width: '300px',
                         hyphens: 'auto',
                         wordWrap: 'break-word',
-                        
+
                     }}>
                         <strong>User Name: </strong>{profile.username}
                     </Box>
@@ -386,18 +382,16 @@ function ProfilePage({ profileId }) {
                     {/* <h2>Contact Info</h2>
                         <div><strong>Email: </strong>{user.email}</div> */}
                 </Paper>
-                {/* ABOUT ME STYLING HERE */}
-                <Paper sx={{
-                    gap: 2,
-                    borderRadius: 2,
-                    border: 1,
-                    padding: 3,
-                    display: 'inline-block',
-                    boxShadow: 10,
-                    flex: 'auto',
-                    minWidth: '30vw',
-                    maxWidth: '50vw'
 
+
+
+{/* ABOUT ME STYLING HERE */}
+                <Paper sx={{
+                    borderRadius: 2,
+                    padding: 3,
+                    boxShadow: 10,
+                    maxWidth: '55vw',
+                    height: '40vh'
                 }}>
 
                     <h3>About Me</h3>
@@ -407,31 +401,36 @@ function ProfilePage({ profileId }) {
                             type="text"
                             value={editProfile.about_me}
                             multiline
-                            maxRows={5}
+                            maxRows={12}
                             fullWidth
                             onChange={(event) => handleChange(event, 'about_me')}
-                        /> : <Box sx={{ overflowY: 'scroll', height: '20vw' }}>{profile.about_me}</Box>}
+                        /> : <Box sx={{ overflowY: 'scroll' }}>{profile.about_me}</Box>}
                     </Box>
                 </Paper>
-            </Grid>
+            </Stack>
 
-            {/* DEVICE STYLING HERE */}
-            <Grid>
-                <Box>
+ {/* DEVICE STYLING HERE */}
+            <Stack
+            direction='row'
+            spacing={2}
+            sx={{mt:2}}
+            justifyContent="center"
+            alignItems="center"
+
+            >
+                
                     <Paper sx={{
-                        gap: 2,
+                    
                         borderRadius: 2,
-                        border: 1,
                         padding: 3,
-                        display: 'inline-block',
                         boxShadow: 10,
-                        margin: 1,
-                        flex: 'auto',
-                        minWidth: '50vw',
-                        maxWidth: '50vw',
+                        minWidth: '35vw',
+                        maxWidth: '40vw',
                         overflowY: 'scroll',
-                        height: '20vw'
+                        ml: 3,
+                        height: '40vh'
 
+                        
                     }}>
 
                         <h3>Device Information</h3>
@@ -464,6 +463,8 @@ function ProfilePage({ profileId }) {
                         {editMode ? <TextField
                             type="text"
                             value={editProfile.improvements}
+                            multiline
+                            maxRows={6}
                             onChange={(event) => handleChange(event, 'improvements')}
                         /> : <Box>{profile.improvements}</Box>}
 
@@ -473,27 +474,19 @@ function ProfilePage({ profileId }) {
 
 
 
-                    {/* BIOMETRICS STYLING HERE */}
+ {/* BIOMETRICS STYLING HERE */}
                     <Paper sx={{
-                        gap: 2,
                         borderRadius: 2,
-                        border: 1,
                         padding: 3,
-                        display: 'inline-block',
-                        margin: 1,
                         boxShadow: 10,
-                        flex: 'auto',
-                        minWidth: '50vw',
-                        maxWidth: '50vw',
+                        minWidth: '35vw',
+                        maxWidth: '40vw',
                         overflowY: 'scroll',
-                        height: '20vh'
-
-
-
-
-
-
+                        height: '40vh'
                     }}>
+
+
+
 
                         <h3>Biometrics</h3>
 
@@ -571,8 +564,8 @@ function ProfilePage({ profileId }) {
 
 
                     </Paper>
-                </Box>
-            </Grid>
+                
+            </Stack>
 
 
             {
