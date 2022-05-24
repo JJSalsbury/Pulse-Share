@@ -18,8 +18,10 @@ function* deleteProfile(action) {
     const id = action.payload;
     console.log('delete profile saga id:', id);
     try {
-        yield axios.delete(`/profile/${id}`)
-        yield put ({type: 'SET_USER'})
+        yield axios.delete(`/profile`)
+        yield put ({type: 'LOGOUT'})
+        yield action.payload.push("/home")
+
     } catch (error) {
         console.log('error in delete profile catch', error);
         

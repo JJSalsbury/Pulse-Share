@@ -205,7 +205,7 @@ function ProfilePage({ profileId }) {
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({ type: 'DELETE_USER', payload: user.id })
+                dispatch({ type: 'DELETE_PROFILE', payload: history })
                 history.push('/profile/:id')
                 Swal.fire({
                     background: 'white',
@@ -241,7 +241,8 @@ function ProfilePage({ profileId }) {
                     margin: 1,
                     boxShadow: 10,
                     overflow: 'auto',
-                    maxheight: '35vw'
+                    maxheight: '35vw',
+
 
                 }}>
 
@@ -341,7 +342,16 @@ function ProfilePage({ profileId }) {
 
 
 
-                    <Box><strong>User Name: </strong>{profile.username}</Box>
+                    <Box sx={{
+                        width: '300px',
+                        hyphens: 'auto',
+                        wordWrap: 'break-word',
+                        
+                    }}>
+                        <strong>User Name: </strong>{profile.username}
+                    </Box>
+
+
                     <Box><strong>Pronouns: </strong></Box>
                     {editMode ? <TextField
                         type="text"
@@ -587,7 +597,7 @@ function ProfilePage({ profileId }) {
                 user.id == profileId && <Container>
                     <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={toPostHistory}>Post History</Button >
                     {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                    {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={handleDelete}>Delete Profile</Button> : ''}
+                    {editMode ? <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={handleDelete}>Delete Account</Button> : ''}
                 </Container>
             }
 

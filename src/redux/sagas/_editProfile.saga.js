@@ -38,7 +38,7 @@ function* updateProfile(action) {
     try{
         console.log('update profile action.payload', action.payload);
         yield axios.put(`/profile/${action.payload.id}`, action.payload)
-        yield put({type: 'GET_PROFILE', payload: action.payload.id})
+        yield put({type: 'GET_PROFILE', payload: action.payload.user_id})
     }catch (error) {
         console.log(error);
         

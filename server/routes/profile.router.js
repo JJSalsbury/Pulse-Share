@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
   "profiles".user_id
   FROM "profiles"
   JOIN "user" ON "profiles".user_id = "user".id
-  WHERE "profiles".id =$1;`
+  WHERE "profiles".user_id = $1;`
   
   pool.query(query, [req.params.id])
 // security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
@@ -99,11 +99,11 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 });
 
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
+router.delete('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
   console.log('DELETE id:', id);
 
-  const query = `DELETE FROM "user" WHERE id = $1`;
+  const query = `DELETE FROM "user" WHERE "id" = $1`;
   values = [id];
   pool.query(query, values)
     .then(() => { res.sendStatus(200); })
