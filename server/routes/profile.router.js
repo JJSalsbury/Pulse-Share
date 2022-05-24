@@ -4,33 +4,61 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
+const { user } = require('pg/lib/defaults');
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
-  // GET route code here
-});
-// get specific users profile information for profile page
+
+
+
+// get specific users profile information for profile page profiles table joined to user table
+
 router.get('/:id', (req, res) => {
-  const query = `SELECT "user".username, "profiles".id, "profiles".profile_picture, "profiles".device, "profiles".device_settings,
-  "profiles".injury_level,"profiles".aisa_level,"profiles".time_since_injury,"profiles".baseline,"profiles".improvements,"profiles".location,
-  "profiles".job_title,"profiles".company,"profiles".about_me,"profiles".contact,
-  "profiles".biological_gender,"profiles".age,"profiles".pronouns,"profiles".height,"profiles".weight,"profiles".medical_conditions,"profiles".public, "profiles".user_id
+  const query = `SELECT "user".username,
+  "profiles".id,
+  "profiles".profile_picture,
+  "profiles".device, 
+  "profiles".device_settings,
+  "profiles".injury_level,
+  "profiles".aisa_level,
+  "profiles".time_since_injury,
+  "profiles".baseline,
+  "profiles".improvements,
+  "profiles".location,
+  "profiles".job_title,
+  "profiles".company,
+  "profiles".about_me,
+  "profiles".contact,
+  "profiles".biological_gender,
+  "profiles".age,
+  "profiles".pronouns,
+  "profiles".height,
+  "profiles".weight,
+  "profiles".medical_conditions,
+  "profiles".public, 
+  "profiles".user_id
   FROM "profiles"
-                JOIN "user" ON "profiles".user_id = "user".id
-                WHERE "profiles".user_id =$1;`
-
+  JOIN "user" ON "profiles".user_id = "user".id
+  WHERE "profiles".user_id =$1;`
+  
   pool.query(query, [req.params.id])
-    .then((results) => res.send(results.rows))
-    .catch((err) => {
-      console.log('Error in PROFILE GET', err);
+// security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
+    .then((results) => {
+      if (results.rows[0].public === 0) {
+        res.send(results.rows)
+      } else if (results.rows[0].public === 1 && req.user.id) {
+        res.send(results.rows)
+      } else if (results.rows[0].public === 2 && req.user.id === results.rows[0].user_id) {
+        res.send(results.rows)
+      } else { res.sendStatus(403) }
     })
+
+
+    .catch((err) => {
+      console.log('Error in PROFILE GET', err)
+    })
+
 });
 
-/**
- * POST route template
- */
+
 router.post('/', (req, res) => {
   // POST route code here
   const id = req.body.id
