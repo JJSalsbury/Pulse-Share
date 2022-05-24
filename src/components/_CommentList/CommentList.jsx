@@ -50,7 +50,7 @@ function CommentList( {postId} ) {
             <div></div>
         :
         <>
-        <h2>Comment List</h2>
+        <h2>Comments</h2>
         {/* <Box component={Paper}
         sx={{
           border: '1px solid black',

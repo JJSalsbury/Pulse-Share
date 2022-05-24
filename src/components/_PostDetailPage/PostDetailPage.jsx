@@ -126,6 +126,7 @@ function PostDetailPage() {
                                 border: '1px solid black',
                                 borderRadius: '7px',
                                 padding: '15px',
+                                boxShadow: 10,
                             }}
                         >
 
@@ -140,7 +141,10 @@ function PostDetailPage() {
                                     sx={{
                                         margin: '15px',
                                         marginTop: '26px',
-                                        textAlign: 'center'
+                                        textAlign: 'center',
+                                        width: '150px',
+                                        wordWrap: 'break-word',
+                                        hyphens: 'auto'
                                     }}
                                 >
                                     <a onClick={sendToProfile}>
@@ -207,7 +211,9 @@ function PostDetailPage() {
                                                 controls={true} />}
                                     </Box>
                                     <br />
-                                    <Box>
+                                    <Box
+                                        component='image'
+                                    >
                                         {post.image && <img src={post.image} />}
                                     </Box>
                                 </Box>
