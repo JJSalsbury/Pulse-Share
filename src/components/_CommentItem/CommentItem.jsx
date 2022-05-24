@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 //Styling Imports 
-import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField, Stack } from '@mui/material';
+import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField, Stack, overFlowY } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
@@ -131,10 +131,9 @@ function CommentItem({ comment, postId }) {
 
                         <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
                             <p>{comment.date} {comment.time}</p>
-                            {/* <img src= {comment.image}/> <ReactPlayer src= {comment.video}/> */}
                             {editMode ?
                                 <p>"{comment.comment}"</p> :
-                                <Box component={Paper}
+                                <Box
                                     sx={{
                                         border: '1px solid black',
                                         borderRadius: '7px',
