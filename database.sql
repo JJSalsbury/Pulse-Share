@@ -27,7 +27,7 @@ CREATE TABLE "profiles" (
 	"location" VARCHAR (255) DEFAULT '',
 	"job_title" VARCHAR (255) DEFAULT '',
 	"company" VARCHAR (255) DEFAULT '',
-	"about_me" VARCHAR (255) DEFAULT '',
+	"about_me" VARCHAR (2000) DEFAULT '',
 	"contact" BOOLEAN DEFAULT FALSE,
 	"public" INT DEFAULT 2,
 	"biological_gender" VARCHAR (255) DEFAULT '',
@@ -65,6 +65,11 @@ CREATE TABLE "comments" (
 	"user_id" INT REFERENCES "user" ON DELETE CASCADE,
 	"post_id" INT REFERENCES "posts" ON DELETE CASCADE
 );
+
+INSERT INTO "outcomes" ("outcome")
+VALUES ('Legs'), ('Arms'), ('Trunk/Core'), ('Sensation'), ('Blood Pressure'), ('Bladder'), ('Bowel'), ('Sexual Function'), 
+('Sleep'), ('Spasticity'), ('Pain'), ('Proprioception/Spatial Awareness'), ('Cardiovascular'), ('Breathing'), ('Sweating'),
+('Temperature Regulation'), ('Thinking/IQ'), ('Mood'),
 
 INSERT INTO "outcomes" ("outcome")
 VALUES ('Pressure'), ('Legs'), ('Arms'), ('Sensation'), ('Blood Pressure'), ('Bladder'), ('Bowel'), ('Sexual Function');
