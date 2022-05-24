@@ -9,6 +9,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Swal from 'sweetalert2';
 
+// import for playing videos on dom
+import ReactPlayer from 'react-player'
+
 
 
 function CommentItem({ comment, postId }) {
@@ -128,7 +131,7 @@ function CommentItem({ comment, postId }) {
 
                         <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
                             <p>{comment.date} {comment.time}</p>
-
+                            {/* <img src= {comment.image}/> <ReactPlayer src= {comment.video}/> */}
                             {editMode ?
                                 <p>"{comment.comment}"</p> :
                                 <Box component={Paper}
@@ -163,6 +166,27 @@ function CommentItem({ comment, postId }) {
                                         className='buttons'
                                     ><SendIcon /> Submit </Button>
                                 </Box>}
+                            <Box
+                                    sx={{
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <Box>
+                                        {comment.video &&
+                                            <ReactPlayer
+                                                url={post.video}
+                                                width='50vw'
+                                                height='360px'
+                                                controls={true} />}
+                                    </Box>
+                                    <br />
+                                    <Box>
+                                        {comment.image && <img src={comment.image} />}
+                                    </Box>
+                                </Box>
+
+
+
                         </Typography>
                     </Box>
                     <Box className="btn-holder">

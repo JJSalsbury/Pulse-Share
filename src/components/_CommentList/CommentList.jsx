@@ -57,11 +57,11 @@ function CommentList( {postId} ) {
           borderRadius: '7px',
           padding: '15px',
         }}> */}
-        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px' }}>
+        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px'}}>
             
                 {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
                 
-                <section className="comments">
+                <section className="comments" height="100vh" overFlowY= "scroll">
                     {comments.map((comment) => {
                         return (
                             <CommentItem
