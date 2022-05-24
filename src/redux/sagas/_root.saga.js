@@ -7,7 +7,6 @@ import commentSaga from './comment.saga';
 import profileSaga from './profile.saga';
 import editProfileSaga from './_editProfile.saga';
 import rosterSaga from './roster.saga';
-import editPost from './editPost.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -26,6 +25,5 @@ export default function* rootSaga() {
     editProfileSaga(),
     rosterSaga(),
     postSaga(),
-    editPost(),
   ]);
 }

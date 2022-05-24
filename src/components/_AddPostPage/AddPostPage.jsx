@@ -26,9 +26,6 @@ import Swal from 'sweetalert2'
 import 'react-dropzone-uploader/dist/styles.css'
 import Dropzone from 'react-dropzone-uploader'
 
-// import for playing videos on dom
-import ReactPlayer from 'react-player'
-
 function AddPostPage() {
     useEffect(() => {
         //List for outcomes dropdown
@@ -58,8 +55,8 @@ function AddPostPage() {
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
     const [outcomeTag, setOutcomeTag] = useState('');
-    let imageUrl = '';
-    let videoUrl = '';
+    let imageUrl = null;
+    let videoUrl = null;
 
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
@@ -123,7 +120,14 @@ function AddPostPage() {
 
     const handleClick = async () => {
         // if title or body text fields are empty, won't submit
-        if (postTitle !== '' || postBody !== '' || outcomeTag !== '') {
+        if (postTitle === '' || postBody === '' || outcomeTag === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all required fields!',
+                footer: 'Title, Body, and Outcome Tag are all required to make a post.'
+            })
+        } else {
             if(image.file) {
                 // get secure url from our server
                 const { url } = await fetch("/s3Url/image").then(res => res.json())
@@ -138,12 +142,10 @@ function AddPostPage() {
                     body: image['file']
                 })
 
+                // creates url path for image
                 imageUrl = url.split('?')[0]
                 console.log(imageUrl)
-
-            } else {
-                imageUrl = null;
-            }
+            } 
 
             if(video.file) {
                 const { url } = await fetch("/s3Url/video").then(res => res.json())
@@ -159,8 +161,6 @@ function AddPostPage() {
     
                 videoUrl = url.split('?')[0]
                 console.log(videoUrl)
-            } else {
-                videoUrl = null;
             }
             
             dispatch({
@@ -174,22 +174,40 @@ function AddPostPage() {
                     history: history
                 }
             })
-        } else {
-            disabled = true;
         }
     }
 
     const cancelPost = () => {
-        dispatch({
-            type: 'CLEAR_VIDEO'
+        // SweetAlert warning before demoting member
+        Swal.fire({
+            title: `Are you sure you want to cancel your post?`,
+            text: "Click OK to Cancel",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Cancel Post!',
+            cancelButtonText: 'No, Keep My Post!',
+            reverseButtons: true
+        }).then((result) => {
+            // clicking 'OK' sends dispatch to demote user
+            if (result.isConfirmed) {
+
+                dispatch({
+                    type: 'CLEAR_VIDEO'
+                })
+                dispatch({
+                    type: 'CLEAR_IMAGE'
+                })
+                dispatch({
+                    type: 'CLEAR_POST'
+                })
+                
+                Swal.fire(
+                    'Canceled Post!',
+                )
+
+                history.push('/posts')
+            }
         })
-        dispatch({
-            type: 'CLEAR_IMAGE'
-        })
-        dispatch({
-            type: 'CLEAR_POST'
-        })
-        history.push('/posts')
     }
     
     return (
@@ -261,46 +279,46 @@ function AddPostPage() {
                     </FormControl>
                 </Box>
                 <Box>
-                {image.file ?
-                    <Box>
-                        <p>{image.file.name}</p>
+                    {image.file ?
+                        <Box>
+                            <p>{image.file.name}</p>
+                            <Button 
+                                onClick={handleChangeImage}
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Photo
+                            </Button> 
+                        </Box>
+                        : 
                         <Button 
-                            onClick={handleChangeImage}
+                            onClick={handleOpenImageModal}
                             style={{
                                 marginBottom: 15,
                             }}
-                        >Remove Photo
-                        </Button> 
-                    </Box>
-                    : 
-                    <Button 
-                        onClick={handleOpenImageModal}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Add Photo
-                    </Button>
-                }
-                {video.file ?
-                    <Box>
-                        <p>{video.file.name}</p>
+                        >Add Photo
+                        </Button>
+                    }
+                    {video.file ?
+                        <Box>
+                            <p>{video.file.name}</p>
+                            <Button 
+                                onClick={handleChangeVideo}
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Video
+                            </Button> 
+                        </Box>
+                        : 
                         <Button 
-                            onClick={handleChangeVideo}
+                            onClick={handleOpenVideoModal}
                             style={{
                                 marginBottom: 15,
                             }}
-                        >Remove Video
-                        </Button> 
-                    </Box>
-                    : 
-                    <Button 
-                        onClick={handleOpenVideoModal}
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Add Video
-                    </Button>
-                }
+                        >Add Video
+                        </Button>
+                    }
                 </Box>
                 <Modal
                     open={openImageModal}
@@ -347,10 +365,8 @@ function AddPostPage() {
                             dropzoneActive: { borderColor: "green" }
                             }}
                             accept="image/*"
-                        />}
-                    {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography> */}
+                        />
+                    }
                     </Box>
                 </Modal>
                 <Modal
@@ -420,12 +436,6 @@ function AddPostPage() {
                     >Cancel</Button>
                 </Box>
             </Box>
-            {/* <img src={image}/>
-            <ReactPlayer 
-                url={image}
-                width='400px'
-                height='600px'
-                controls = {true}/> */}
         </Container>
     );
 }

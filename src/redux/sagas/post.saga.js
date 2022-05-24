@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 // saga getOutcomesList will get the list of outcomes from DB
 function* getOutcomesList() {
@@ -12,7 +12,7 @@ function* getOutcomesList() {
     }
 }
 
-// saga getOutcomesList will get the list of outcomes from DB
+// saga getAllPosts will get the list of posts from DB
 function* getAllPosts() {
     try {
         const postList = yield axios.get('/post/postList');
@@ -40,7 +40,6 @@ function* createNewPost(action) {
         const postId = yield axios.post('/post', action.payload);
         yield put({type: 'GET_POST', payload: postId.data[0].id});
         yield action.payload.history.push(`/postDetail/${postId.data[0].id}`)
-
         yield put({type: 'CLEAR_IMAGE'})
         yield put({type: 'CLEAR_VIDEO'})
     } catch (error) {
@@ -81,11 +80,27 @@ function* deletePost(action) {
     }
 }
 
-// Update post with new information
+
+// Get the details for the post to edit
+function* getEditPost(action) {
+    try {
+        const editDetails = yield axios.get(`/post/${action.payload}`)
+        yield put({ type: 'SET_POST_TO_EDIT', payload: editDetails.data[0] })
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+// Submit the edited information to the server and database
 function* updatePost(action) {
-    try  {
-        yield axios.put(`/post/${action.payload.id}`)
-        yield put({type: 'GET_POST', payload: action.payload.id})
+    try {
+        console.log(action.payload)
+        yield axios.put(`/post/${action.payload.id}`, action.payload);
+        yield put({ type: 'GET_POST', payload: action.payload.id });
+        yield put({type: 'CLEAR_POST_EDIT'})
+        yield put({type: 'CLEAR_IMAGE'});
+        yield put({type: 'CLEAR_VIDEO'});
+        yield action.callback;
     } catch (err) {
         console.log(err);
     }
@@ -99,6 +114,8 @@ function* postSaga() {
     yield takeLatest('GET_OUTCOMES_LIST', getOutcomesList);
     yield takeLatest('CREATE_NEW_POST', createNewPost);
     yield takeLatest('GET_POST_HISTORY', getPostHistory);
+    yield takeLatest('GET_POST_TO_EDIT', getEditPost)
+    yield takeLatest('UPDATE_POST', updatePost);
 
 }
 

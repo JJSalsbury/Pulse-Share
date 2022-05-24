@@ -15,9 +15,17 @@ import Swal from 'sweetalert2';
 import ReactPlayer from 'react-player'
 
 // Material UI
-import { Box, Button, Container, Paper, Avatar, Typography, Chip } from '@mui/material'
+import {
+    Box,
+    Button,
+    Container,
+    Paper, Avatar,
+    Typography,
+    Chip
+} from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function PostDetailPage() {
 
@@ -63,8 +71,8 @@ function PostDetailPage() {
             background: 'white',
             color: 'black',
             showCancelButton: true,
-            confirmButtonColor: '#4E9BB9',
-            cancelButtonColor: 'red',
+            confirmButtonColor: 'red',
+            cancelButtonColor: '#4E9BB9',
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -82,6 +90,10 @@ function PostDetailPage() {
         })
     }
 
+    const backToPrevious = () => {
+        history.goBack();
+    }
+
 
     return (
 
@@ -96,123 +108,136 @@ function PostDetailPage() {
                     />
 
                     :
-
-                    <Box
-                        component={Paper}
-                        sx={{
-                            border: '1px solid black',
-                            borderRadius: '7px',
-                            padding: '15px',
-                        }}
-                    >
+                    <Box>
+                        <Box>
+                            <Button
+                                variant="contained"
+                                onClick={backToPrevious}
+                                sx={{
+                                    bgcolor: '#4E9BB9',
+                                    marginBottom: '15px'
+                                }}
+                            ><ArrowBackIcon />Back</Button>
+                        </Box>
 
                         <Box
+                            component={Paper}
                             sx={{
-                                justifyContent: 'space-evenly',
-                                display: 'flex'
+                                border: '1px solid black',
+                                borderRadius: '7px',
+                                padding: '15px',
                             }}
                         >
+
+
                             <Box
                                 sx={{
-                                    margin: '15px',
-                                    marginTop: '26px',
-                                    textAlign: 'center'
+                                    justifyContent: 'space-evenly',
+                                    display: 'flex'
                                 }}
                             >
-                                <a onClick={sendToProfile}>
-                                    {post.profile_picture == '' ?
-                                        <Avatar
+                                <Box
+                                    sx={{
+                                        margin: '15px',
+                                        marginTop: '26px',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    <a onClick={sendToProfile}>
+                                        {post.profile_picture == '' ?
+                                            <Avatar
+                                                sx={{
+                                                    width: 150,
+                                                    height: 150,
+                                                }}
+                                                className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" />
+                                            :
+                                            <Avatar
+                                                sx={{
+                                                    width: 150,
+                                                    height: 150,
+                                                }}
+                                                className='profile-pic' src={post.profile_picture} alt="profile picture" />
+                                        }
+                                        <br />
+                                        <h3>{post.username}</h3></a>
+                                </Box>
+
+                                <Box>
+                                    <Typography variant='h4'>{post.title}</Typography>
+
+                                    <p>{post.date} {post.time}
+                                        <Chip
+                                            label={outcomesList[post.outcome_id - 1]?.outcome}
+                                            variant="outlined"
                                             sx={{
-                                                width: 150,
-                                                height: 150,
+                                                bgcolor: '#4E9BB9',
+                                                color: 'white',
+                                                border: '1px solid #4E9BB9',
+                                                marginLeft: '15px'
                                             }}
-                                            className='profile-pic' src="https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg" alt="profile picture" />
-                                        :
-                                        <Avatar
-                                            sx={{
-                                                width: 150,
-                                                height: 150,
-                                            }}
-                                            className='profile-pic' src={post.profile_picture} alt="profile picture" />
-                                    }
+                                        />
+                                    </p>
+
+
+
+                                    <p>{post.post}</p>
+
+                                </Box>
+                            </Box>
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    margin: '15px'
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <Box>
+                                        {post.video &&
+                                            <ReactPlayer
+                                                url={post.video}
+                                                width='50vw'
+                                                height='360px'
+                                                controls={true} />}
+                                    </Box>
                                     <br />
-                                    <h3>{post.username}</h3></a>
+                                    <Box>
+                                        {post.image && <img src={post.image} />}
+                                    </Box>
+                                </Box>
+
                             </Box>
 
-                            <Box>
-                                <Typography variant='h4'>{post.title}</Typography>
-
-                                <p>{post.date} {post.time}
-                                    <Chip
-                                        label={outcomesList[post.outcome_id - 1]?.outcome}
-                                        variant="outlined"
+                            <Box className="btn-holder">
+                                {user.id === post.user_id &&
+                                    <Button
                                         sx={{
-                                            bgcolor: '#4E9BB9',
-                                            color: 'white',
-                                            border: '1px solid #4E9BB9',
-                                            marginLeft: '15px'
+                                            backgroundColor: '#4E9BB9',
+                                            margin: '2px'
                                         }}
-                                    />
-                                </p>
-
-
-
-                                <p>{post.post}</p>
-
-                            </Box>
-                        </Box>
-
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                margin: '15px'
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    justifyContent: 'center'
-                                }}
-                            >
-                                <Box>
-                                    {post.video &&
-                                        <ReactPlayer
-                                            url={post.video}
-                                            width='50vw'
-                                            height='360px'
-                                            controls={true} />}
-                                </Box>
-                                <br />
-                                <Box>
-                                    {post.image && <img src={post.image} />}
-                                </Box>
+                                        variant="contained"
+                                        className='buttons'
+                                        onClick={editPost}
+                                    ><EditIcon /> Edit </Button>}
+                                {(user.access_level >= 1 || user.id === post.user_id) &&
+                                    <Button
+                                        variant="contained"
+                                        className='buttons'
+                                        onClick={deletePost}
+                                        sx={{
+                                            backgroundColor: 'red',
+                                            margin: '2px'
+                                        }}
+                                    ><DeleteIcon /> Delete </Button>}
                             </Box>
 
                         </Box>
-
-                        <Box className="btn-holder">
-                            {user.id === post.user_id &&
-                                <Button
-                                    sx={{
-                                        backgroundColor: '#4E9BB9',
-                                        margin: '2px'
-                                    }}
-                                    variant="contained"
-                                    className='buttons'
-                                    onClick={editPost}
-                                ><EditIcon /> Edit </Button>}
-                            {(user.access_level >= 1 || user.id === post.user_id) &&
-                                <Button
-                                    variant="contained"
-                                    className='buttons'
-                                    onClick={deletePost}
-                                    sx={{
-                                        backgroundColor: 'red',
-                                        margin: '2px'
-                                    }}
-                                ><DeleteIcon /> Delete </Button>}
-                        </Box>
-
                     </Box>
                 }
             </div>
