@@ -132,7 +132,7 @@ function PostDetailPage() {
 
                             <Box
                                 sx={{
-                                    justifyContent: 'space-evenly',
+                                    justifyContent: 'flex-start',
                                     display: 'flex'
                                 }}
                             >
