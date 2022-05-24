@@ -97,6 +97,17 @@ function CommentItem({ comment, postId }) {
 
     console.log('COMMENT:', comment.comment);
 
+    const handlePhoto = () => {
+        Swal.fire({
+            title: comment.comment,
+            text: comment.username,
+            imageUrl: comment.image,
+            imageWidth: 400,
+            imageHeight: 400,
+            imageAlt: 'Image Modal',
+          })
+    }
+
     return (
         <ListItem alignItems="flex-start">
             <Container>
@@ -179,8 +190,8 @@ function CommentItem({ comment, postId }) {
                                                 controls={true} />}
                                     </Box>
                                     <br />
-                                    <Box>
-                                        {comment.image && <img src={comment.image} />}
+                                    <Box onClick={handlePhoto}>
+                                        {comment.image && <img src={comment.image} height="100px" />}
                                     </Box>
                                 </Box>
 

@@ -51,7 +51,8 @@ function CommentList( {postId} ) {
         :
         <>
         <h2>Comment List</h2>
-        <Box component={Paper}
+        <Paper elevation={15}>
+        <Box
         sx={{
           border: '1px solid black',
           borderRadius: '7px',
@@ -63,7 +64,7 @@ function CommentList( {postId} ) {
         maxHeight: 600,}}>
             
                 {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
-                
+                <Paper elevation={15}>
                 <section>
                     {comments.map((comment) => {
                         return (
@@ -76,12 +77,13 @@ function CommentList( {postId} ) {
                         );
                     })}
                 </section>
-            
+            </Paper>
             </List>
             </div>
             
 
             </Box>
+            </Paper>
             </>
             }</main>
     );

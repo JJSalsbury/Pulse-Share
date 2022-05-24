@@ -7,6 +7,7 @@ import './AddCommentForm.css';
 import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box, Modal, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import Swal from 'sweetalert2';
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';
@@ -93,6 +94,28 @@ function AddCommentForm({ postId }) {
     //         footer: 'Title, Body, and Outcome Tag are all required to make a post.'
     //     })
     // } else {
+        Swal.fire({
+            title: 'Saving Comment and Image/Video!',
+            html: 'Upload complete in <b></b> milliseconds.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              const b = Swal.getHtmlContainer().querySelector('b')
+              timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              console.log('I was closed by the timer')
+            }
+          });
+
         if(image.file) {
             // get secure url from our server
             const { url } = await fetch("/s3Url/image").then(res => res.json())
@@ -133,7 +156,7 @@ function AddCommentForm({ postId }) {
           payload: { post_id: postId, comment: newComment, image: imageUrl, video: videoUrl, }
         });
         setNewComment('');
-    // }
+        window.location.reload(false);
 }
 
 const cancelPost = () => {
@@ -145,7 +168,7 @@ const cancelPost = () => {
       showCancelButton: true,
       confirmButtonText: 'Yes, Cancel Post!',
       cancelButtonText: 'No, Keep My Post!',
-      reverseButtons: true
+      reverseButtons: true,
   }).then((result) => {
       // clicking 'OK' sends dispatch to demote user
       if (result.isConfirmed) {
