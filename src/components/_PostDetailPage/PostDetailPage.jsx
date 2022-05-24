@@ -126,6 +126,7 @@ function PostDetailPage() {
                                 border: '1px solid black',
                                 borderRadius: '7px',
                                 padding: '15px',
+                                boxShadow: 10,
                             }}
                         >
 

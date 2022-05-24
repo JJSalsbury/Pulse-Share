@@ -26,16 +26,21 @@ router.post('/register', async (req, res, next) => {
   try {
     await connection.query('BEGIN');
     
-    const queryText = `INSERT INTO "user" (username, password, email)
-    VALUES ($1, $2, $3) RETURNING id;`;
+    const queryText = `
+                      INSERT INTO "user" (username, password, email)
+                      VALUES ($1, $2, $3) RETURNING id;
+                      `;
+
+     // Save the result to get returning id
     const result = await connection.query (queryText, [username, password, email]);
 
+   // Set the returned id value
     const userId = result.rows[0].id;
     const profileQuery = `INSERT INTO "profiles" (user_id) VALUES ($1);`;
-
     await connection.query(profileQuery, [userId]);
+
     await connection.query('COMMIT');
-    res.sendStatus(200);
+    res.sendStatus(201);
   } catch (err) {
     await connection.query('ROLLBACK');
     console.log(`Transaction error - rolling back registration`, err);
