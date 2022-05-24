@@ -585,9 +585,9 @@ function ProfilePage({ profileId }) {
 
             {
                 user.id == profileId && <Container>
-                    <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={toPostHistory}>Post History</Button >
-                    {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                    {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={handleDelete}>Delete Profile</Button> : ''}
+                    <Button variant="contained" color='primary' onClick={toPostHistory}>Post History</Button >
+                    {editMode ? <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
+                    {editMode ? <Button variant="contained" color='primary' onClick={handleDelete}>Delete Profile</Button> : ''}
                 </Container>
             }
 

@@ -114,9 +114,9 @@ function PostListItem({ post }) {
                                     label={outcomesList[post.outcome_id - 1]?.outcome}
                                     variant="outlined"
                                     sx={{
-                                        bgcolor: '#4E9BB9',
+                                        bgcolor: '#5b7495',
                                         color: 'white',
-                                        border: '1px solid #4E9BB9'
+                                        border: '1px solid #5b7495'
                                     }}
                                 />
                             </React.Fragment>

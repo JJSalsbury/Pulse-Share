@@ -58,9 +58,9 @@ function AddCommentForm({ postId }) {
         </Paper>
         <Button onClick={handleChange}
           sx={{
-            backgroundColor: '#4E9BB9',
             margin: '2px',
           }}
+          color="primary"
           variant="contained"
           className='buttons'
         ><SendIcon /> Submit </Button>

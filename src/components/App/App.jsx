@@ -33,6 +33,23 @@ import AddCommentForm from '../_AddCommentForm/AddCommentForm';
 import AdminPage from '../_AdminPage/AdminPage';
 import ProfileRender from '../_ProfileRender/_ProfileRender';
 
+// imports for MUI v5
+import {
+  createTheme,
+  ThemeProvider
+} from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#327b5b',
+    },
+    secondary: {
+      main: '#ad3434',
+    },
+  },
+});
+
 function App() {
   const dispatch = useDispatch();
 
@@ -43,6 +60,7 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <div>
         <Nav />
@@ -181,6 +199,7 @@ function App() {
         <Footer />
       </div>
     </Router>
+    </ThemeProvider>
   );
 }
 

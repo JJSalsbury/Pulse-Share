@@ -156,9 +156,9 @@ function CommentItem({ comment, postId }) {
                                     </Paper>
                                     <Button onClick={handleSubmit}
                                         sx={{
-                                            backgroundColor: '#4E9BB9',
                                             margin: '2px',
                                         }}
+                                        color="primary"
                                         variant="contained"
                                         className='buttons'
                                     ><SendIcon /> Submit </Button>
@@ -169,10 +169,10 @@ function CommentItem({ comment, postId }) {
                         {user.id === comment.user_id ?
                             <Button
                                 sx={{
-                                    backgroundColor: '#4E9BB9',
                                     margin: '2px',
                                     marginBottom: '5px',
                                 }}
+                                color="primary"
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
@@ -181,9 +181,9 @@ function CommentItem({ comment, postId }) {
                             <Button
                                 variant="contained"
                                 className='buttons'
+                                color="error"
                                 onClick={deleteComment}
                                 sx={{
-                                    backgroundColor: 'red',
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}

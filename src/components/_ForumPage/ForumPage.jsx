@@ -71,10 +71,11 @@ function ForumPage() {
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     alignItems: 'center',
+                    mb:2
                 }}>
                 <Button 
                     sx={{
-                        backgroundColor: '#4E9BB9',
+                        backgroundColor: '#327b5b',
                         margin: '2px',
                     }}
                     variant="contained" 
@@ -103,7 +104,7 @@ function ForumPage() {
                         </Select>
                 </FormControl>
             </Box>
-            <List sx={{ 
+            {/* <List sx={{ 
                 width: '100%', 
                 maxWidth: 800, 
                 bgcolor: 'background.paper',
@@ -111,7 +112,7 @@ function ForumPage() {
                 flexDirection: 'column',
                 alignItems: 'center'
                 
-            }}>
+            }}> */}
             {postList?.map(post => {
                 return (
                     <PostListItem 
@@ -120,7 +121,7 @@ function ForumPage() {
                     />
                 )
             })}
-            </List>
+            {/* </List> */}
         </Container>
     );
 }
