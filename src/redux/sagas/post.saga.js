@@ -110,7 +110,7 @@ function* keywordSearch(action) {
     console.log('in keywordSearch');
     const keyword = action.payload;
     try {
-        const keywordSearch = yield axios.get(`/keywordSearch/${keyword}`, action.payload)
+        const keywordSearch = yield axios.get(`/keyword/${keyword}`)
         yield put({type: 'SET_KEYWORD_POSTS', payload: keywordSearch.data})
     } catch {
         console.log('ERROR PERFORMING KEYWORD SEARCH IN SAGA');
