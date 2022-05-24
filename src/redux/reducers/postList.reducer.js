@@ -3,7 +3,7 @@ const postListReducer = (state = [], action) => {
         case 'SET_POST_LIST':
             return action.payload;
         case 'LOGOUT':
-            return {};
+            return [];
         default:
             return state;
     }
