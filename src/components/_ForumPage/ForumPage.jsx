@@ -56,7 +56,7 @@ function ForumPage() {
             })
         } else {
             dispatch({
-                type: 'SEARCH_FOR_POST',
+                type: 'SEARCH_BY_KEYWORD',
                 payload: keyword
             })
             console.log(keyword);
