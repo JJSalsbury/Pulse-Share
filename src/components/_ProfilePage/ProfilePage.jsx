@@ -476,7 +476,7 @@ function ProfilePage({ profileId }) {
                         minWidth: '50vw',
                         maxWidth: '50vw',
                         overflowY: 'scroll',
-                        height: '20vw'
+                        height: '20vh'
 
 
 
