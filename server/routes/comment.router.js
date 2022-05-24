@@ -76,19 +76,35 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 // DELETE ROUTE selected post
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // endpoint functionality
-  const id = [req.params.id]
-  const queryText = (`DELETE FROM "comments"
-                      WHERE id = $1;`)
-  pool
-    .query(queryText, id)
-    .then((response) => {
-      console.log('Deleted')
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.log('Error in DELETE:', error);
-      res.sendStatus(500);
-    });
-});
+
+  if (req.user.access_level >= 1) {
+
+    const queryText = `DELETE FROM "comments" WHERE "id" = $1;`
+
+    const values = [req.params.id];
+    pool.query(queryText, values)
+      .then((response) => {
+        console.log('Deleted')
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log('Error in DELETE:', error);
+        res.sendStatus(500);
+      });
+
+  } else {
+    const queryText = `DELETE FROM "comments"
+                      WHERE id = $1 AND user_id = $2;`
+    const values = [req.params.id, req.user.id];
+    pool.query(queryText, values)
+      .then((response) => {
+        console.log('Deleted')
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log('Error in DELETE:', error);
+        res.sendStatus(500);
+      });
+  }});
 
 module.exports = router;

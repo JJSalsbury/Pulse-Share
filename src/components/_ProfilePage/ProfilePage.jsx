@@ -186,7 +186,7 @@ function ProfilePage({ profileId }) {
             payload: editProfile,
         });
 
-        dispatch({ type: 'CLEAR_EDIT' });
+        dispatch({ type: '  ' });
 
         setEditMode(!editMode);
     }

@@ -46,6 +46,10 @@ function CommentList( {postId} ) {
     //Render Return maps over comment list from DB making an item for each comment of the list
     return (
         <main>
+        {comments.length === 0 ? 
+            <div></div>
+        :
+        <>
         <h2>Comment List</h2>
         {/* <Box component={Paper}
         sx={{
@@ -71,6 +75,8 @@ function CommentList( {postId} ) {
                 </section>
             
             </List>
+            </>
+}
             {/* </Box> */}
             </main>
     );

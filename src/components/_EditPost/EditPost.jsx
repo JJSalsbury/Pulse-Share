@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+
 
 import '../_AddPostPage/AddPostPage.css'
 
@@ -165,7 +165,8 @@ function EditPost({ setEditMode }) {
                     video: videoUrl,
                     outcome_id: editPost.outcome_id
 
-                }
+                },
+                callback: setEditMode(false)
             })
         }
         // Update anything AND image
@@ -181,7 +182,8 @@ function EditPost({ setEditMode }) {
                     video: editPost.video,
                     outcome_id: editPost.outcome_id
 
-                }
+                },
+                callback: setEditMode(false)
             })
         // Update anything AND video
         } else if (video.file) {
@@ -196,21 +198,25 @@ function EditPost({ setEditMode }) {
                     video: videoUrl,
                     outcome_id: editPost.outcome_id
 
-                }
+                },
+                callback: setEditMode(false)
             })
             // Update anything BUT image or video
         } else {
-            dispatch({ type: 'UPDATE_POST', payload: editPost })
+            dispatch({ 
+                type: 'UPDATE_POST', 
+                payload: editPost,
+                callback: setEditMode(false)
+            })
         }
-        dispatch({ type: 'CLEAR_POST_EDIT' });
-
-        setEditMode(false);
     }
 
     // Cancel edit input
     const cancelEdit = () => {
         setEditMode(false);
         dispatch({ type: 'CLEAR_POST_EDIT' });
+        dispatch({ type: 'CLEAR_IMAGE' });
+        dispatch({ type: 'CLEAR_VIDEO' });
     }
 
     return (

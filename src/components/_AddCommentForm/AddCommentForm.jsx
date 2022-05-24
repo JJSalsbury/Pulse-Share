@@ -1,8 +1,8 @@
-//imports
+//Imports
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-//styling imports
+//Styling Imports
 import './AddCommentForm.css';
 import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box } from '@mui/material';
@@ -11,11 +11,11 @@ import SendIcon from '@mui/icons-material/Send';
 
 function AddCommentForm({ postId }) {
   const dispatch = useDispatch();
-  const user = useSelector(store => store.user);
+  // const user = useSelector(store => store.user);
   //     const history = useHistory();
 
   let [newComment, setNewComment] = useState('');
-  const editComment = useSelector(store => store.commentReducer);
+  // const editComment = useSelector(store => store.commentReducer);
 
 
 
@@ -26,28 +26,9 @@ function AddCommentForm({ postId }) {
     dispatch({
       type: 'CREATE_NEW_COMMENT',
       payload: { post_id: postId, comment: newComment }
-    })
-    // //Onclick, push new location to useHistory, changed location.
-    // history.push('/comments');
+    });
+    setNewComment('');
   }
-
-  // send updated comment data to database
-  // const editComment = (event) => {
-  //   event.preventDefault();
-  //   console.log('edit Item:', editComment);
-
-  //   const editedComment = {
-  //     id: id,
-  //     name: name,
-  //     amount: amount,
-  //     unit_type: unit,
-  //     type: type,
-  //     par: par,
-  //     expected_amount: expectedAmount,
-  //     image: image
-
-  //   }
-
 
   return (
     <div className="container">
@@ -66,7 +47,7 @@ function AddCommentForm({ postId }) {
                 fullWidth
                 className="textField"
                 id="outlined-multiline-flexible"
-                label="Add Comment Here"
+                label="Add Comment"
                 multiline
                 maxRows={20}
                 value={newComment}
@@ -84,10 +65,8 @@ function AddCommentForm({ postId }) {
           className='buttons'
         ><SendIcon /> Submit </Button>
       </Box>
-
     </div>
   )
-
 }
 
 export default AddCommentForm;

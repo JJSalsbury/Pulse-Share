@@ -6,15 +6,11 @@ const {
 } = require('../modules/authentication-middleware');
 const { user } = require('pg/lib/defaults');
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
-  // GET route code here
-});
 
 
-// get specific users profile information for profile page
+
+// get specific users profile information for profile page profiles table joined to user table
+
 router.get('/:id', (req, res) => {
   const query = `SELECT "user".username,
   "profiles".id,
@@ -42,9 +38,9 @@ router.get('/:id', (req, res) => {
   FROM "profiles"
   JOIN "user" ON "profiles".user_id = "user".id
   WHERE "profiles".user_id =$1;`
-  // res.send (results.rows), console.log(results.rows[0].public)
+  
   pool.query(query, [req.params.id])
-
+// security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
     .then((results) => {
       if (results.rows[0].public === 0) {
         res.send(results.rows)
@@ -62,10 +58,7 @@ router.get('/:id', (req, res) => {
 
 });
 
-// security check here in the .then 
-/**
- * POST route template
- */
+
 router.post('/', (req, res) => {
   // POST route code here
   const id = req.body.id

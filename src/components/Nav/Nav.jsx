@@ -8,10 +8,6 @@ function Nav() {
   const user = useSelector((store) => store.user);
   const history = useHistory();
 
-  const sendToProfile = () => {
-    history.push(`/profile/${user.id}`)
-  }
-
   return (
     <div className="nav">
       <Link to="/home">
@@ -22,6 +18,10 @@ function Nav() {
         {!user.id && (
           // If there's no user, show login/registration links
           <>
+            <Link className="navLink" to="/posts">
+              Forum
+            </Link>
+            
             <Link className="navLink" to="/login">
               Login / Register
             </Link>
