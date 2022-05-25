@@ -112,9 +112,9 @@ function PostDetailPage() {
                         <Box>
                             <Button
                                 variant="contained"
+                                color="primary"
                                 onClick={backToPrevious}
                                 sx={{
-                                    bgcolor: '#4E9BB9',
                                     marginBottom: '15px'
                                 }}
                             ><ArrowBackIcon />Back</Button>
@@ -126,6 +126,7 @@ function PostDetailPage() {
                                 border: '1px solid black',
                                 borderRadius: '7px',
                                 padding: '15px',
+                                boxShadow: 10,
                             }}
                         >
 
@@ -140,7 +141,10 @@ function PostDetailPage() {
                                     sx={{
                                         margin: '15px',
                                         marginTop: '26px',
-                                        textAlign: 'center'
+                                        textAlign: 'center',
+                                        width: '150px',
+                                        wordWrap: 'break-word',
+                                        hyphens: 'auto'
                                     }}
                                 >
                                     <a onClick={sendToProfile}>
@@ -171,9 +175,9 @@ function PostDetailPage() {
                                             label={outcomesList[post.outcome_id - 1]?.outcome}
                                             variant="outlined"
                                             sx={{
-                                                bgcolor: '#4E9BB9',
+                                                bgcolor: '#5b7495',
                                                 color: 'white',
-                                                border: '1px solid #4E9BB9',
+                                                border: '1px solid #5b7495',
                                                 marginLeft: '15px'
                                             }}
                                         />
@@ -207,7 +211,9 @@ function PostDetailPage() {
                                                 controls={true} />}
                                     </Box>
                                     <br />
-                                    <Box>
+                                    <Box
+                                        component='image'
+                                    >
                                         {post.image && <img src={post.image} />}
                                     </Box>
                                 </Box>
@@ -218,9 +224,9 @@ function PostDetailPage() {
                                 {user.id === post.user_id &&
                                     <Button
                                         sx={{
-                                            backgroundColor: '#4E9BB9',
                                             margin: '2px'
                                         }}
+                                        color="primary"
                                         variant="contained"
                                         className='buttons'
                                         onClick={editPost}
@@ -228,10 +234,10 @@ function PostDetailPage() {
                                 {(user.access_level >= 1 || user.id === post.user_id) &&
                                     <Button
                                         variant="contained"
+                                        color="error"
                                         className='buttons'
                                         onClick={deletePost}
                                         sx={{
-                                            backgroundColor: 'red',
                                             margin: '2px'
                                         }}
                                     ><DeleteIcon /> Delete </Button>}

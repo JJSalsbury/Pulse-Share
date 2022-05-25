@@ -25,9 +25,12 @@ import {
     Radio,
     RadioGroup,
     FormControlLabel,
-    Grid
+    Grid,
+    Stack,
+
 } from '@mui/material';
-import { display, maxWidth, width } from '@mui/system';
+
+import { display, maxWidth, width, spacing } from '@mui/system';
 
 
 
@@ -99,17 +102,6 @@ function ProfilePage({ profileId }) {
         })
         setEditMode(!editMode);
     }
-
-    // const handleSubmit = () => {
-    //     console.log('save clicked');
-
-    //     dispatch({
-    //         type: 'PUT_PROFILE',
-    //         payload: editProfile
-    //     })
-    //     dispatch({ type: 'CLEAR_EDIT' });
-    //     setEditMode(!editMode);
-    // }
 
 
 
@@ -205,7 +197,7 @@ function ProfilePage({ profileId }) {
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
-                dispatch({ type: 'DELETE_USER', payload: user.id })
+                dispatch({ type: 'DELETE_PROFILE', payload: history })
                 history.push('/profile/:id')
                 Swal.fire({
                     background: 'white',
@@ -229,30 +221,38 @@ function ProfilePage({ profileId }) {
         <>
 
 
-
-            <Grid>
+ {/* STYLING FOR profile pic, pronouns, location, job title, company  */}
+            <Stack
+                direction='row'
+                spacing={2}
+                justifyContent="center"
+                alignItems="center"
+    
+                >
 
                 <Paper sx={{
-                    gap: 2,
+
                     borderRadius: 2,
-                    border: 1,
                     padding: 3,
-                    display: 'inline-block',
-                    margin: 1,
-                    boxShadow: 10,
+                    boxShadow: 5,
                     overflow: 'auto',
-                    maxheight: '35vw'
+                    maxWidth: '28%',
+                    minWidth: '28%',
+                    height: '40vh'
 
                 }}>
 
+
                     {editMode ?
                         <>
+
                             <Box
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
                                 sx={{ width: 200, height: 200 }}
                             ></Box>
+
 
 
                             <Box>
@@ -327,21 +327,42 @@ function ProfilePage({ profileId }) {
                                 </Box>
                             </Modal>
                         </>
+
                         :
 
+                        <Box>
+                            {profile?.profile_picture === '' ?
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src='https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
 
+                                :
 
-                        <Box
-                            component="img"
-                            alt="profile picture"
-                            src={profile.profile_picture}
-                            sx={{ width: 200, height: 200 }}
-                        ></Box>
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src={profile.profile_picture}
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
+                            }
+                        </Box>
                     }
 
 
 
-                    <Box><strong>User Name: </strong>{profile.username}</Box>
+                    <Box sx={{
+                        width: '300px',
+                        hyphens: 'auto',
+                        wordWrap: 'break-word',
+
+                    }}>
+                        <strong>User Name: </strong>{profile.username}
+                    </Box>
+
+
                     <Box><strong>Pronouns: </strong></Box>
                     {editMode ? <TextField
                         type="text"
@@ -376,55 +397,60 @@ function ProfilePage({ profileId }) {
                     {/* <h2>Contact Info</h2>
                         <div><strong>Email: </strong>{user.email}</div> */}
                 </Paper>
-                {/* ABOUT ME STYLING HERE */}
-                <Paper sx={{
-                    gap: 2,
-                    borderRadius: 2,
-                    border: 1,
-                    padding: 3,
-                    display: 'inline-block',
-                    boxShadow: 10,
-                    flex: 'auto',
-                    minWidth: '30vw',
-                    maxWidth: '50vw'
 
+
+
+{/* ABOUT ME STYLING HERE */}
+                <Paper sx={{
+                    borderRadius: 2,
+                    padding: 3,
+                    boxShadow: 5,
+                    minWidth: '40%',
+                    maxWidth: '52%',
+                    height: '40vh',
+                    overflowY: 'scroll' 
                 }}>
 
-                    <h3>About Me</h3>
+                    <h1>About Me</h1>
 
                     <Box>
                         {editMode ? <TextField
                             type="text"
                             value={editProfile.about_me}
                             multiline
-                            maxRows={5}
+                            maxRows={12}
                             fullWidth
                             onChange={(event) => handleChange(event, 'about_me')}
-                        /> : <Box sx={{ overflowY: 'scroll', height: '20vw' }}>{profile.about_me}</Box>}
+                        /> : <Box>{profile.about_me}</Box>}
                     </Box>
                 </Paper>
-            </Grid>
+            </Stack>
 
-            {/* DEVICE STYLING HERE */}
-            <Grid>
-                <Box>
+ {/* DEVICE STYLING HERE */}
+            <Stack
+            direction='row'
+            spacing={2}
+            sx={{mt:2}}
+            justifyContent="center"
+            alignItems="center"
+
+            >
+                
                     <Paper sx={{
-                        gap: 2,
+                    
                         borderRadius: 2,
-                        border: 1,
                         padding: 3,
-                        display: 'inline-block',
-                        boxShadow: 10,
-                        margin: 1,
-                        flex: 'auto',
-                        minWidth: '50vw',
-                        maxWidth: '50vw',
+                        boxShadow: 5,
+                        minWidth: '35%',
+                        maxWidth: '40%',
                         overflowY: 'scroll',
-                        height: '20vw'
+                       // ml: 3,
+                        height: '40vh'
 
+                        
                     }}>
 
-                        <h3>Device Information</h3>
+                        <h1>Device Information</h1>
 
                         <Box><strong>Device: </strong> </Box>
                         {editMode ? <TextField
@@ -454,6 +480,8 @@ function ProfilePage({ profileId }) {
                         {editMode ? <TextField
                             type="text"
                             value={editProfile.improvements}
+                            multiline
+                            maxRows={6}
                             onChange={(event) => handleChange(event, 'improvements')}
                         /> : <Box>{profile.improvements}</Box>}
 
@@ -463,29 +491,21 @@ function ProfilePage({ profileId }) {
 
 
 
-                    {/* BIOMETRICS STYLING HERE */}
+ {/* BIOMETRICS STYLING HERE */}
                     <Paper sx={{
-                        gap: 2,
                         borderRadius: 2,
-                        border: 1,
                         padding: 3,
-                        display: 'inline-block',
-                        margin: 1,
-                        boxShadow: 10,
-                        flex: 'auto',
-                        minWidth: '50vw',
-                        maxWidth: '50vw',
+                        boxShadow: 5,
+                        minWidth: '35%',
+                        maxWidth: '40%',
                         overflowY: 'scroll',
-                        height: '20vh'
-
-
-
-
-
-
+                        height: '40vh'
                     }}>
 
-                        <h3>Biometrics</h3>
+
+
+
+                        <h1>Biometrics</h1>
 
 
                         <Box><strong>Age: </strong></Box>
@@ -561,13 +581,19 @@ function ProfilePage({ profileId }) {
 
 
                     </Paper>
-                </Box>
-            </Grid>
+                
+            </Stack>
 
 
             {
                 editMode ?
-                    <FormControl>
+                <Container
+                sx={{
+                    padding: 3
+                }}
+                
+                >
+                    <FormControl >
                         <h3>Profile Privacy</h3>
                         <RadioGroup
                             onChange={handlePrivacy}
@@ -579,15 +605,20 @@ function ProfilePage({ profileId }) {
                             <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
                             <FormControlLabel value={2} control={<Radio />} label="Private, no one can see profile details." />
                         </RadioGroup>
-                    </FormControl> : ''
+                    </FormControl> 
+                    </Container>: ''
             }
 
 
             {
-                user.id == profileId && <Container>
-                    <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={toPostHistory}>Post History</Button >
-                    {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                    {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={handleDelete}>Delete Profile</Button> : ''}
+                user.id == profileId && <Container
+                sx={{
+                    padding: 3
+                }}
+                >
+                    <Button variant="contained" color='primary' onClick={toPostHistory}>Post History</Button >
+                    {editMode ? <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" color='primary' sx={{margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
+                    {editMode ? <Button variant="contained" color='primary' onClick={handleDelete}>Delete Account</Button> : ''}
                 </Container>
             }
 

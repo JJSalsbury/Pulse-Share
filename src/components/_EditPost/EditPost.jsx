@@ -114,7 +114,7 @@ function EditPost({ setEditMode }) {
 
     const handleClick = async () => {
 
-        
+
 
         if (image.file) {
             // get secure url from our server
@@ -153,7 +153,7 @@ function EditPost({ setEditMode }) {
 
         // Check if new video or image has been added
         // Update anything AND both image and video
-        if (image.file && video.file){
+        if (image.file && video.file) {
             dispatch({
                 type: 'UPDATE_POST',
 
@@ -185,7 +185,7 @@ function EditPost({ setEditMode }) {
                 },
                 callback: setEditMode(false)
             })
-        // Update anything AND video
+            // Update anything AND video
         } else if (video.file) {
             dispatch({
                 type: 'UPDATE_POST',
@@ -203,8 +203,8 @@ function EditPost({ setEditMode }) {
             })
             // Update anything BUT image or video
         } else {
-            dispatch({ 
-                type: 'UPDATE_POST', 
+            dispatch({
+                type: 'UPDATE_POST',
                 payload: editPost,
                 callback: setEditMode(false)
             })
@@ -220,7 +220,7 @@ function EditPost({ setEditMode }) {
     }
 
     return (
-        <Container>
+        <Container >
 
             <h2>Edit Post</h2>
             <Box
@@ -230,7 +230,7 @@ function EditPost({ setEditMode }) {
                     borderRadius: '7px',
                     border: '1px solid black',
                     boxShadow: 10,
-                    minHeight: '50vh'
+                    minHeight: '30vh'
                 }}
             >
                 <Box>
@@ -375,9 +375,7 @@ function EditPost({ setEditMode }) {
                                 }}
                                 accept="image/*"
                             />}
-                        {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography> */}
+
                     </Box>
                 </Modal>
                 <Modal
@@ -428,8 +426,13 @@ function EditPost({ setEditMode }) {
                             />}
                     </Box>
                 </Modal>
-                <Box>
-                <Button
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                    }}
+                >
+                    <Button
                         variant="contained"
                         onClick={handleClick}
                         sx={{
@@ -448,14 +451,6 @@ function EditPost({ setEditMode }) {
                 </Box>
             </Box>
 
-
-
-            {/* <img src={image}/>
-            <ReactPlayer 
-                url={image}
-                width='400px'
-                height='600px'
-                controls = {true}/> */}
         </Container>
     );
 }

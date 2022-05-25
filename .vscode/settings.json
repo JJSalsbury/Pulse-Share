@@ -3,6 +3,7 @@
         "Autosize",
         "fullwidth",
         "maxheight",
-        "maxwidth"
+        "maxwidth",
+        "scrollbars"
     ]
 }

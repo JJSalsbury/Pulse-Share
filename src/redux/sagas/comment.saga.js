@@ -6,6 +6,8 @@ function* addComment(action) {
     try{
         const comment = yield axios.post('/comment', action.payload);
         yield put({type: 'GET_COMMENTS', payload: action.payload.post_id});
+        yield put({type: 'CLEAR_IMAGE'});
+        yield put({type: 'CLEAR_VIDEO'});
         console.log('Payload in addComment:', action.payload);
         console.log('added comment:', comment.data);
     } catch (error) {

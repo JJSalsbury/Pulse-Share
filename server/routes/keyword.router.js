@@ -5,7 +5,7 @@ const {
     rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
-router.get('/:keyword', rejectUnauthenticated, (req, res) => {
+router.get('/:keyword', (req, res) => {
     console.log('keyword is:', req.params.keyword);
     const keyword = `%${req.params.keyword}%`;
     console.log(keyword);

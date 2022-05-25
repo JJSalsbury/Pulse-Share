@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 //Styling Imports 
-import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField, Stack } from '@mui/material';
+import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField, Stack, overFlowY } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import Swal from 'sweetalert2';
+
+// import for playing videos on dom
+import ReactPlayer from 'react-player'
 
 
 
@@ -24,7 +27,7 @@ function CommentItem({ comment, postId }) {
     const handleSubmit = () => {
         console.log('save clicked');
 
-       if (editComment.comment === '') {
+        if (editComment.comment === '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -94,6 +97,17 @@ function CommentItem({ comment, postId }) {
 
     console.log('COMMENT:', comment.comment);
 
+    const handlePhoto = () => {
+        Swal.fire({
+            title: comment.comment,
+            text: comment.username,
+            imageUrl: comment.image,
+            imageWidth: 400,
+            imageHeight: 400,
+            imageAlt: 'Image Modal',
+        })
+    }
+
     return (
         <ListItem alignItems="flex-start">
             <Container>
@@ -128,10 +142,9 @@ function CommentItem({ comment, postId }) {
 
                         <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
                             <p>{comment.date} {comment.time}</p>
-
                             {editMode ?
                                 <p>"{comment.comment}"</p> :
-                                <Box component={Paper}
+                                <Box
                                     sx={{
                                         border: '1px solid black',
                                         borderRadius: '7px',
@@ -156,23 +169,44 @@ function CommentItem({ comment, postId }) {
                                     </Paper>
                                     <Button onClick={handleSubmit}
                                         sx={{
-                                            backgroundColor: '#4E9BB9',
                                             margin: '2px',
                                         }}
+                                        color="primary"
                                         variant="contained"
                                         className='buttons'
                                     ><SendIcon /> Submit </Button>
                                 </Box>}
+                            <Box
+                                    sx={{
+                                        justifyContent: 'center'
+                                    }}
+                                >
+                                    <Box>
+                                        {comment.video &&
+                                            <ReactPlayer
+                                                url={post.video}
+                                                width='50vw'
+                                                height='360px'
+                                                controls={true} />}
+                                    </Box>
+                                    <br />
+                                    <Box onClick={handlePhoto}>
+                                        {comment.image && <img className="hoverForPointer" src={comment.image} height="100px" />}
+                                    </Box>
+                                </Box>
+
+
+
                         </Typography>
                     </Box>
                     <Box className="btn-holder">
                         {user.id === comment.user_id ?
                             <Button
                                 sx={{
-                                    backgroundColor: '#4E9BB9',
                                     margin: '2px',
                                     marginBottom: '5px',
                                 }}
+                                color="primary"
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
@@ -181,9 +215,9 @@ function CommentItem({ comment, postId }) {
                             <Button
                                 variant="contained"
                                 className='buttons'
+                                color="error"
                                 onClick={deleteComment}
                                 sx={{
-                                    backgroundColor: 'red',
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}

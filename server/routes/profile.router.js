@@ -58,24 +58,6 @@ router.get('/:id', (req, res) => {
 
 });
 
-
-router.post('/', (req, res) => {
-  // POST route code here
-  const id = req.body.id
-
-  const queryText = `INSERT INTO "profiles" (user_id)
-        VALUES ($1)`;
-  pool
-    .query(queryText, [id])
-    .then(result => {
-      res.sendStatus(201)
-    })
-    .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
-});
-
 router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 
@@ -99,11 +81,11 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 });
 
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
+router.delete('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
   console.log('DELETE id:', id);
 
-  const query = `DELETE FROM "user" WHERE id = $1`;
+  const query = `DELETE FROM "user" WHERE "id" = $1`;
   values = [id];
   pool.query(query, values)
     .then(() => { res.sendStatus(200); })
