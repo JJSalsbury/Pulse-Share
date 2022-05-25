@@ -242,17 +242,14 @@ function ProfilePage({ profileId }) {
 
                 }}>
 
-
                     {editMode ?
                         <>
-
                             <Box
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
                                 sx={{ width: 200, height: 200 }}
                             ></Box>
-
 
 
                             <Box>
@@ -327,28 +324,16 @@ function ProfilePage({ profileId }) {
                                 </Box>
                             </Modal>
                         </>
-
                         :
 
-                        <Box>
-                            {profile?.profile_picture === '' ?
-                                <Box
-                                    component="img"
-                                    alt="profile picture"
-                                    src='https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
-                                    sx={{ width: 200, height: 200 }}
-                                ></Box>
 
-                                :
 
-                                <Box
-                                    component="img"
-                                    alt="profile picture"
-                                    src={profile.profile_picture}
-                                    sx={{ width: 200, height: 200 }}
-                                ></Box>
-                            }
-                        </Box>
+                        <Box
+                            component="img"
+                            alt="profile picture"
+                            src={profile.profile_picture}
+                            sx={{ width: 200, height: 200 }}
+                        ></Box>
                     }
 
 
@@ -405,7 +390,7 @@ function ProfilePage({ profileId }) {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '40%',
+                    minWidth: '52%',
                     maxWidth: '52%',
                     height: '40vh',
                     overflowY: 'scroll' 
@@ -441,7 +426,7 @@ function ProfilePage({ profileId }) {
                         borderRadius: 2,
                         padding: 3,
                         boxShadow: 5,
-                        minWidth: '35%',
+                        minWidth: '40%',
                         maxWidth: '40%',
                         overflowY: 'scroll',
                        // ml: 3,
@@ -496,7 +481,7 @@ function ProfilePage({ profileId }) {
                         borderRadius: 2,
                         padding: 3,
                         boxShadow: 5,
-                        minWidth: '35%',
+                        minWidth: '40%',
                         maxWidth: '40%',
                         overflowY: 'scroll',
                         height: '40vh'
