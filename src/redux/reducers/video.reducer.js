@@ -4,9 +4,11 @@ const videoReducer = (state = {}, action) => {
             return action.payload;
         case 'CLEAR_VIDEO':
             return {};
+        case 'LOGOUT':
+            return {};
         default:
             return state;
     }
 };
-    
+
 export default videoReducer;
