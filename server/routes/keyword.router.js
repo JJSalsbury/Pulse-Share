@@ -10,20 +10,16 @@ router.get('/:keyword', rejectUnauthenticated, (req, res) => {
     const keyword = `%${req.params.keyword}%`;
     console.log(keyword);
     
-    const query = `SELECT "posts"."id",
-    to_char("posts".date, 'mm/dd/yy') as "date",
-    to_char("posts".time, 'hh12:mi AM') as "time",
-    "posts"."title",
-    "posts"."post",
-    "posts"."image", 
-    "posts"."video", 
-    "posts"."user_id", 
-    "posts"."outcome_id" FROM "posts"
+    const query = `SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+    "posts".outcome_id, "posts".user_id FROM "posts"
+    JOIN "user" ON "posts".user_id = "user".id
+    JOIN "profiles" ON "user".id = "profiles".user_id
     JOIN "outcomes" ON "outcomes"."id"="posts"."outcome_id"
     WHERE "posts"."title" ILIKE $1
     OR "posts"."post" ILIKE $1
     OR "outcomes"."outcome" ILIKE $1
-    ORDER BY "posts"."id" DESC;`;
+    ORDER BY "posts".id DESC;`;
     const values = [keyword];
     pool.query(query, values)
         .then(result => {
