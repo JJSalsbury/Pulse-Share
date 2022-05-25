@@ -19,6 +19,8 @@ import {
     TextField,
     FormControl
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 // import for sweetalert2
 import Swal from 'sweetalert2'
@@ -443,7 +445,11 @@ function EditPost({ setEditMode }) {
                         sx={{
                             margin: '2px'
                         }}
-                    >Submit Post</Button>
+                    ><SendIcon 
+                        sx={{
+                            marginRight: '4px'
+                        }}
+                    />Submit Post</Button>
                     <Button
                         variant="contained"
                         onClick={cancelEdit}
@@ -451,7 +457,11 @@ function EditPost({ setEditMode }) {
                         sx={{
                             margin: '2px'
                         }}
-                    >Cancel</Button>
+                    ><DoDisturbIcon 
+                    sx={{
+                        marginRight: '4px'
+                    }}
+                    />Cancel</Button>
                 </Box>
             </Box>
 

@@ -19,6 +19,8 @@ import {
     FormControl, 
     createTheme 
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 
 
@@ -437,7 +439,12 @@ function AddPostPage() {
                         variant="contained" 
                         color='primary'
                         onClick={handleClick} 
-                    >Submit Post</Button>
+                    >
+                        <SendIcon 
+                    sx={{
+                        marginRight: '4px'
+                    }}
+                    />Submit Post</Button>
                     <Button 
                     variant="contained" 
                     color='error'
@@ -445,7 +452,11 @@ function AddPostPage() {
                             margin: '2px'
                         }}  
                         onClick={cancelPost} 
-                    >Cancel</Button>
+                    ><DoDisturbIcon 
+                        sx={{
+                            marginRight: '4px'
+                        }}
+                    />Cancel</Button>
                 </Box>
             </Box>
         </Container>

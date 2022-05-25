@@ -7,6 +7,7 @@ import './AddCommentForm.css';
 import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box, Modal, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import Swal from 'sweetalert2';
 // imports for file upload
 import 'react-dropzone-uploader/dist/styles.css';
@@ -238,174 +239,182 @@ function AddCommentForm({ postId }) {
           variant="contained"
           className='buttons'
         ><SendIcon /> Submit </Button> */}
-        <Box>
-                {image.file ?
-                    <Box>
-                        <p>{image.file.name}</p>
-                        <Button
-                            onClick={handleChangeImage}
-                            color='error'
-                            style={{
-                                marginBottom: 15,
-                            }}
-                        >Remove Photo
-                        </Button>
-                    </Box>
-                    :
-                    <Button
-                        onClick={handleOpenImageModal}
-                        color='primary'
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Add Photo
-                    </Button>
-                }
-                {video.file ?
-                    <Box>
-                        <p>{video.file.name}</p>
-                        <Button
-                            onClick={handleChangeVideo}
-                            color='error'
-                            style={{
-                                marginBottom: 15,
-                            }}
-                        >Remove Video
-                        </Button>
-                    </Box>
-                    :
-                    <Button
-                        onClick={handleOpenVideoModal}
-                        color='primary'
-                        style={{
-                            marginBottom: 15,
-                        }}
-                    >Add Video
-                    </Button>
-                }
-            </Box>
-            <Modal
-                open={openImageModal}
-                onClose={handleCloseImageModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                style={{
-                    marginBottom: 15,
-                    textAlign: 'center'
-                }}
-            >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '50%',
-                    bgcolor: 'background.paper',
-                    border: '1px solid #000',
-                    borderRadius: '7px',
-                    boxShadow: 10,
-                    p: 4,
-                }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Photo Here!
-                    </Typography>
+                <Box>
                     {image.file ?
-                        <h1>{image.file.name} Has Been Added!</h1>
+                        <Box>
+                            <p>{image.file.name}</p>
+                            <Button
+                                onClick={handleChangeImage}
+                                color='error'
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Photo
+                            </Button>
+                        </Box>
                         :
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleSubmitImage}
-                            maxFiles={1}
-                            inputContent={(files, extra) => (extra.reject ?
-                                'Image files only'
-                                :
-                                'Click or Drag 1 Image Here'
-                            )}
-                            styles={{
-                                dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                                inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                                dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
-                                dropzoneActive: { borderColor: "green" }
+                        <Button
+                            onClick={handleOpenImageModal}
+                            color='primary'
+                            style={{
+                                marginBottom: 15,
                             }}
-                            accept="image/*"
-                        />
+                        >Add Photo
+                        </Button>
+                    }
+                    {video.file ?
+                        <Box>
+                            <p>{video.file.name}</p>
+                            <Button
+                                onClick={handleChangeVideo}
+                                color='error'
+                                style={{
+                                    marginBottom: 15,
+                                }}
+                            >Remove Video
+                            </Button>
+                        </Box>
+                        :
+                        <Button
+                            onClick={handleOpenVideoModal}
+                            color='primary'
+                            style={{
+                                marginBottom: 15,
+                            }}
+                        >Add Video
+                        </Button>
                     }
                 </Box>
-            </Modal>
-            <Modal
-                open={openVideoModal}
-                onClose={handleCloseVideoModal}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-                style={{
-                    marginBottom: 15,
-                    textAlign: 'center'
-                }}
-            >
-                <Box sx={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '50%',
-                    bgcolor: 'background.paper',
-                    border: '1px solid #000',
-                    borderRadius: '7px',
-                    boxShadow: 10,
-                    p: 4,
-                }}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Add Video Here!
-                    </Typography>
-                    {video.file ?
-                        <h1>{video.file.name} Has Been Added!</h1>
-                        :
-                        <Dropzone
-                            getUploadParams={getUploadParams}
-                            onChangeStatus={handleChangeStatus}
-                            onSubmit={handleSubmitVideo}
-                            maxFiles={1}
-                            inputContent={(files, extra) => (extra.reject ?
-                                'Video files only'
-                                :
-                                'Click or Drag 1 Video Here'
-                            )}
-                            styles={{
-                                dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
-                                inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
-                                dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
-                                dropzoneActive: { borderColor: "green" }
+                <Modal
+                    open={openImageModal}
+                    onClose={handleCloseImageModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    style={{
+                        marginBottom: 15,
+                        textAlign: 'center'
+                    }}
+                >
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '50%',
+                        bgcolor: 'background.paper',
+                        border: '1px solid #000',
+                        borderRadius: '7px',
+                        boxShadow: 10,
+                        p: 4,
+                    }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Add Photo Here!
+                        </Typography>
+                        {image.file ?
+                            <h1>{image.file.name} Has Been Added!</h1>
+                            :
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmitImage}
+                                maxFiles={1}
+                                inputContent={(files, extra) => (extra.reject ?
+                                    'Image files only'
+                                    :
+                                    'Click or Drag 1 Image Here'
+                                )}
+                                styles={{
+                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                    dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
+                                    dropzoneActive: { borderColor: "green" }
+                                }}
+                                accept="image/*"
+                            />
+                        }
+                    </Box>
+                </Modal>
+                <Modal
+                    open={openVideoModal}
+                    onClose={handleCloseVideoModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                    style={{
+                        marginBottom: 15,
+                        textAlign: 'center'
+                    }}
+                >
+                    <Box sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '50%',
+                        bgcolor: 'background.paper',
+                        border: '1px solid #000',
+                        borderRadius: '7px',
+                        boxShadow: 10,
+                        p: 4,
+                    }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Add Video Here!
+                        </Typography>
+                        {video.file ?
+                            <h1>{video.file.name} Has Been Added!</h1>
+                            :
+                            <Dropzone
+                                getUploadParams={getUploadParams}
+                                onChangeStatus={handleChangeStatus}
+                                onSubmit={handleSubmitVideo}
+                                maxFiles={1}
+                                inputContent={(files, extra) => (extra.reject ?
+                                    'Video files only'
+                                    :
+                                    'Click or Drag 1 Video Here'
+                                )}
+                                styles={{
+                                    dropzoneReject: { borderColor: 'red', backgroundColor: '#DAA' },
+                                    inputLabel: (files, extra) => (extra.reject ? { color: 'red' } : {}),
+                                    dropzone: { width: '100%', minHeight: 250, maxHeight: 250, textAlign: 'center' },
+                                    dropzoneActive: { borderColor: "green" }
+                                }}
+                                accept="video/*"
+                            />}
+                    </Box>
+                </Modal>
+                <Box
+                    sx={{
+                        justifyContent: 'flex-end',
+                        display: 'flex'
+                    }}
+                >
+                    <Button
+                        color='primary'
+                        sx={{
+                            margin: '2px'
+                        }}
+                        variant="contained"
+                        onClick={handleClick}
+                    ><SendIcon
+                            sx={{
+                                marginRight: '4px'
                             }}
-                            accept="video/*"
-                        />}
+                        />Submit Comment</Button>
+                    <Button
+                        color='error'
+                        sx={{
+                            margin: '2px'
+                        }}
+                        variant="contained"
+                        onClick={cancelPost}
+                    ><DoDisturbIcon
+                            sx={{
+                                marginRight: '4px'
+                            }}
+                        />Cancel</Button>
                 </Box>
-            </Modal>
-            <Box
-                sx={{
-                    justifyContent: 'flex-end',
-                    display: 'flex'
-                }}
-            >
-                <Button
-                    color='primary'
-                    sx={{
-                        margin: '2px'
-                    }}
-                    variant="contained"
-                    onClick={handleClick}
-                >Submit Comment</Button>
-                <Button
-                    color='error'
-                    sx={{
-                        margin: '2px'
-                    }}
-                    variant="contained"
-                    onClick={cancelPost}
-                >Cancel</Button>
             </Box>
-            </Box>
-            
+
         </div>
     )
 }

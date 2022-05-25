@@ -25,6 +25,7 @@ import {
     ListItemAvatar,
     ListItemText
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 function ForumPage() {
     useEffect(() => {
@@ -103,7 +104,7 @@ function ForumPage() {
                     }}
                     variant="contained"
                     onClick={handleClick}
-                >Add Post
+                ><AddIcon />Add Post
                 </Button>
                 <FormControl sx={{ minWidth: 150 }}>
                     <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
