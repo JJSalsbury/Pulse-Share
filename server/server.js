@@ -14,7 +14,8 @@ const rosterRouter = require('./routes/roster.router');
 const postRouter = require('./routes/post.router');
 const historyRouter = require('./routes/history.router');
 const searchRouter = require('./routes/search.router');
-const s3Router = require('./routes/s3.router')
+const s3Router = require('./routes/s3.router');
+const keywordRouter = require('./routes/keyword.router');
 
 
 // Body parser middleware
@@ -37,6 +38,7 @@ app.use('/post', postRouter);
 app.use('/history', historyRouter);
 app.use('/search', searchRouter);
 app.use('/s3Url', s3Router);
+app.use('/keyword', keywordRouter);
 
 // Serve static files
 app.use(express.static('build'));

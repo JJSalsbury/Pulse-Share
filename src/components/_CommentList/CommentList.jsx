@@ -47,7 +47,7 @@ function CommentList( {postId} ) {
     return (
         <main>
         {comments.length === 0 ? 
-            <div>text</div>
+            <div><h3>Be the first to comment!</h3></div>
         :
         <>
         <h2>Comments</h2>
