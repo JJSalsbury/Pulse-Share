@@ -50,7 +50,7 @@ function CommentList( {postId} ) {
             <div>text</div>
         :
         <>
-        <h2>Comment List</h2>
+        <h2>Comments</h2>
         <Paper elevation={15}>
         <Box
         sx={{

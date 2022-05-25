@@ -4,48 +4,58 @@ const router = express.Router();
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
+const { user } = require('pg/lib/defaults');
 
-/**
- * GET route template
- */
-router.get('/', (req, res) => {
-  // GET route code here
-});
-// get specific users profile information for profile page
+
+
+
+// get specific users profile information for profile page profiles table joined to user table
+
 router.get('/:id', (req, res) => {
-  const query = `SELECT "user".username, "profiles".id, "profiles".profile_picture, "profiles".device, "profiles".device_settings,
-  "profiles".injury_level,"profiles".aisa_level,"profiles".time_since_injury,"profiles".baseline,"profiles".improvements,"profiles".location,
-  "profiles".job_title,"profiles".company,"profiles".about_me,"profiles".contact,
-  "profiles".biological_gender,"profiles".age,"profiles".pronouns,"profiles".height,"profiles".weight,"profiles".medical_conditions,"profiles".public, "profiles".user_id
+  const query = `SELECT "user".username,
+  "profiles".id,
+  "profiles".profile_picture,
+  "profiles".device, 
+  "profiles".device_settings,
+  "profiles".injury_level,
+  "profiles".aisa_level,
+  "profiles".time_since_injury,
+  "profiles".baseline,
+  "profiles".improvements,
+  "profiles".location,
+  "profiles".job_title,
+  "profiles".company,
+  "profiles".about_me,
+  "profiles".contact,
+  "profiles".biological_gender,
+  "profiles".age,
+  "profiles".pronouns,
+  "profiles".height,
+  "profiles".weight,
+  "profiles".medical_conditions,
+  "profiles".public, 
+  "profiles".user_id
   FROM "profiles"
-                JOIN "user" ON "profiles".user_id = "user".id
-                WHERE "profiles".user_id =$1;`
-
+  JOIN "user" ON "profiles".user_id = "user".id
+  WHERE "profiles".user_id = $1;`
+  
   pool.query(query, [req.params.id])
-    .then((results) => res.send(results.rows))
-    .catch((err) => {
-      console.log('Error in PROFILE GET', err);
+// security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
+    .then((results) => {
+      if (results.rows[0].public === 0) {
+        res.send(results.rows)
+      } else if (results.rows[0].public === 1 && req.user.id) {
+        res.send(results.rows)
+      } else if (results.rows[0].public === 2 && req.user.id === results.rows[0].user_id) {
+        res.send(results.rows)
+      } else { res.sendStatus(403) }
     })
-});
 
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-  // POST route code here
-  const id = req.body.id
 
-  const queryText = `INSERT INTO "profiles" (user_id)
-        VALUES ($1)`;
-  pool
-    .query(queryText, [id])
-    .then(result => {
-      res.sendStatus(201)
-    })
     .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
+      console.log('Error in PROFILE GET', err)
+    })
+
 });
 
 router.put('/:id', rejectUnauthenticated, (req, res) => {
@@ -56,7 +66,7 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
   "injury_level" = $4, "aisa_level" = $5, "time_since_injury" = $6, "baseline" = $7,
   "improvements" = $8,"location" = $9,"job_title" = $10,"company" = $11,"about_me" = $12,
   "contact" = $13,"biological_gender" = $14,"age" = $15,"pronouns" = $16,"height" = $17,
-  "weight" = $18,  "medical_conditions" = $19, "public" = $20 WHERE "id" = $21;`;
+  "weight" = $18,  "medical_conditions" = $19, "public" = $20 WHERE "user_id" = $21;`;
 
   const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
   update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
