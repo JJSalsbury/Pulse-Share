@@ -234,10 +234,10 @@ function ProfilePage({ profileId }) {
 
                     borderRadius: 2,
                     padding: 3,
-                    ml: 3,
-                    boxShadow: 10,
+                    boxShadow: 5,
                     overflow: 'auto',
-                    maxWidth: '35vw',
+                    maxWidth: '28%',
+                    minWidth: '28%',
                     height: '40vh'
 
                 }}>
@@ -389,12 +389,14 @@ function ProfilePage({ profileId }) {
                 <Paper sx={{
                     borderRadius: 2,
                     padding: 3,
-                    boxShadow: 10,
-                    maxWidth: '55vw',
-                    height: '40vh'
+                    boxShadow: 5,
+                    minWidth: '40%',
+                    maxWidth: '52%',
+                    height: '40vh',
+                    overflowY: 'scroll' 
                 }}>
 
-                    <h3>About Me</h3>
+                    <h1>About Me</h1>
 
                     <Box>
                         {editMode ? <TextField
@@ -404,7 +406,7 @@ function ProfilePage({ profileId }) {
                             maxRows={12}
                             fullWidth
                             onChange={(event) => handleChange(event, 'about_me')}
-                        /> : <Box sx={{ overflowY: 'scroll' }}>{profile.about_me}</Box>}
+                        /> : <Box>{profile.about_me}</Box>}
                     </Box>
                 </Paper>
             </Stack>
@@ -423,17 +425,17 @@ function ProfilePage({ profileId }) {
                     
                         borderRadius: 2,
                         padding: 3,
-                        boxShadow: 10,
-                        minWidth: '35vw',
-                        maxWidth: '40vw',
+                        boxShadow: 5,
+                        minWidth: '35%',
+                        maxWidth: '40%',
                         overflowY: 'scroll',
-                        ml: 3,
+                       // ml: 3,
                         height: '40vh'
 
                         
                     }}>
 
-                        <h3>Device Information</h3>
+                        <h1>Device Information</h1>
 
                         <Box><strong>Device: </strong> </Box>
                         {editMode ? <TextField
@@ -478,9 +480,9 @@ function ProfilePage({ profileId }) {
                     <Paper sx={{
                         borderRadius: 2,
                         padding: 3,
-                        boxShadow: 10,
-                        minWidth: '35vw',
-                        maxWidth: '40vw',
+                        boxShadow: 5,
+                        minWidth: '35%',
+                        maxWidth: '40%',
                         overflowY: 'scroll',
                         height: '40vh'
                     }}>
@@ -488,7 +490,7 @@ function ProfilePage({ profileId }) {
 
 
 
-                        <h3>Biometrics</h3>
+                        <h1>Biometrics</h1>
 
 
                         <Box><strong>Age: </strong></Box>
@@ -570,7 +572,13 @@ function ProfilePage({ profileId }) {
 
             {
                 editMode ?
-                    <FormControl>
+                <Container
+                sx={{
+                    padding: 3
+                }}
+                
+                >
+                    <FormControl >
                         <h3>Profile Privacy</h3>
                         <RadioGroup
                             onChange={handlePrivacy}
@@ -582,12 +590,17 @@ function ProfilePage({ profileId }) {
                             <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
                             <FormControlLabel value={2} control={<Radio />} label="Private, no one can see profile details." />
                         </RadioGroup>
-                    </FormControl> : ''
+                    </FormControl> 
+                    </Container>: ''
             }
 
 
             {
-                user.id == profileId && <Container>
+                user.id == profileId && <Container
+                sx={{
+                    padding: 3
+                }}
+                >
                     <Button variant="contained" sx={{ bgcolor: '#4E9BB9' }} onClick={toPostHistory}>Post History</Button >
                     {editMode ? <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" sx={{ bgcolor: '#4E9BB9', margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
                     {editMode ? <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={handleDelete}>Delete Account</Button> : ''}
