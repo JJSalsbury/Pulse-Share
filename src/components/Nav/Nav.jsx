@@ -18,6 +18,11 @@ function Nav() {
         {!user.id && (
           // If there's no user, show login/registration links
           <>
+
+          <Link className="navLink" to="/home">
+              Home
+            </Link>
+
             <Link className="navLink" to="/posts">
               Pulse
             </Link>
@@ -26,9 +31,6 @@ function Nav() {
               Login / Register
             </Link>
 
-            <Link className="navLink" to="/user">
-              Home
-            </Link>
           </>
 
         )}
@@ -36,7 +38,7 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/home">
               Home
             </Link>
 

@@ -293,6 +293,7 @@ function EditPost({ setEditMode }) {
                             <p>{image.file.name}</p>
                             <Button
                                 onClick={handleChangeImage}
+                                color='error'
                                 style={{
                                     marginBottom: 15,
                                 }}
@@ -302,6 +303,7 @@ function EditPost({ setEditMode }) {
                         :
                         <Button
                             onClick={handleOpenImageModal}
+                            color='primary'
                             style={{
                                 marginBottom: 15,
                             }}
@@ -313,6 +315,7 @@ function EditPost({ setEditMode }) {
                             <p>{video.file.name}</p>
                             <Button
                                 onClick={handleChangeVideo}
+                                color='error'
                                 style={{
                                     marginBottom: 15,
                                 }}
@@ -322,6 +325,7 @@ function EditPost({ setEditMode }) {
                         :
                         <Button
                             onClick={handleOpenVideoModal}
+                            color='primary'
                             style={{
                                 marginBottom: 15,
                             }}
@@ -435,16 +439,16 @@ function EditPost({ setEditMode }) {
                     <Button
                         variant="contained"
                         onClick={handleClick}
+                        color='primary'
                         sx={{
-                            backgroundColor: '#4E9BB9',
                             margin: '2px'
                         }}
                     >Submit Post</Button>
                     <Button
                         variant="contained"
                         onClick={cancelEdit}
+                        color='error'
                         sx={{
-                            backgroundColor: 'red',
                             margin: '2px'
                         }}
                     >Cancel</Button>

@@ -135,7 +135,7 @@ function App() {
             path="/admin"
           >
             {user.access_level < 2 ?
-              <Redirect to="/about" />
+              <Redirect to="/posts" />
               :
               <AdminPage />
             }
@@ -156,7 +156,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/posts" />
               :
               // Otherwise, show the login page
               <LoginPage />
@@ -170,7 +170,7 @@ function App() {
             {user.id ?
               // If the user is already logged in, 
               // redirect them to the /user page
-              <Redirect to="/user" />
+              <Redirect to="/posts" />
               :
               // Otherwise, show the registration page
               <RegisterPage />
@@ -181,14 +181,9 @@ function App() {
             exact
             path="/home"
           >
-            {user.id ?
-              // If the user is already logged in, 
-              // redirect them to the /user page
-              <Redirect to="/user" />
-              :
-              // Otherwise, show the Landing page
+            
               <LandingPage />
-            }
+            
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
