@@ -19,7 +19,7 @@ function Nav() {
           // If there's no user, show login/registration links
           <>
             <Link className="navLink" to="/posts">
-              Forum
+              Pulse
             </Link>
             
             <Link className="navLink" to="/login">
@@ -41,16 +41,16 @@ function Nav() {
             </Link>
 
             <Link className="navLink" to="/posts">
-              Forum
+              Pulse
             </Link>
 
             <Link className="navLink" to={`/profile/${user.id}`}>
-              Profile Page
+              Profile
             </Link>
             {user.access_level === 2 && (
               <>
                 <Link className="navLink" to="/admin">
-                  Admin Page
+                  Admin
                 </Link>
               </>
             )}

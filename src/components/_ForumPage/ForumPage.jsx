@@ -86,7 +86,7 @@ function ForumPage() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <h2>Forum Page</h2>
+            <h2>The Pulse</h2>
             <Box
                 sx={{
                     width: '100%',
