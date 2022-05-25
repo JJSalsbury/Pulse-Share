@@ -16,8 +16,11 @@ import {
     Modal,
     Typography,
     TextField,
-    FormControl
+    FormControl, 
+    createTheme 
 } from '@mui/material';
+
+
 
 // import for sweetalert2
 import Swal from 'sweetalert2'
@@ -286,6 +289,7 @@ function AddPostPage() {
                                 onClick={handleChangeImage}
                                 style={{
                                     marginBottom: 15,
+                                    color: 'blue'
                                 }}
                             >Remove Photo
                             </Button> 
@@ -295,6 +299,7 @@ function AddPostPage() {
                             onClick={handleOpenImageModal}
                             style={{
                                 marginBottom: 15,
+                                color: 'blue'
                             }}
                         >Add Photo
                         </Button>
@@ -306,6 +311,7 @@ function AddPostPage() {
                                 onClick={handleChangeVideo}
                                 style={{
                                     marginBottom: 15,
+                                    color: 'blue'
                                 }}
                             >Remove Video
                             </Button> 
@@ -315,6 +321,7 @@ function AddPostPage() {
                             onClick={handleOpenVideoModal}
                             style={{
                                 marginBottom: 15,
+                                color: 'blue'
                             }}
                         >Add Video
                         </Button>
@@ -420,18 +427,17 @@ function AddPostPage() {
                 <Box>
                     <Button 
                         sx={{
-                            backgroundColor: '#4E9BB9',
                             margin: '2px'
                         }} 
                         variant="contained" 
+                        color='primary'
                         onClick={handleClick} 
                     >Submit Post</Button>
                     <Button 
                         sx={{
-                            backgroundColor: 'red',
+                            // backgroundColor: 'red',
                             margin: '2px'
-                        }} 
-                        variant="contained" 
+                        }}  
                         onClick={cancelPost} 
                     >Cancel</Button>
                 </Box>

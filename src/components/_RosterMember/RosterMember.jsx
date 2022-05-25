@@ -43,7 +43,7 @@ function RosterMember({ member }) {
             return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon fontSize='small'/> DEMOTE</Button>;
         } else if (member.access_level === 0) {
             // if user access_level is 0, 'PROMOTE' button will render to call promoteUser function
-            return <Button color='success' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon fontSize='small'/> PROMOTE</Button>;
+            return <Button color='primary' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon fontSize='small'/> PROMOTE</Button>;
         }
 
     }

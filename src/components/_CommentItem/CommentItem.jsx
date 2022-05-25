@@ -27,7 +27,7 @@ function CommentItem({ comment, postId }) {
     const handleSubmit = () => {
         console.log('save clicked');
 
-       if (editComment.comment === '') {
+        if (editComment.comment === '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -105,7 +105,7 @@ function CommentItem({ comment, postId }) {
             imageWidth: 400,
             imageHeight: 400,
             imageAlt: 'Image Modal',
-          })
+        })
     }
 
     return (
@@ -169,9 +169,9 @@ function CommentItem({ comment, postId }) {
                                     </Paper>
                                     <Button onClick={handleSubmit}
                                         sx={{
-                                            backgroundColor: '#4E9BB9',
                                             margin: '2px',
                                         }}
+                                        color="primary"
                                         variant="contained"
                                         className='buttons'
                                     ><SendIcon /> Submit </Button>
@@ -191,7 +191,7 @@ function CommentItem({ comment, postId }) {
                                     </Box>
                                     <br />
                                     <Box onClick={handlePhoto}>
-                                        {comment.image && <img src={comment.image} height="100px" />}
+                                        {comment.image && <img className="hoverForPointer" src={comment.image} height="100px" />}
                                     </Box>
                                 </Box>
 
@@ -203,10 +203,10 @@ function CommentItem({ comment, postId }) {
                         {user.id === comment.user_id ?
                             <Button
                                 sx={{
-                                    backgroundColor: '#4E9BB9',
                                     margin: '2px',
                                     marginBottom: '5px',
                                 }}
+                                color="primary"
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
@@ -215,9 +215,9 @@ function CommentItem({ comment, postId }) {
                             <Button
                                 variant="contained"
                                 className='buttons'
+                                color="error"
                                 onClick={deleteComment}
                                 sx={{
-                                    backgroundColor: 'red',
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}
