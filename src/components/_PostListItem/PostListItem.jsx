@@ -59,20 +59,17 @@ function PostListItem({ post }) {
                         alignItems: 'center',
                         paddingRight: 3
                     }}>
-                    <Avatar className="hoverForPointer" alt="Profile Picture" src={post.profile_picture} onClick={() => { history.push(`/profile/${post.user_id}`) }} />
-                    <Typography
-                        component="span"
-                        variant="body2"
-                        color="text.primary"
-                    >
-                        {/* <a onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}</a> */}
-                    </Typography>
+                    <Avatar 
+                        className="hoverForPointer" 
+                        alt="Profile Picture" 
+                        src={post.profile_picture} 
+                        onClick={() => { history.push(`/profile/${post.user_id}`) }} 
+                    />
                 </ListItemAvatar>
                 <Box
-                    className="hoverForPointer"
-                    onClick={() => { history.push(`/postDetail/${post.id}`) }}
                     sx={{
-                        display: 'flex'
+                        display: 'flex',
+                        width: '100%'
                     }}
                 >
                     <ListItemText
@@ -82,12 +79,14 @@ function PostListItem({ post }) {
                             justifyContent: 'space-between'
                         }}
                         primary={
-                            <Box>
+                            <Box
+                                className="hoverForPointer"
+                                onClick={() => { history.push(`/postDetail/${post.id}`) }}
+                            >
                                 <Typography
                                     component="span"
                                     variant="h4"
                                     color="text.primary"
-
                                 >
                                     {post.title}
                                 </Typography>

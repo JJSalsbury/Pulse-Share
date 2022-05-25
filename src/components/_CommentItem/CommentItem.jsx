@@ -27,7 +27,7 @@ function CommentItem({ comment, postId }) {
     const handleSubmit = () => {
         console.log('save clicked');
 
-       if (editComment.comment === '') {
+        if (editComment.comment === '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -105,7 +105,7 @@ function CommentItem({ comment, postId }) {
             imageWidth: 400,
             imageHeight: 400,
             imageAlt: 'Image Modal',
-          })
+        })
     }
 
     return (
@@ -191,7 +191,7 @@ function CommentItem({ comment, postId }) {
                                     </Box>
                                     <br />
                                     <Box onClick={handlePhoto}>
-                                        {comment.image && <img src={comment.image} height="100px" />}
+                                        {comment.image && <img className="hoverForPointer" src={comment.image} height="100px" />}
                                     </Box>
                                 </Box>
 
