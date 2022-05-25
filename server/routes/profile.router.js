@@ -81,11 +81,11 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 });
 
-router.delete('/:id', rejectUnauthenticated, (req, res) => {
+router.delete('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
   console.log('DELETE id:', id);
 
-  const query = `DELETE FROM "user" WHERE id = $1`;
+  const query = `DELETE FROM "user" WHERE "id" = $1`;
   values = [id];
   pool.query(query, values)
     .then(() => { res.sendStatus(200); })
