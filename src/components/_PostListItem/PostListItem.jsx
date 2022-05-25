@@ -65,7 +65,7 @@ function PostListItem({ post }) {
                         variant="body2"
                         color="text.primary"
                     >
-                        <a onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}</a>
+                        {/* <a onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}</a> */}
                     </Typography>
                 </ListItemAvatar>
                 <Box
@@ -106,7 +106,9 @@ function PostListItem({ post }) {
                                 <Box sx={{
                                     marginTop: '10px'
                                 }}>
-                                    {post.date} {post.time}
+                                    Posted by: <a 
+                                                onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}
+                                                </a> {post.date} @ {post.time}
                                 </Box>
 
                                 <br />

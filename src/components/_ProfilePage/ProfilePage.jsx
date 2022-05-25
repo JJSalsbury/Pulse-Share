@@ -245,14 +245,17 @@ function ProfilePage({ profileId }) {
 
                 }}>
 
+
                     {editMode ?
                         <>
+
                             <Box
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
                                 sx={{ width: 200, height: 200 }}
                             ></Box>
+
 
 
                             <Box>
@@ -327,16 +330,28 @@ function ProfilePage({ profileId }) {
                                 </Box>
                             </Modal>
                         </>
+
                         :
 
+                        <Box>
+                            {profile?.profile_picture === '' ?
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src='https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
 
+                                :
 
-                        <Box
-                            component="img"
-                            alt="profile picture"
-                            src={profile.profile_picture}
-                            sx={{ width: 200, height: 200 }}
-                        ></Box>
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src={profile.profile_picture}
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
+                            }
+                        </Box>
                     }
 
 

@@ -4,10 +4,11 @@ const imageReducer = (state = {}, action) => {
             return action.payload;
         case 'CLEAR_IMAGE':
             return {};
+        case 'LOGOUT':
+            return {};
         default:
             return state;
     }
 };
-    
+
 export default imageReducer;
-    
