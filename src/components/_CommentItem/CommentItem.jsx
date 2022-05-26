@@ -140,10 +140,10 @@ function CommentItem({ comment, postId }) {
                         }}
                     >
 
-                        <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
+                        <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px', whiteSpace: "pre-line" }}>
                             <p>{comment.date} {comment.time}</p>
                             {editMode ?
-                                <p>"{comment.comment}"</p> :
+                                <p>{comment.comment}</p> :
                                 <Box
                                     sx={{
                                         border: '1px solid black',

@@ -63,6 +63,7 @@ function AddPostPage() {
     let imageUrl = null;
     let videoUrl = null;
 
+
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
     const handleCloseImageModal = () => setOpenImageModal(false);
@@ -221,7 +222,7 @@ function AddPostPage() {
     return (
         <Container>
             
-            <h2>Add Post</h2>
+            <h2 onClick={presentationClick}>Add Post</h2>
             <Box 
                 component={Paper}
                 sx={{
@@ -237,12 +238,13 @@ function AddPostPage() {
                         required
                         id="outlined-required"
                         label="Title"
-                        defaultValue={postTitle}
+                        value={postTitle}
                         style={{
                             marginBottom: 15,
                             minWidth: '100%'
                         }}
                         onChange={(event) => setPostTitle(event.target.value)}
+                        
                     />
                 </Box>
                 <Box>

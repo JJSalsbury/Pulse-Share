@@ -183,9 +183,12 @@ function PostDetailPage() {
                                         />
                                     </p>
 
-
-
-                                    <p>{post.post}</p>
+                                        
+                                    {/* This will add line breaks if the user enters them */}
+                                    {post !== '' &&
+                                    <Typography style={{ whiteSpace: "pre-line" }}>
+                                        {post?.post}
+                                    </Typography>}
 
                                 </Box>
                             </Box>
