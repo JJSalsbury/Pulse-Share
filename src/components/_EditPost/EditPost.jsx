@@ -19,6 +19,8 @@ import {
     TextField,
     FormControl
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 // import for sweetalert2
 import Swal from 'sweetalert2'
@@ -293,6 +295,7 @@ function EditPost({ setEditMode }) {
                             <p>{image.file.name}</p>
                             <Button
                                 onClick={handleChangeImage}
+                                color='error'
                                 style={{
                                     marginBottom: 15,
                                 }}
@@ -302,6 +305,7 @@ function EditPost({ setEditMode }) {
                         :
                         <Button
                             onClick={handleOpenImageModal}
+                            color='primary'
                             style={{
                                 marginBottom: 15,
                             }}
@@ -313,6 +317,7 @@ function EditPost({ setEditMode }) {
                             <p>{video.file.name}</p>
                             <Button
                                 onClick={handleChangeVideo}
+                                color='error'
                                 style={{
                                     marginBottom: 15,
                                 }}
@@ -322,6 +327,7 @@ function EditPost({ setEditMode }) {
                         :
                         <Button
                             onClick={handleOpenVideoModal}
+                            color='primary'
                             style={{
                                 marginBottom: 15,
                             }}
@@ -435,19 +441,27 @@ function EditPost({ setEditMode }) {
                     <Button
                         variant="contained"
                         onClick={handleClick}
+                        color='primary'
                         sx={{
-                            backgroundColor: '#4E9BB9',
                             margin: '2px'
                         }}
-                    >Submit Post</Button>
+                    ><SendIcon 
+                        sx={{
+                            marginRight: '4px'
+                        }}
+                    />Submit Post</Button>
                     <Button
                         variant="contained"
                         onClick={cancelEdit}
+                        color='error'
                         sx={{
-                            backgroundColor: 'red',
                             margin: '2px'
                         }}
-                    >Cancel</Button>
+                    ><DoDisturbIcon 
+                    sx={{
+                        marginRight: '4px'
+                    }}
+                    />Cancel</Button>
                 </Box>
             </Box>
 

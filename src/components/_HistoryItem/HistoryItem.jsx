@@ -25,6 +25,8 @@ function HistoryItem({ post }) {
             showCancelButton: true,
             confirmButtonText: 'Yes, Delete the post.',
             cancelButtonText: 'No, Cancel!',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to delete post
@@ -34,20 +36,21 @@ function HistoryItem({ post }) {
                     type: 'DELETE_POST',
                     payload: post.id
                 })
-                Swal.fire(
-                    'Delete!',
-                    `You have deleted your post.`,
-                    'success'
-                )
+                Swal.fire({
+                    title: 'Delete!',
+                    text: `You have deleted your post.`,
+                    icon: 'success',
+                    confirmButtonColor: '#327B5B',
+            })
             } else if (
-                /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire(
-                    'Cancelled',
-                    `Delete cancelled.`,
-                    'error'
-                )
+                Swal.fire({
+                    title: 'Cancelled',
+                    text: `Delete cancelled.`,
+                    icon: 'error',
+                    confirmButtonColor: '#327B5B',
+            })
             }
         })
 

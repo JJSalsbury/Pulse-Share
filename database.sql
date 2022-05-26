@@ -59,7 +59,7 @@ CREATE TABLE "comments" (
 	"id" SERIAL PRIMARY KEY,
 	"date" DATE DEFAULT CURRENT_DATE,
 	"time" TIME DEFAULT NOW(),
-	"comment" VARCHAR (300) NOT NULL,
+	"comment" VARCHAR (2000) NOT NULL,
 	"image" VARCHAR (2000),
 	"video" VARCHAR (2000),
 	"user_id" INT REFERENCES "user" ON DELETE CASCADE,

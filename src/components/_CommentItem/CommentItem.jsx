@@ -167,14 +167,22 @@ function CommentItem({ comment, postId }) {
                                             </Box>
                                         </Container>
                                     </Paper>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-end'
+                                        }}
+                                    >
                                     <Button onClick={handleSubmit}
                                         sx={{
                                             margin: '2px',
+
                                         }}
                                         color="primary"
                                         variant="contained"
                                         className='buttons'
                                     ><SendIcon /> Submit </Button>
+                                    </Box>
                                 </Box>}
                             <Box
                                     sx={{
@@ -201,6 +209,7 @@ function CommentItem({ comment, postId }) {
                     </Box>
                     <Box className="btn-holder">
                         {user.id === comment.user_id ?
+                        editMode ? 
                             <Button
                                 sx={{
                                     margin: '2px',
@@ -210,7 +219,16 @@ function CommentItem({ comment, postId }) {
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
-                            ><EditIcon /> Edit </Button> : <div></div>}
+                            ><EditIcon />Edit</Button> : <Button
+                            sx={{
+                                margin: '2px',
+                                marginBottom: '5px',
+                            }}
+                            color="primary"
+                            variant="contained"
+                            className='buttons'
+                            onClick={handleCommentEdit}
+                        ><EditIcon />Cancel</Button>: <div></div>}
                         {(user.access_level >= 1 || user.id === comment.user_id) &&
                             <Button
                                 variant="contained"

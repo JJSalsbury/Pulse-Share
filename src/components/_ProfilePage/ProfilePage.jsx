@@ -29,6 +29,10 @@ import {
     Stack,
 
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import HistoryIcon from '@mui/icons-material/History';
 
 import { display, maxWidth, width, spacing } from '@mui/system';
 
@@ -198,7 +202,8 @@ function ProfilePage({ profileId }) {
             color: 'black',
             showCancelButton: true,
             confirmButtonColor: '#4E9BB9',
-            cancelButtonColor: 'red',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -207,7 +212,7 @@ function ProfilePage({ profileId }) {
                 Swal.fire({
                     background: 'white',
                     color: 'black',
-                    confirmButtonColor: '#4E9BB9',
+                    confirmButtonColor: '#327B5B',
                     title: 'Deleted!',
                     text: `Profile has been deleted.`,
                     icon: 'success'
@@ -244,14 +249,17 @@ function ProfilePage({ profileId }) {
 
                 }}>
 
+
                     {editMode ?
                         <>
+
                             <Box
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
                                 sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4 }}
                             ></Box>
+
 
 
                             <Box>
@@ -325,16 +333,28 @@ function ProfilePage({ profileId }) {
                                 </Box>
                             </Modal>
                         </>
+
                         :
 
+                        <Box>
+                            {profile?.profile_picture === '' ?
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src='https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg'
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
 
+                                :
 
-                        <Box
-                            component="img"
-                            alt="profile picture"
-                            src={profile.profile_picture}
-                            sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4}}
-                        ></Box>
+                                <Box
+                                    component="img"
+                                    alt="profile picture"
+                                    src={profile.profile_picture}
+                                    sx={{ width: 200, height: 200 }}
+                                ></Box>
+                            }
+                        </Box>
                     }
 
 
@@ -390,7 +410,7 @@ function ProfilePage({ profileId }) {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '52%',
+                    minWidth: '40%',
                     maxWidth: '52%',
                     height: '40vh',
                     overflowY: 'scroll'
@@ -500,6 +520,7 @@ function ProfilePage({ profileId }) {
                     /> : <Box>{profile.age}</Box>}
 
 
+                    <h1>Biometrics</h1>
 
                     <Box><strong>Height: </strong>  </Box>
                     {editMode ? <TextField
@@ -508,6 +529,12 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'height')}
                     /> : <Box>{profile.height}</Box>}
 
+                    <Box><strong>Age: </strong></Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.age}
+                        onChange={(event) => handleChange(event, 'age')}
+                    /> : <Box>{profile.age}</Box>}
 
 
                     <Box><strong>Weight: </strong> </Box>
@@ -517,6 +544,12 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'weight')}
                     /> : <Box>{profile.weight}</Box>}
 
+                    <Box><strong>Height: </strong>  </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.height}
+                        onChange={(event) => handleChange(event, 'height')}
+                    /> : <Box>{profile.height}</Box>}
 
 
 
@@ -536,6 +569,12 @@ function ProfilePage({ profileId }) {
                     /> : <Box>{profile.injury_level}</Box>}
 
 
+                    <Box><strong>Biological Gender: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.biological_gender}
+                        onChange={(event) => handleChange(event, 'biological_gender')}
+                    /> : <Box>{profile.biological_gender}</Box>}
 
                     <Box><strong>Aisa Level:</strong>  </Box>
                     {editMode ? <TextField
@@ -600,9 +639,37 @@ function ProfilePage({ profileId }) {
                         padding: 3
                     }}
                 >
-                    <Button variant="contained" color='primary' onClick={toPostHistory}>Post History</Button >
-                    {editMode ? <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                    {editMode ? <Button variant="contained" color='error' onClick={handleDelete}>Delete Account</Button> : ''}
+                    <Button
+                        variant="contained"
+                        color='primary'
+                        onClick={toPostHistory}>
+                        <HistoryIcon
+                            sx={{ marginRight: '4px' }}
+                        />Post History</Button >
+                    {editMode ?
+                        <Button
+                            variant="contained"
+                            color='primary'
+                            sx={{ margin: 1 }}
+                            onClick={handleSubmit}>
+                            <SendIcon
+                                sx={{ marginRight: '4px' }}
+                            />Submit</Button>
+                        :
+                        <Button
+                            variant="contained"
+                            color='primary'
+                            sx={{ margin: 1 }}
+                            onClick={handleUpdate}>
+                            <EditIcon />Update Profile</Button>}
+                    {editMode ?
+                        <Button
+                            variant="contained"
+                            color='error'
+                            onClick={handleDelete}>
+                            <DeleteIcon />Delete Account</Button>
+                        :
+                        ''}
                 </Container>
             }
 

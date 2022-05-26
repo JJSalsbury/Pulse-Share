@@ -18,17 +18,19 @@ function Nav() {
         {!user.id && (
           // If there's no user, show login/registration links
           <>
+
+          <Link className="navLink" to="/home">
+              Home
+            </Link>
+
             <Link className="navLink" to="/posts">
-              Forum
+              Pulse
             </Link>
             
             <Link className="navLink" to="/login">
               Login / Register
             </Link>
 
-            <Link className="navLink" to="/user">
-              Home
-            </Link>
           </>
 
         )}
@@ -36,21 +38,21 @@ function Nav() {
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Link className="navLink" to="/home">
               Home
             </Link>
 
             <Link className="navLink" to="/posts">
-              Forum
+              Pulse
             </Link>
 
             <Link className="navLink" to={`/profile/${user.id}`}>
-              Profile Page
+              Profile
             </Link>
             {user.access_level === 2 && (
               <>
                 <Link className="navLink" to="/admin">
-                  Admin Page
+                  Admin
                 </Link>
               </>
             )}
@@ -59,9 +61,6 @@ function Nav() {
           </>
         )}
 
-        <Link className="navLink" to="/about">
-          About
-        </Link>
       </div>
     </div>
   );

@@ -71,8 +71,8 @@ function PostDetailPage() {
             background: 'white',
             color: 'black',
             showCancelButton: true,
-            confirmButtonColor: 'red',
-            cancelButtonColor: '#4E9BB9',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -81,7 +81,7 @@ function PostDetailPage() {
                 Swal.fire({
                     background: 'white',
                     color: 'black',
-                    confirmButtonColor: '#4E9BB9',
+                    confirmButtonColor: '#327B5B',
                     title: 'Deleted!',
                     text: `Post has been deleted.`,
                     icon: 'success'
