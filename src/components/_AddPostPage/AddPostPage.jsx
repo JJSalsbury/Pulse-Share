@@ -63,6 +63,21 @@ function AddPostPage() {
     let imageUrl = null;
     let videoUrl = null;
 
+    const presentationClick = () => {
+        setPostTitle('Found new settings for help with sleep');
+        setPostBody(`
+        Manufacturer: Abbott 
+        Model: Proclaim XR Recharge-Free
+        Frequency: 20 Hz
+        Pulse Width: 100 microseconds
+        Amplitude: 0.05 mA
+
+        These settings have been helping me sleep through the night, hopefully they can help some of you as well!
+        `);
+        setOutcomeTag(9);
+    }
+
+
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
     const handleCloseImageModal = () => setOpenImageModal(false);
@@ -221,7 +236,7 @@ function AddPostPage() {
     return (
         <Container>
             
-            <h2>Add Post</h2>
+            <h2 onClick={presentationClick}>Add Post</h2>
             <Box 
                 component={Paper}
                 sx={{
@@ -237,12 +252,13 @@ function AddPostPage() {
                         required
                         id="outlined-required"
                         label="Title"
-                        defaultValue={postTitle}
+                        value={postTitle}
                         style={{
                             marginBottom: 15,
                             minWidth: '100%'
                         }}
                         onChange={(event) => setPostTitle(event.target.value)}
+                        
                     />
                 </Box>
                 <Box>
