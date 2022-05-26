@@ -63,20 +63,6 @@ function AddPostPage() {
     let imageUrl = null;
     let videoUrl = null;
 
-    const presentationClick = () => {
-        setPostTitle('Found new settings for help with sleep');
-        setPostBody(`
-        Manufacturer: Abbott 
-        Model: Proclaim XR Recharge-Free
-        Frequency: 20 Hz
-        Pulse Width: 100 microseconds
-        Amplitude: 0.05 mA
-
-        These settings have been helping me sleep through the night, hopefully they can help some of you as well!
-        `);
-        setOutcomeTag(9);
-    }
-
 
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
