@@ -82,6 +82,8 @@ function ProfilePage({ profileId }) {
 
 
     const [editMode, setEditMode] = useState(false);
+
+    // gets all the profile information
     useEffect(() => {
         dispatch({ type: 'GET_PROFILE', payload: profileId });
         dispatch({
@@ -91,7 +93,7 @@ function ProfilePage({ profileId }) {
 
 
 
-
+    // switches to post history view
     const toPostHistory = () => {
         history.push('/postHistory')
     }
@@ -118,6 +120,8 @@ function ProfilePage({ profileId }) {
             }
         })
     }
+
+    // handles change of privacy settings for user account
     const handlePrivacy = (event) => {
         let privacy = event.target.value;
         dispatch({
@@ -132,6 +136,7 @@ function ProfilePage({ profileId }) {
         dispatch({
             type: 'CLEAR_IMAGE'
         })
+        profile.profile_picture = ''
     }
 
 
@@ -187,7 +192,7 @@ function ProfilePage({ profileId }) {
         setEditMode(!editMode);
     }
 
-
+    //deletes entire user account, a confirmation/warning sweet alert presents to avoid accidental account deletion
     const handleDelete = () => {
         Swal.fire({
             title: `Are you sure you want to delete your profile?`,
@@ -214,9 +219,6 @@ function ProfilePage({ profileId }) {
                 })
             }
         })
-
-
-
     }
 
 
@@ -255,7 +257,7 @@ function ProfilePage({ profileId }) {
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
-                                sx={{ width: 200, height: 200 }}
+                                sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4 }}
                             ></Box>
 
 
@@ -263,7 +265,6 @@ function ProfilePage({ profileId }) {
                             <Box>
                                 {image?.file || profile?.profile_picture ?
                                     <Box>
-                                        <p>{image?.file?.name}</p>
                                         <Button
                                             onClick={handleChangeImage}
                                             style={{
@@ -399,8 +400,7 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'company')}
                     /> : <Box>{profile.company}</Box>}
 
-                    {/* <h2>Contact Info</h2>
-                        <div><strong>Email: </strong>{user.email}</div> */}
+
                 </Paper>
 
 
@@ -446,10 +446,9 @@ function ProfilePage({ profileId }) {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '35%',
+                    minWidth: '40%',
                     maxWidth: '40%',
                     overflowY: 'scroll',
-                    // ml: 3,
                     height: '40vh'
 
 
@@ -501,7 +500,7 @@ function ProfilePage({ profileId }) {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '35%',
+                    minWidth: '40%',
                     maxWidth: '40%',
                     overflowY: 'scroll',
                     height: '40vh'
@@ -521,6 +520,7 @@ function ProfilePage({ profileId }) {
                     /> : <Box>{profile.age}</Box>}
 
 
+                    <h1>Biometrics</h1>
 
                     <Box><strong>Height: </strong>  </Box>
                     {editMode ? <TextField
@@ -529,6 +529,12 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'height')}
                     /> : <Box>{profile.height}</Box>}
 
+                    <Box><strong>Age: </strong></Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.age}
+                        onChange={(event) => handleChange(event, 'age')}
+                    /> : <Box>{profile.age}</Box>}
 
 
                     <Box><strong>Weight: </strong> </Box>
@@ -538,6 +544,12 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'weight')}
                     /> : <Box>{profile.weight}</Box>}
 
+                    <Box><strong>Height: </strong>  </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.height}
+                        onChange={(event) => handleChange(event, 'height')}
+                    /> : <Box>{profile.height}</Box>}
 
 
 
@@ -557,6 +569,12 @@ function ProfilePage({ profileId }) {
                     /> : <Box>{profile.injury_level}</Box>}
 
 
+                    <Box><strong>Biological Gender: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.biological_gender}
+                        onChange={(event) => handleChange(event, 'biological_gender')}
+                    /> : <Box>{profile.biological_gender}</Box>}
 
                     <Box><strong>Aisa Level:</strong>  </Box>
                     {editMode ? <TextField
