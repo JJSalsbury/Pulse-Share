@@ -78,6 +78,8 @@ function ProfilePage({ profileId }) {
 
 
     const [editMode, setEditMode] = useState(false);
+
+    // gets all the profile information
     useEffect(() => {
         dispatch({ type: 'GET_PROFILE', payload: profileId });
         dispatch({
@@ -87,7 +89,7 @@ function ProfilePage({ profileId }) {
 
 
 
-
+    // switches to post history view
     const toPostHistory = () => {
         history.push('/postHistory')
     }
@@ -114,6 +116,8 @@ function ProfilePage({ profileId }) {
             }
         })
     }
+
+    // handles change of privacy settings for user account
     const handlePrivacy = (event) => {
         let privacy = event.target.value;
         dispatch({
@@ -128,6 +132,7 @@ function ProfilePage({ profileId }) {
         dispatch({
             type: 'CLEAR_IMAGE'
         })
+        profile.profile_picture = ''
     }
 
 
@@ -183,7 +188,7 @@ function ProfilePage({ profileId }) {
         setEditMode(!editMode);
     }
 
-
+    //deletes entire user account, a confirmation/warning sweet alert presents to avoid accidental account deletion
     const handleDelete = () => {
         Swal.fire({
             title: `Are you sure you want to delete your profile?`,
@@ -209,9 +214,6 @@ function ProfilePage({ profileId }) {
                 })
             }
         })
-
-
-
     }
 
 
@@ -221,14 +223,14 @@ function ProfilePage({ profileId }) {
         <>
 
 
- {/* STYLING FOR profile pic, pronouns, location, job title, company  */}
+            {/* STYLING FOR profile pic, pronouns, location, job title, company  */}
             <Stack
                 direction='row'
                 spacing={2}
                 justifyContent="center"
                 alignItems="center"
-    
-                >
+
+            >
 
                 <Paper sx={{
 
@@ -248,14 +250,13 @@ function ProfilePage({ profileId }) {
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
-                                sx={{ width: 200, height: 200 }}
+                                sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4 }}
                             ></Box>
 
 
                             <Box>
                                 {image?.file || profile?.profile_picture ?
                                     <Box>
-                                        <p>{image?.file?.name}</p>
                                         <Button
                                             onClick={handleChangeImage}
                                             style={{
@@ -332,7 +333,7 @@ function ProfilePage({ profileId }) {
                             component="img"
                             alt="profile picture"
                             src={profile.profile_picture}
-                            sx={{ width: 200, height: 200 }}
+                            sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4}}
                         ></Box>
                     }
 
@@ -379,13 +380,12 @@ function ProfilePage({ profileId }) {
                         onChange={(event) => handleChange(event, 'company')}
                     /> : <Box>{profile.company}</Box>}
 
-                    {/* <h2>Contact Info</h2>
-                        <div><strong>Email: </strong>{user.email}</div> */}
+
                 </Paper>
 
 
 
-{/* ABOUT ME STYLING HERE */}
+                {/* ABOUT ME STYLING HERE */}
                 <Paper sx={{
                     borderRadius: 2,
                     padding: 3,
@@ -393,7 +393,7 @@ function ProfilePage({ profileId }) {
                     minWidth: '52%',
                     maxWidth: '52%',
                     height: '40vh',
-                    overflowY: 'scroll' 
+                    overflowY: 'scroll'
                 }}>
 
                     <h1>About Me</h1>
@@ -411,199 +411,198 @@ function ProfilePage({ profileId }) {
                 </Paper>
             </Stack>
 
- {/* DEVICE STYLING HERE */}
+            {/* DEVICE STYLING HERE */}
             <Stack
-            direction='row'
-            spacing={2}
-            sx={{mt:2}}
-            justifyContent="center"
-            alignItems="center"
+                direction='row'
+                spacing={2}
+                sx={{ mt: 2 }}
+                justifyContent="center"
+                alignItems="center"
 
             >
-                
-                    <Paper sx={{
-                    
-                        borderRadius: 2,
-                        padding: 3,
-                        boxShadow: 5,
-                        minWidth: '40%',
-                        maxWidth: '40%',
-                        overflowY: 'scroll',
-                       // ml: 3,
-                        height: '40vh'
 
-                        
-                    }}>
+                <Paper sx={{
 
-                        <h1>Device Information</h1>
-
-                        <Box><strong>Device: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.device}
-                            onChange={(event) => handleChange(event, 'device')}
-                        /> : <Box>{profile.device}</Box>}
+                    borderRadius: 2,
+                    padding: 3,
+                    boxShadow: 5,
+                    minWidth: '40%',
+                    maxWidth: '40%',
+                    overflowY: 'scroll',
+                    height: '40vh'
 
 
-                        <Box><strong>Device Settings: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.device_settings}
-                            onChange={(event) => handleChange(event, 'device_settings')}
-                        /> : <Box>{profile.device_settings}</Box>}
+                }}>
+
+                    <h1>Device Information</h1>
+
+                    <Box><strong>Device: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.device}
+                        onChange={(event) => handleChange(event, 'device')}
+                    /> : <Box>{profile.device}</Box>}
 
 
-                        <Box><strong>Baseline: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.baseline}
-                            onChange={(event) => handleChange(event, 'baseline')}
-                        /> : <Box>{profile.baseline}</Box>}
+                    <Box><strong>Device Settings: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.device_settings}
+                        onChange={(event) => handleChange(event, 'device_settings')}
+                    /> : <Box>{profile.device_settings}</Box>}
 
 
-                        <Box><strong>Improvements: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.improvements}
-                            multiline
-                            maxRows={6}
-                            onChange={(event) => handleChange(event, 'improvements')}
-                        /> : <Box>{profile.improvements}</Box>}
+                    <Box><strong>Baseline: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.baseline}
+                        onChange={(event) => handleChange(event, 'baseline')}
+                    /> : <Box>{profile.baseline}</Box>}
 
-                    </Paper>
 
+                    <Box><strong>Improvements: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.improvements}
+                        multiline
+                        maxRows={6}
+                        onChange={(event) => handleChange(event, 'improvements')}
+                    /> : <Box>{profile.improvements}</Box>}
+
+                </Paper>
 
 
 
 
- {/* BIOMETRICS STYLING HERE */}
-                    <Paper sx={{
-                        borderRadius: 2,
-                        padding: 3,
-                        boxShadow: 5,
-                        minWidth: '40%',
-                        maxWidth: '40%',
-                        overflowY: 'scroll',
-                        height: '40vh'
-                    }}>
+
+                {/* BIOMETRICS STYLING HERE */}
+                <Paper sx={{
+                    borderRadius: 2,
+                    padding: 3,
+                    boxShadow: 5,
+                    minWidth: '40%',
+                    maxWidth: '40%',
+                    overflowY: 'scroll',
+                    height: '40vh'
+                }}>
 
 
 
 
-                        <h1>Biometrics</h1>
+                    <h1>Biometrics</h1>
 
 
-                        <Box><strong>Age: </strong></Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.age}
-                            onChange={(event) => handleChange(event, 'age')}
-                        /> : <Box>{profile.age}</Box>}
-
-
-
-                        <Box><strong>Height: </strong>  </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.height}
-                            onChange={(event) => handleChange(event, 'height')}
-                        /> : <Box>{profile.height}</Box>}
+                    <Box><strong>Age: </strong></Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.age}
+                        onChange={(event) => handleChange(event, 'age')}
+                    /> : <Box>{profile.age}</Box>}
 
 
 
-                        <Box><strong>Weight: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.weight}
-                            onChange={(event) => handleChange(event, 'weight')}
-                        /> : <Box>{profile.weight}</Box>}
+                    <Box><strong>Height: </strong>  </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.height}
+                        onChange={(event) => handleChange(event, 'height')}
+                    /> : <Box>{profile.height}</Box>}
+
+
+
+                    <Box><strong>Weight: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.weight}
+                        onChange={(event) => handleChange(event, 'weight')}
+                    /> : <Box>{profile.weight}</Box>}
 
 
 
 
-                        <Box><strong>Biological Gender: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.biological_gender}
-                            onChange={(event) => handleChange(event, 'biological_gender')}
-                        /> : <Box>{profile.biological_gender}</Box>}
+                    <Box><strong>Biological Gender: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.biological_gender}
+                        onChange={(event) => handleChange(event, 'biological_gender')}
+                    /> : <Box>{profile.biological_gender}</Box>}
 
 
-                        <Box><strong>Injury Level: </strong>  </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.injury_level}
-                            onChange={(event) => handleChange(event, 'injury_level')}
-                        /> : <Box>{profile.injury_level}</Box>}
+                    <Box><strong>Injury Level: </strong>  </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.injury_level}
+                        onChange={(event) => handleChange(event, 'injury_level')}
+                    /> : <Box>{profile.injury_level}</Box>}
 
 
 
-                        <Box><strong>Aisa Level:</strong>  </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            value={editProfile.aisa_level}
-                            onChange={(event) => handleChange(event, 'aisa_level')}
-                        /> : <Box>{profile.aisa_level}</Box>}
+                    <Box><strong>Aisa Level:</strong>  </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        value={editProfile.aisa_level}
+                        onChange={(event) => handleChange(event, 'aisa_level')}
+                    /> : <Box>{profile.aisa_level}</Box>}
 
-                        <Box><strong>Time Since Injury: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            multiline
-                            value={editProfile.time_since_injury}
-                            onChange={(event) => handleChange(event, 'time_since_injury')}
-                        /> : <Box>{profile.time_since_injury}</Box>}
-
-
-                        <Box><strong>Medical Condition: </strong> </Box>
-                        {editMode ? <TextField
-                            type="text"
-                            multiline
-                            maxRows={5}
-                            fullWidth
-                            value={editProfile.medical_conditions}
-                            onChange={(event) => handleChange(event, 'medical_conditions')}
-                        /> : <Box >{profile.medical_conditions}</Box>}
+                    <Box><strong>Time Since Injury: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        multiline
+                        value={editProfile.time_since_injury}
+                        onChange={(event) => handleChange(event, 'time_since_injury')}
+                    /> : <Box>{profile.time_since_injury}</Box>}
 
 
-                    </Paper>
-                
+                    <Box><strong>Medical Condition: </strong> </Box>
+                    {editMode ? <TextField
+                        type="text"
+                        multiline
+                        maxRows={5}
+                        fullWidth
+                        value={editProfile.medical_conditions}
+                        onChange={(event) => handleChange(event, 'medical_conditions')}
+                    /> : <Box >{profile.medical_conditions}</Box>}
+
+
+                </Paper>
+
             </Stack>
 
 
             {
                 editMode ?
-                <Container
-                sx={{
-                    padding: 3
-                }}
-                
-                >
-                    <FormControl >
-                        <h3>Profile Privacy</h3>
-                        <RadioGroup
-                            onChange={handlePrivacy}
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue={editProfile.public}
-                            name="radio-buttons-group"
-                        >
-                            <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
-                            <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
-                            <FormControlLabel value={2} control={<Radio />} label="Private, no one can see profile details." />
-                        </RadioGroup>
-                    </FormControl> 
-                    </Container>: ''
+                    <Container
+                        sx={{
+                            padding: 3
+                        }}
+
+                    >
+                        <FormControl >
+                            <h3>Profile Privacy</h3>
+                            <RadioGroup
+                                onChange={handlePrivacy}
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                defaultValue={editProfile.public}
+                                name="radio-buttons-group"
+                            >
+                                <FormControlLabel value={0} control={<Radio />} label="Visible to Anyone" />
+                                <FormControlLabel value={1} control={<Radio />} label="Visible to Users" />
+                                <FormControlLabel value={2} control={<Radio />} label="Private, no one can see profile details." />
+                            </RadioGroup>
+                        </FormControl>
+                    </Container> : ''
             }
 
 
             {
                 user.id == profileId && <Container
-                sx={{
-                    padding: 3
-                }}
+                    sx={{
+                        padding: 3
+                    }}
                 >
                     <Button variant="contained" color='primary' onClick={toPostHistory}>Post History</Button >
-                    {editMode ? <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" color='primary' sx={{margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
-                    {editMode ? <Button variant="contained" color='primary' onClick={handleDelete}>Delete Account</Button> : ''}
+                    {editMode ? <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleSubmit}>Submit</Button> : <Button variant="contained" color='primary' sx={{ margin: 1 }} onClick={handleUpdate}>Update Profile</Button>}
+                    {editMode ? <Button variant="contained" color='error' onClick={handleDelete}>Delete Account</Button> : ''}
                 </Container>
             }
 
