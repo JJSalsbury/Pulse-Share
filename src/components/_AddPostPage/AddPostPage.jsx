@@ -190,7 +190,9 @@ function AddPostPage() {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, Cancel Post!',
+            confirmButtonColor: '#327B5B',
             cancelButtonText: 'No, Keep My Post!',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to demote user
@@ -206,9 +208,10 @@ function AddPostPage() {
                     type: 'CLEAR_POST'
                 })
                 
-                Swal.fire(
-                    'Canceled Post!',
-                )
+                Swal.fire({
+                    title: 'Canceled Post!',
+                    confirmButtonColor: '#327B5B',
+            })
 
                 history.push('/posts')
             }

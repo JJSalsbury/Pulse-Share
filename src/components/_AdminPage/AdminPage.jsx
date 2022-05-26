@@ -56,7 +56,7 @@ function AdminPage() {
             >
                 <Box>
                     <TextField
-                        label="username"
+                        label="Username"
                         helperText="SEARCH FOR A USER"
                         variant="filled"
                         value={searchUser}

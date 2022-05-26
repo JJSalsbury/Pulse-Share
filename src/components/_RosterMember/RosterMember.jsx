@@ -106,6 +106,8 @@ function RosterMember({ member }) {
             showCancelButton: true,
             confirmButtonText: 'Yes, Promote!',
             cancelButtonText: 'No, Cancel!',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to promote user
@@ -115,20 +117,22 @@ function RosterMember({ member }) {
                     type: 'PROMOTE_USER',
                     payload: user
                 })
-                Swal.fire(
-                    'Promoted!',
-                    `You have promoted ${member.username} to a Moderator.`,
-                    'success'
-                )
+                Swal.fire({
+                    title: 'Promoted!',
+                    text: `You have promoted ${member.username} to a Moderator.`,
+                    icon: 'success',
+                    confirmButtonColor: '#327B5B',
+            })
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire(
-                    'Cancelled',
-                    `${member.username} will remain a normal user.`,
-                    'error'
-                )
+                Swal.fire({
+                    title: 'Cancelled',
+                    text: `${member.username} will remain a normal user.`,
+                    icon: 'error',
+                    confirmButtonColor: '#327B5B',
+            })
             }
         })
 
@@ -151,6 +155,8 @@ function RosterMember({ member }) {
             showCancelButton: true,
             confirmButtonText: 'Yes, Delete the account.',
             cancelButtonText: 'No, Cancel!',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to delete user
@@ -160,20 +166,22 @@ function RosterMember({ member }) {
                     type: 'DELETE_USER',
                     payload: user
                 })
-                Swal.fire(
-                    'Delete!',
-                    `You have deleted ${member.username}'s account.`,
-                    'success'
-                )
+                Swal.fire({
+                    title: 'Delete!',
+                    text: `You have deleted ${member.username}'s account.`,
+                    icon: 'success',
+                    confirmButtonColor: '#327B5B',
+            })
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
             ) {
-                Swal.fire(
-                    'Cancelled',
-                    `${member.username} will remain a user.`,
-                    'error'
-                )
+                Swal.fire({
+                    title: 'Cancelled',
+                    text: `${member.username} will remain a user.`,
+                    icon: 'error',
+                    confirmButtonColor: '#327B5B',
+            })
             }
         })
     }

@@ -14,7 +14,8 @@ router.get('/:id', (req, res) => {
     to_char("comments".time, 'hh12:mi AM') as "time", "comments".image,"comments".video, "comments".comment, "comments".user_id FROM "comments"
     JOIN "user" ON "comments".user_id = "user".id
     JOIN "profiles" ON "user".id = "profiles".user_id
-    WHERE "comments".post_id = $1;`;
+    WHERE "comments".post_id = $1
+    ORDER BY "comments".id ASC;`;
 
   const values = [req.params.id]
 

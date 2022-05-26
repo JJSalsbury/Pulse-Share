@@ -18,7 +18,7 @@ function AddCommentForm({ postId }) {
     //     const history = useHistory();
     const image = useSelector(store => store.imageReducer);
     const video = useSelector(store => store.videoReducer);
-    let [newComment, setNewComment] = useState('');
+    const [newComment, setNewComment] = useState('');
     // const editComment = useSelector(store => store.commentReducer);
     const dispatch = useDispatch();
 
@@ -163,12 +163,14 @@ function AddCommentForm({ postId }) {
     const cancelPost = () => {
         // SweetAlert warning before demoting member
         Swal.fire({
-            title: `Are you sure you want to cancel your post?`,
+            title: `Are you sure you want to cancel your comment?`,
             text: "Click OK to Cancel",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Yes, Cancel Post!',
-            cancelButtonText: 'No, Keep My Post!',
+            confirmButtonText: 'Yes, Cancel Comment!',
+            cancelButtonText: 'No, Keep My Comment!',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true,
         }).then((result) => {
             // clicking 'OK' sends dispatch to demote user
@@ -180,13 +182,11 @@ function AddCommentForm({ postId }) {
                 dispatch({
                     type: 'CLEAR_IMAGE'
                 })
-                dispatch({
-                    type: 'CLEAR_POST'
-                })
 
-                Swal.fire(
-                    'Canceled Post!',
-                )
+                Swal.fire({
+                    text: 'Canceled Comment',
+                    confirmButtonColor: '#327B5B',
+            })
 
                 history.push('/posts')
             }
@@ -400,18 +400,19 @@ function AddCommentForm({ postId }) {
                                 marginRight: '4px'
                             }}
                         />Submit Comment</Button>
-                    <Button
-                        color='error'
-                        sx={{
-                            margin: '2px'
-                        }}
-                        variant="contained"
-                        onClick={cancelPost}
-                    ><DoDisturbIcon
+                    {newComment !== '' &&
+                        <Button
+                            color='error'
                             sx={{
-                                marginRight: '4px'
+                                margin: '2px'
                             }}
-                        />Cancel</Button>
+                            variant="contained"
+                            onClick={cancelPost}
+                        ><DoDisturbIcon
+                                sx={{
+                                    marginRight: '4px'
+                                }}
+                            />Cancel</Button>}
                 </Box>
             </Box>
 

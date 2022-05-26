@@ -9,7 +9,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     
     if (req.user.access_level === 2) {
     const query = `SELECT "id", "username", "access_level" FROM "user"
-    ORDER BY "access_level" DESC, "username";`;
+    ORDER BY "access_level" DESC, LOWER ("username");`;
     pool.query(query)
         .then(result => {
             res.send(result.rows);
