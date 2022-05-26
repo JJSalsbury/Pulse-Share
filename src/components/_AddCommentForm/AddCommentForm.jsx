@@ -193,6 +193,10 @@ function AddCommentForm({ postId }) {
         })
     }
 
+    const presentationComment = () => {
+        setNewComment(`These settings worked really well! Thanks for sharing!`)
+    }
+
     // const handleChange = (event) => {
     //   event.preventDefault();
 
@@ -206,7 +210,7 @@ function AddCommentForm({ postId }) {
 
     return (
         <div className="container">
-            <h2>Add a Comment</h2>
+            <h2 onClick={presentationComment}>Add a Comment</h2>
             <Box component={Paper}
                 sx={{
                     border: '1px solid black',
