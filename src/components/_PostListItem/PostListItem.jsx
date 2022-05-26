@@ -40,7 +40,7 @@ function PostListItem({ post }) {
 
     const postLengthCheck = () => {
         if (post.post.length > 150) {
-            return post.post.substring(0, 150) + '....'
+            return post.post.substring(0, 150) + '.....'
         } else {
             return post.post
         }
