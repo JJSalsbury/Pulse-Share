@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PostListItem from '../_PostListItem/PostListItem';
 
@@ -41,9 +41,27 @@ function ForumPage() {
 
     const user = useSelector(store => store.user);
     const postList = useSelector(store => store.postListReducer);
-    const outcomesList = useSelector( store => store.outcomesListReducer);
+    const outcomesList = useSelector(store => store.outcomesListReducer);
+    const [searchKeyword, setSearchKeyword] = useState();
 
     const [outcomeTag, setOutcomeTag] = useState('');
+
+    const handleChange = (event) => {
+
+    const keyword = event.target.value;
+        
+        if (keyword.length < 1) {
+            dispatch({
+                type: 'GET_ALL_POSTS'
+            })
+        } else {
+            dispatch({
+                type: 'SEARCH_BY_KEYWORD',
+                payload: keyword
+            })
+            console.log(keyword);
+        }
+    }
 
     const handleClick = () => {
         history.push('/addPost')
@@ -57,53 +75,80 @@ function ForumPage() {
         setOutcomeTag(event.target.value)
     }
 
+    const handleReset = () => {
+        window.location.reload(false);
+
+    }
+
     return (
         <Container sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-            }}>
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+        }}>
             <h2>Forum Page</h2>
-            <Box 
+            <Box
                 sx={{
                     width: '100%',
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-around',
                     alignItems: 'center',
+                    mb:2
                 }}>
-                <Button 
+                <Button
                     sx={{
-                        backgroundColor: '#4E9BB9',
+                        backgroundColor: '#327b5b',
                         margin: '2px',
                     }}
-                    variant="contained" 
+                    variant="contained"
                     onClick={handleClick}
                 >Add Post
                 </Button>
-                <FormControl sx={{minWidth: 150}}>
+                <FormControl sx={{ minWidth: 150 }}>
                     <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
-                        <Select
+                    <Select
                         labelId="demo-simple-select-autowidth-label"
                         id="demo-simple-select-autowidth"
                         value={outcomeTag}
                         label="Outcomes"
                         autoWidth
-                        
+
                         onChange={(event) => handleSearchByOutcome(event)}
-                        >
-                            {outcomesList?.map(outcome => {
-                                return (
-                                    <MenuItem 
-                                        key={outcome.id} 
-                                        value={outcome.id}
-                                    >{outcome.outcome}</MenuItem>
-                                )
-                            })}
-                        </Select>
+                    >
+                        {outcomesList?.map(outcome => {
+                            return (
+                                <MenuItem
+                                    key={outcome.id}
+                                    value={outcome.id}
+                                >{outcome.outcome}</MenuItem>
+                            )
+                        })}
+                    </Select>
+                    <Box>
+                        <TextField
+                            label="keyword"
+                            helperText="KEYWORD SEARCH FOR A POST"
+                            variant="filled"
+                            value={searchKeyword}
+                            onChange={(event) => handleChange(event)}
+                            sx={{ width: 300 }}
+                        />
+                        <Button
+                            // click of reset search button re-renders page and clears input
+                            onClick={handleReset}
+                            variant="contained"
+                            color='primary'
+                            sx={{
+                                margin: '2px',
+                                ml: 2,
+                                mt: 2
+                            }}
+                        >Reset Search</Button>
+                    </Box>
                 </FormControl>
             </Box>
-            <List sx={{ 
+            {/* <List sx={{ 
                 width: '100%', 
                 maxWidth: 800, 
                 bgcolor: 'background.paper',
@@ -111,7 +156,7 @@ function ForumPage() {
                 flexDirection: 'column',
                 alignItems: 'center'
                 
-            }}>
+            }}> */}
             {postList?.map(post => {
                 return (
                     <PostListItem 
@@ -120,7 +165,7 @@ function ForumPage() {
                     />
                 )
             })}
-            </List>
+            {/* </List> */}
         </Container>
     );
 }

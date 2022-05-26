@@ -47,21 +47,25 @@ function CommentList( {postId} ) {
     return (
         <main>
         {comments.length === 0 ? 
-            <div></div>
+            <div><h3>Be the first to comment!</h3></div>
         :
         <>
         <h2>Comments</h2>
-        {/* <Box component={Paper}
+        <Paper elevation={15}>
+        <Box
         sx={{
           border: '1px solid black',
           borderRadius: '7px',
           padding: '15px',
-        }}> */}
-        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px' }}>
+        }}>
+        <div className="comments">
+        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px', position: 'relative',
+        overflow: 'auto',
+        maxHeight: 600,}}>
             
                 {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
-                
-                <section className="comments">
+                <Paper elevation={15}>
+                <section>
                     {comments.map((comment) => {
                         return (
                             <CommentItem
@@ -73,12 +77,15 @@ function CommentList( {postId} ) {
                         );
                     })}
                 </section>
-            
+            </Paper>
             </List>
+            </div>
+            
+
+            </Box>
+            </Paper>
             </>
-}
-            {/* </Box> */}
-            </main>
+            }</main>
     );
 }
 
