@@ -23,7 +23,7 @@ import {
     List,
     Divider,
     ListItemAvatar,
-    ListItemText
+    ListItemText,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -87,7 +87,11 @@ function ForumPage() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <h2>The Pulse</h2>
+            <Typography 
+            align="center" 
+            variant='h4' 
+            sx={{ mb: 2}}
+            >The Pulse</Typography>
             <Box
                 sx={{
                     width: '83%',
@@ -157,7 +161,7 @@ function ForumPage() {
                         }}
                         variant="contained"
                         onClick={handleClick}
-                    ><AddIcon />Add Post
+                    ><AddIcon sx={{mr: 1}}/>Add Post
                     </Button>
                 </Box>
             </Box>

@@ -14,6 +14,7 @@ import './RosterMember.css'
 import NorthIcon from '@mui/icons-material/North';
 import SouthIcon from '@mui/icons-material/South';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import { Typography } from '@mui/material';
 
 
 
@@ -25,11 +26,11 @@ function RosterMember({ member }) {
 
     const titleRender = () => {
         if (member.access_level === 2) {
-            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Administrator</a>
+            return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Administrator</a></p></Typography>
         } else if (member.access_level === 1) {
-            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Moderator</a>
+            return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Moderator</a></p></Typography>
         } else if (member.access_level ===0 ) {
-            return <a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a>
+            return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></p></Typography>
         }
 
     };
@@ -40,10 +41,10 @@ function RosterMember({ member }) {
             return <p></p>;
         } else if (member.access_level === 1) {
             // if user access_level is 1, 'DEMOTE' button will render to call promoteUser function
-            return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon fontSize='small'/> DEMOTE</Button>;
+            return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon sx={{mr: 1}} fontSize='small'/> DEMOTE</Button>;
         } else if (member.access_level === 0) {
             // if user access_level is 0, 'PROMOTE' button will render to call promoteUser function
-            return <Button color='primary' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon fontSize='small'/> PROMOTE</Button>;
+            return <Button color='primary' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon sx={{mr: 1}} fontSize='small'/> PROMOTE</Button>;
         }
 
     }
@@ -194,7 +195,7 @@ function RosterMember({ member }) {
                 {/* call buttonRender function to determine which button to render */}
                 <TableCell sx={{ width: 250 }} align={'center'}>{buttonRender()}</TableCell>
                 {/* if the username is for a profile that is not an Admin, a DELETE button will render to delete that user using deleteUser function*/}
-                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button color='common' sx={{ backgroundColor: 'black', boxShadow: 1, color: 'white' }} variant={'contained'} onClick={deleteUser}><DisabledByDefaultIcon fontSize='small'/>DELETE USER</Button> : <p></p>}</TableCell>
+                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button color='common' sx={{ backgroundColor: 'black', boxShadow: 1, color: 'white' }} variant={'contained'} onClick={deleteUser}><DisabledByDefaultIcon sx={{mr: 1}} fontSize='small'/>DELETE USER</Button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )
