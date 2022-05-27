@@ -517,13 +517,6 @@ const handleTest = () => {
                 }}>
                     <h1>Biometrics</h1>
 
-                    <Box><strong>Height: </strong>  </Box>
-                    {editMode ? <TextField
-                        type="text"
-                        value={editProfile.height}
-                        onChange={(event) => handleChange(event, 'height')}
-                    /> : <Box>{profile.height}</Box>}
-
                     <Box><strong>Age: </strong></Box>
                     {editMode ? <TextField
                         type="text"
