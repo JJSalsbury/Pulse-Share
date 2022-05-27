@@ -221,7 +221,17 @@ function ProfilePage({ profileId }) {
         })
     }
 
-
+const handleTest = () => {
+    dispatch({
+        type: 'EDIT_PRIVACY',
+        payload: { 
+            property: 'improvements', 
+            value: 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
+        }
+    })
+    // profile.improvements = 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
+    // editProfile.improvements = 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
+}
 
 
     return (
@@ -480,7 +490,7 @@ function ProfilePage({ profileId }) {
                     /> : <Box>{profile.baseline}</Box>}
 
 
-                    <Box><strong>Improvements: </strong> </Box>
+                    <Box onClick={() => handleTest() }><strong>Improvements: </strong> </Box>
                     {editMode ? <TextField
                         type="text"
                         value={editProfile.improvements}
@@ -505,21 +515,6 @@ function ProfilePage({ profileId }) {
                     overflowY: 'scroll',
                     height: '40vh'
                 }}>
-
-
-
-
-                    <h1>Biometrics</h1>
-
-
-                    <Box><strong>Age: </strong></Box>
-                    {editMode ? <TextField
-                        type="text"
-                        value={editProfile.age}
-                        onChange={(event) => handleChange(event, 'age')}
-                    /> : <Box>{profile.age}</Box>}
-
-
                     <h1>Biometrics</h1>
 
                     <Box><strong>Height: </strong>  </Box>
