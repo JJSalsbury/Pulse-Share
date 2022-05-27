@@ -447,7 +447,7 @@ function EditPost({ setEditMode }) {
                         }}
                     ><SendIcon 
                         sx={{
-                            marginRight: '4px'
+                            mr: 1
                         }}
                     />Submit Post</Button>
                     <Button
@@ -459,7 +459,7 @@ function EditPost({ setEditMode }) {
                         }}
                     ><DoDisturbIcon 
                     sx={{
-                        marginRight: '4px'
+                        mr: 1
                     }}
                     />Cancel</Button>
                 </Box>

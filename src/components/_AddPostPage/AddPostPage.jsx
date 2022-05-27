@@ -218,11 +218,29 @@ function AddPostPage() {
             }
         })
     }
+
+    const presentationClick = () => {
+        setPostTitle('Found new settings for help with sleep');
+        setPostBody(`
+        Manufacturer: Abbott
+        Model: Proclaim XR Recharge-Free
+        Frequency: 20 Hz
+        Pulse Width: 100 microseconds
+        Amplitude: 0.05 mA
+
+        These settings have been helping me sleep through the night, hopefully they can help some of you as well!
+        `);
+    }
     
     return (
         <Container>
             
-            <h2 onClick={presentationClick}>Add Post</h2>
+            <Typography 
+            onClick={presentationClick}
+            align="center" 
+            variant='h4' 
+            sx={{ mb: 2}}
+            >Add Post</Typography>
             <Box 
                 component={Paper}
                 sx={{
@@ -447,7 +465,7 @@ function AddPostPage() {
                     >
                         <SendIcon 
                     sx={{
-                        marginRight: '4px'
+                        mr: 1
                     }}
                     />Submit Post</Button>
                     <Button 
@@ -459,7 +477,7 @@ function AddPostPage() {
                         onClick={cancelPost} 
                     ><DoDisturbIcon 
                         sx={{
-                            marginRight: '4px'
+                            mr: 1
                         }}
                     />Cancel</Button>
                 </Box>

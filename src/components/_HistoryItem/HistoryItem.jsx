@@ -96,7 +96,7 @@ function HistoryItem({ post }) {
                             }}
                             variant="contained"
                             className='buttons'
-                        ><VisibilityIcon /> VIEW POST </Button>
+                        ><VisibilityIcon sx={{mr: 1}}/> VIEW POST </Button>
                         <Button
                             // click of delete button calls handleDelete function
                             onClick={handleDelete}
@@ -106,7 +106,7 @@ function HistoryItem({ post }) {
                             sx={{
                                 margin: '2px'
                             }}
-                        ><DeleteIcon /> Delete </Button>
+                        ><DeleteIcon sx={{mr: 1}}/> Delete </Button>
                     </Box>
                 </Box>
             </ListItem>
