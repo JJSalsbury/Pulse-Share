@@ -420,7 +420,7 @@ const handleTest = () => {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '40%',
+                    minWidth: '52%',
                     maxWidth: '52%',
                     height: '40vh',
                     overflowY: 'scroll'
