@@ -623,7 +623,7 @@ const handleTest = () => {
                         color='primary'
                         onClick={toPostHistory}>
                         <HistoryIcon
-                            sx={{ marginRight: '4px' }}
+                            sx={{mr: 1}}
                         />Post History</Button >
                     {editMode ?
                         <Button
@@ -632,7 +632,7 @@ const handleTest = () => {
                             sx={{ margin: 1 }}
                             onClick={handleSubmit}>
                             <SendIcon
-                                sx={{ marginRight: '4px' }}
+                                sx={{mr: 1}}
                             />Submit</Button>
                         :
                         <Button
@@ -640,13 +640,13 @@ const handleTest = () => {
                             color='primary'
                             sx={{ margin: 1 }}
                             onClick={handleUpdate}>
-                            <EditIcon />Update Profile</Button>}
+                            <EditIcon sx={{mr: 1}}/>Update Profile</Button>}
                     {editMode ?
                         <Button
                             variant="contained"
                             color='error'
                             onClick={handleDelete}>
-                            <DeleteIcon />Delete Account</Button>
+                            <DeleteIcon sx={{mr: 1}}/>Delete Account</Button>
                         :
                         ''}
                 </Container>
