@@ -186,7 +186,7 @@ function AddCommentForm({ postId }) {
                 Swal.fire({
                     text: 'Canceled Comment',
                     confirmButtonColor: '#327B5B',
-            })
+                })
 
                 history.push('/posts')
             }
@@ -210,7 +210,13 @@ function AddCommentForm({ postId }) {
 
     return (
         <div className="container">
-            <h2 onClick={presentationComment}>Add a Comment</h2>
+            <Typography 
+            onClick={presentationComment}
+            align="center" 
+            variant='h5' 
+            sx={{ mb: 2}}
+            
+            >Add a Comment</Typography>
             <Box component={Paper}
                 sx={{
                     border: '1px solid black',
@@ -401,9 +407,9 @@ function AddCommentForm({ postId }) {
                         onClick={handleClick}
                     ><SendIcon
                             sx={{
-                                marginRight: '4px'
+                                mr: 1
                             }}
-                        />Submit Comment</Button>
+                        />Submit</Button>
                     {newComment !== '' &&
                         <Button
                             color='error'
@@ -414,7 +420,7 @@ function AddCommentForm({ postId }) {
                             onClick={cancelPost}
                         ><DoDisturbIcon
                                 sx={{
-                                    marginRight: '4px'
+                                    mr: 1
                                 }}
                             />Cancel</Button>}
                 </Box>

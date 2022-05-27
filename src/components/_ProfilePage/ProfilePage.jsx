@@ -410,7 +410,7 @@ function ProfilePage({ profileId }) {
                     borderRadius: 2,
                     padding: 3,
                     boxShadow: 5,
-                    minWidth: '40%',
+                    minWidth: '52%',
                     maxWidth: '52%',
                     height: '40vh',
                     overflowY: 'scroll'
@@ -644,7 +644,7 @@ function ProfilePage({ profileId }) {
                         color='primary'
                         onClick={toPostHistory}>
                         <HistoryIcon
-                            sx={{ marginRight: '4px' }}
+                            sx={{mr: 1}}
                         />Post History</Button >
                     {editMode ?
                         <Button
@@ -653,7 +653,7 @@ function ProfilePage({ profileId }) {
                             sx={{ margin: 1 }}
                             onClick={handleSubmit}>
                             <SendIcon
-                                sx={{ marginRight: '4px' }}
+                                sx={{mr: 1}}
                             />Submit</Button>
                         :
                         <Button
@@ -661,13 +661,13 @@ function ProfilePage({ profileId }) {
                             color='primary'
                             sx={{ margin: 1 }}
                             onClick={handleUpdate}>
-                            <EditIcon />Update Profile</Button>}
+                            <EditIcon sx={{mr: 1}}/>Update Profile</Button>}
                     {editMode ?
                         <Button
                             variant="contained"
                             color='error'
                             onClick={handleDelete}>
-                            <DeleteIcon />Delete Account</Button>
+                            <DeleteIcon sx={{mr: 1}}/>Delete Account</Button>
                         :
                         ''}
                 </Container>

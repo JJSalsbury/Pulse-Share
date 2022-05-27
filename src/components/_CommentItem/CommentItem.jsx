@@ -181,7 +181,7 @@ function CommentItem({ comment, postId }) {
                                         color="primary"
                                         variant="contained"
                                         className='buttons'
-                                    ><SendIcon /> Submit </Button>
+                                    ><SendIcon sx={{mr: 1}}/> Submit </Button>
                                     </Box>
                                 </Box>}
                             <Box
@@ -219,7 +219,7 @@ function CommentItem({ comment, postId }) {
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
-                            ><EditIcon />Edit</Button> : <Button
+                            ><EditIcon sx={{mr: 1}}/>Edit</Button> : <Button
                             sx={{
                                 margin: '2px',
                                 marginBottom: '5px',
@@ -239,7 +239,7 @@ function CommentItem({ comment, postId }) {
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}
-                            ><DeleteIcon /> Delete </Button>}
+                            ><DeleteIcon sx={{mr: 1}}/> Delete </Button>}
                     </Box>
                 </React.Fragment>
 

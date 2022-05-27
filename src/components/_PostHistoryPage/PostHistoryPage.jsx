@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { List, Container } from '@mui/material'
 import HistoryItem from '../_HistoryItem/HistoryItem';
+import { Typography } from '@mui/material';
 
 function PostHistoryPage() {
     const history = useHistory();
@@ -20,14 +21,20 @@ function PostHistoryPage() {
 
     return (
         <div>
-            <h2>{user.username}'s Post History</h2>
+            <Typography
+                align="center"
+                variant='h4'
+                sx={{ mb: 2 }}
+            >{user.username}'s Post History</Typography>
             <Container
-            
-            
-            sx={{margin: 'auto', 
-            alignItems: 'center',
-            display: 'flex',
-            justifyContent: 'center'}}
+
+
+                sx={{
+                    margin: 'auto',
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}
             >
                 <List>
                     {/* map through the postHistoryReducer */}
