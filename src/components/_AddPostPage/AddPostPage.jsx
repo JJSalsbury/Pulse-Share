@@ -230,7 +230,6 @@ function AddPostPage() {
 
         These settings have been helping me sleep through the night, hopefully they can help some of you as well!
         `);
-        setOutcomeTag(9);
     }
     
     
