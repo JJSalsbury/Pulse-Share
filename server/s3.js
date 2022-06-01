@@ -28,6 +28,7 @@ async function generateUploadURL(mediaType) {
     return uploadURL;
 }
 
+// function for deleting objects from aws s3 bucket
 async function objectDeleter(objectToDelete) {
     const params = {
         Bucket: bucketName,

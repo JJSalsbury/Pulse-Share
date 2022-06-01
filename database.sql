@@ -4,7 +4,7 @@
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
 
--- Database name is spinal_stim, otherwise update pool with new DB name
+-- Database name is pulse_share, otherwise update pool with new DB name
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,

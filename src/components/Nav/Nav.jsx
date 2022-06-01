@@ -19,14 +19,14 @@ function Nav() {
           // If there's no user, show login/registration links
           <>
 
-          <Link className="navLink" to="/home">
+            <Link className="navLink" to="/home">
               Home
             </Link>
 
             <Link className="navLink" to="/posts">
               Pulse
             </Link>
-            
+
             <Link className="navLink" to="/login">
               Login / Register
             </Link>

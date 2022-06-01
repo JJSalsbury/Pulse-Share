@@ -6,9 +6,6 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 
 //GET Route
 router.get('/:id', (req, res) => {
-  console.log('/comment GET route GOOD!');
-  console.log('is authenticated?');
-
 
   const queryText = `SELECT "user".username, "profiles".profile_picture, "comments".id, to_char("comments".date, 'mm/dd/yy') as "date", 
     to_char("comments".time, 'hh12:mi AM') as "time", "comments".image,"comments".video, "comments".comment, "comments".user_id FROM "comments"
@@ -20,7 +17,6 @@ router.get('/:id', (req, res) => {
   const values = [req.params.id]
 
   pool.query(queryText, values).then((result) => {
-    console.log('results', result.rows)
     res.send(result.rows);
     // res.sendStatus(200)// For testing only, can be removed
   }).catch((error) => {
@@ -44,8 +40,6 @@ router.post('/', (req, res) => {
     ("user_id", "post_id", "comment", "image", "video")
     VALUES ($1, $2, $3, $4, $5)`;
 
-  console.log(req.body);
-
   pool
     .query(queryText, queryValues)
     .then(() => { res.sendStatus(201) })
@@ -60,7 +54,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 
   const update = req.body.comment;
-  console.log(update);
   const query = `UPDATE "comments" SET  "comment" = $1 WHERE "comments".user_id = $2 AND "comments".id = $3;`;
 
   const values = [update, req.user.id, req.params.id]
@@ -85,7 +78,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const values = [req.params.id];
     pool.query(queryText, values)
       .then((response) => {
-        console.log('Deleted')
         res.sendStatus(200);
       })
       .catch((error) => {
@@ -99,7 +91,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const values = [req.params.id, req.user.id];
     pool.query(queryText, values)
       .then((response) => {
-        console.log('Deleted')
         res.sendStatus(200);
       })
       .catch((error) => {

@@ -15,22 +15,17 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
-//import ProfilePage from '../_ProfilePage/ProfilePage';
-import PostListPage from '../_PostListPage/PostListPage';
-import ProfilePage from '../_ProfilePage/ProfilePage';
-import ForumPage from '../_ForumPage/ForumPage';
-import PostDetailPage from '../_PostDetailPage/PostDetailPage';
-import AddPostPage from '../_AddPostPage/AddPostPage';
-import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
-import AddCommentForm from '../_AddCommentForm/AddCommentForm';
-import AdminPage from '../_AdminPage/AdminPage';
-import ProfileRender from '../_ProfileRender/_ProfileRender';
+
+import ForumPage from '../ForumPage/ForumPage';
+import PostDetailPage from '../PostDetailPage/PostDetailPage';
+import AddPostPage from '../AddPostPage/AddPostPage';
+import PostHistoryPage from '../PostHistoryPage/PostHistoryPage';
+import AdminPage from '../AdminPage/AdminPage';
+import ProfileRender from '../ProfileRender/ProfileRender';
 
 // imports for MUI v5
 import {
@@ -81,20 +76,6 @@ function App() {
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
 
-          {/* Visiting localhost:3000/about will show the about page. */}
-
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <Route
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </Route>
-
           <Route
             // Shows ProfilePage
             exact
@@ -140,20 +121,13 @@ function App() {
             exact
             path="/admin"
           >
+            {/* user must have an access_level of 2 to view the Admin Page */}
             {user.access_level < 2 ?
               <Redirect to="/posts" />
               :
               <AdminPage />
             }
           </ProtectedRoute>
-
-          <Route
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </Route>
 
           <Route
             exact
@@ -187,7 +161,7 @@ function App() {
             exact
             path="/home"
           >
-            
+           
               <LandingPage />
             
           </Route>

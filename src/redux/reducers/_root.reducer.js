@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
 import profile from './profile.reducer'
-import editProfileReducer from './_editProfile.reducer';
+import editProfileReducer from './editProfile.reducer';
 import rosterReducer from './roster.reducer';
 import imageReducer from './image.reducer';
 import outcomesListReducer from './outcomesList.reducer';
@@ -12,7 +12,7 @@ import editPostReducer from './editPost.reducer';
 import postHistoryReducer from './postHistory.reducer';
 import postListReducer from './postList.reducer';
 import comment from './comment.reducer';
-import editCommentReducer from './_editComment.reducer';
+import editCommentReducer from './editComment.reducer';
 
 
 // rootReducer is the primary reducer for our entire project

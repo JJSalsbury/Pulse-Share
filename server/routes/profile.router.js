@@ -38,9 +38,9 @@ router.get('/:id', (req, res) => {
   FROM "profiles"
   JOIN "user" ON "profiles".user_id = "user".id
   WHERE "profiles".user_id = $1;`
-  
+
   pool.query(query, [req.params.id])
-// security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
+    // security check here for user profile information 2 is private, 1 only logged in users can see, 0 public
     .then((results) => {
       if (results.rows[0].public === 0) {
         res.send(results.rows)
@@ -62,15 +62,48 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 
   const update = req.body
-  const query = `UPDATE "profiles" SET  "profile_picture" = $1, "device" = $2, "device_settings" = $3,
-  "injury_level" = $4, "aisa_level" = $5, "time_since_injury" = $6, "baseline" = $7,
-  "improvements" = $8,"location" = $9,"job_title" = $10,"company" = $11,"about_me" = $12,
-  "contact" = $13,"biological_gender" = $14,"age" = $15,"pronouns" = $16,"height" = $17,
-  "weight" = $18,  "medical_conditions" = $19, "public" = $20 WHERE "user_id" = $21;`;
+  const query = `UPDATE "profiles" SET  "profile_picture" = $1, 
+  "device" = $2, 
+  "device_settings" = $3,
+  "injury_level" = $4, 
+  "aisa_level" = $5, 
+  "time_since_injury" = $6, 
+  "baseline" = $7,
+  "improvements" = $8, 
+  "location" = $9, 
+  "job_title" = $10, 
+  "company" = $11, 
+  "about_me" = $12,
+  "contact" = $13, 
+  "biological_gender" = $14, 
+  "age" = $15, 
+  "pronouns" = $16, 
+  "height" = $17,
+  "weight" = $18, 
+  "medical_conditions" = $19, 
+  "public" = $20 WHERE "user_id" = $21;`;
 
-  const values = [update.profile_picture, update.device, update.device_settings, update.injury_level, update.aisa_level,
-  update.time_since_injury, update.baseline, update.improvements, update.location, update.job_title, update.company, update.about_me,
-  update.contact, update.biological_gender, update.age, update.pronouns, update.height, update.weight, update.medical_conditions, update.public, req.user.id]
+  const values = [update.profile_picture,
+  update.device,
+  update.device_settings,
+  update.injury_level,
+  update.aisa_level,
+  update.time_since_injury,
+  update.baseline,
+  update.improvements,
+  update.location,
+  update.job_title,
+  update.company,
+  update.about_me,
+  update.contact,
+  update.biological_gender,
+  update.age,
+  update.pronouns,
+  update.height,
+  update.weight,
+  update.medical_conditions,
+  update.public,
+  req.user.id]
   pool.query(query, values)
     .then(result => {
       res.sendStatus(200);
@@ -83,7 +116,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
 
 router.delete('/', rejectUnauthenticated, (req, res) => {
   const id = req.user.id;
-  console.log('DELETE id:', id);
 
   const query = `DELETE FROM "user" WHERE "id" = $1`;
   values = [id];

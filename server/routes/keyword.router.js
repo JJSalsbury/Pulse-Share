@@ -6,12 +6,12 @@ const {
 } = require('../modules/authentication-middleware');
 
 router.get('/:keyword', (req, res) => {
-    console.log('keyword is:', req.params.keyword);
     const keyword = `%${req.params.keyword}%`;
-    console.log(keyword);
     
-    const query = `SELECT "user".username, "profiles".profile_picture, "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
-    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, "posts".image,"posts".video, "posts".post, 
+    const query = `SELECT "user".username, "profiles".profile_picture, 
+    "posts".id, to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", "posts".title, 
+    "posts".image,"posts".video, "posts".post, 
     "posts".outcome_id, "posts".user_id FROM "posts"
     JOIN "user" ON "posts".user_id = "user".id
     JOIN "profiles" ON "user".id = "profiles".user_id

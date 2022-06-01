@@ -6,5 +6,5 @@ const outcomesListReducer = (state = [], action) => {
             return state;
     }
 };
-    
+
 export default outcomesListReducer;

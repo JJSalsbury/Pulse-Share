@@ -31,14 +31,14 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/profile', profileRouter);
-app.use('/comment', commentRouter);
+app.use('/api/profile', profileRouter);
+app.use('/api/comment', commentRouter);
 app.use('/api/roster', rosterRouter);
-app.use('/post', postRouter);
-app.use('/history', historyRouter);
-app.use('/search', searchRouter);
-app.use('/s3Url', s3Router);
-app.use('/keyword', keywordRouter);
+app.use('/api/post', postRouter);
+app.use('/api/history', historyRouter);
+app.use('/api/search', searchRouter);
+app.use('/api/s3Url', s3Router);
+app.use('/api/keyword', keywordRouter);
 
 // Serve static files
 app.use(express.static('build'));
