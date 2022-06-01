@@ -37,7 +37,7 @@ app.use('/api/roster', rosterRouter);
 app.use('/api/post', postRouter);
 app.use('/api/history', historyRouter);
 app.use('/api/search', searchRouter);
-app.use('/api/s3Url', s3Router);
+app.use('/s3Url', s3Router);
 app.use('/api/keyword', keywordRouter);
 
 // Serve static files
