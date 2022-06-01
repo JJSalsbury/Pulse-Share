@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { List, Container } from '@mui/material'
-import HistoryItem from '../_HistoryItem/HistoryItem';
+import HistoryItem from '../HistoryItem/HistoryItem';
 import { Typography } from '@mui/material';
 
 function PostHistoryPage() {

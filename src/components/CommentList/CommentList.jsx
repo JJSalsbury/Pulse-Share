@@ -13,7 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Paper, Container, Button, TextField, Box } from '@mui/material';
 
-import CommentItem from '../_CommentItem/CommentItem';
+import CommentItem from '../CommentItem/CommentItem';
 
 
 

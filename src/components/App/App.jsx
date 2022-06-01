@@ -15,22 +15,20 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 //import ProfilePage from '../_ProfilePage/ProfilePage';
-import PostListPage from '../_PostListPage/PostListPage';
-import ProfilePage from '../_ProfilePage/ProfilePage';
-import ForumPage from '../_ForumPage/ForumPage';
-import PostDetailPage from '../_PostDetailPage/PostDetailPage';
-import AddPostPage from '../_AddPostPage/AddPostPage';
-import PostHistoryPage from '../_PostHistoryPage/PostHistoryPage';
-import AddCommentForm from '../_AddCommentForm/AddCommentForm';
-import AdminPage from '../_AdminPage/AdminPage';
-import ProfileRender from '../_ProfileRender/_ProfileRender';
+import PostListPage from '../PostListPage/PostListPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import ForumPage from '../ForumPage/ForumPage';
+import PostDetailPage from '../PostDetailPage/PostDetailPage';
+import AddPostPage from '../AddPostPage/AddPostPage';
+import PostHistoryPage from '../PostHistoryPage/PostHistoryPage';
+import AdminPage from '../AdminPage/AdminPage';
+import ProfileRender from '../ProfileRender/ProfileRender';
 
 // imports for MUI v5
 import {
@@ -87,13 +85,6 @@ function App() {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-          <Route
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path="/user"
-          >
-            <UserPage />
-          </Route>
 
           <Route
             // Shows ProfilePage

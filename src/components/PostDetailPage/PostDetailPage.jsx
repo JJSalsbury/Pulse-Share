@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom'
-import EditPost from '../_EditPost/EditPost';
-import AddCommentForm from '../_AddCommentForm/AddCommentForm';
-import CommentList from '../_CommentList/CommentList';
+import EditPost from '../EditPost/EditPost';
+import AddCommentForm from '../AddCommentForm/AddCommentForm';
+import CommentList from '../CommentList/CommentList';
 
 // Basic CSS
 import styling from './PostDetailPage.css'

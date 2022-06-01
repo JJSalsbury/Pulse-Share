@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import RosterMember from '../_RosterMember/RosterMember';
+import RosterMember from '../RosterMember/RosterMember';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,16 +19,20 @@ function AdminPage() {
     const dispatch = useDispatch();
     const [searchUser, setSearchUser] = useState();
 
+    // function to search for a specific user from the table
     const handleChange = (event) => {
 
+        // create a variable to send via dispatch
         const user = {
             userName: event.target.value.toLowerCase()
         }
+        // if the input box is manually cleared, the entire user list will fetched again
         if (user.userName.length < 1) {
             dispatch({
                 type: 'GET_ROSTER'
             })
         } else {
+            // after each keyst
             dispatch({
                 type: 'SEARCH_FOR_USER',
                 payload: user

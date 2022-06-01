@@ -3,7 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import '../_AddPostPage/AddPostPage.css'
+import '../AddPostPage/AddPostPage.css'
 
 // imports for MUI v5
 import {
