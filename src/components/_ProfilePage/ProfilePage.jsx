@@ -221,19 +221,6 @@ function ProfilePage({ profileId }) {
         })
     }
 
-const handleTest = () => {
-    dispatch({
-        type: 'EDIT_PRIVACY',
-        payload: { 
-            property: 'improvements', 
-            value: 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
-        }
-    })
-    // profile.improvements = 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
-    // editProfile.improvements = 'These settings have helped me get a more restful sleep, I am successfully sleeping through the night much better.'
-}
-
-
     return (
         <>
 
@@ -490,7 +477,7 @@ const handleTest = () => {
                     /> : <Box>{profile.baseline}</Box>}
 
 
-                    <Box onClick={() => handleTest() }><strong>Improvements: </strong> </Box>
+                    <Box><strong>Improvements: </strong> </Box>
                     {editMode ? <TextField
                         type="text"
                         value={editProfile.improvements}

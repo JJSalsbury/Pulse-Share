@@ -198,7 +198,6 @@ function AddPostPage() {
         }).then((result) => {
             // clicking 'OK' sends dispatch to demote user
             if (result.isConfirmed) {
-
                 dispatch({
                     type: 'CLEAR_VIDEO'
                 })
@@ -213,31 +212,15 @@ function AddPostPage() {
                     title: 'Canceled Post!',
                     confirmButtonColor: '#327B5B',
             })
-
                 history.push('/posts')
             }
         })
     }
-
-    const presentationClick = () => {
-        setPostTitle('Found new settings for help with sleep');
-        setPostBody(`
-        Manufacturer: Abbott
-        Model: Proclaim XR Recharge-Free
-        Frequency: 20 Hz
-        Pulse Width: 100 microseconds
-        Amplitude: 0.05 mA
-
-        These settings have been helping me sleep through the night, hopefully they can help some of you as well!
-        `);
-    }
-    
     
     return (
         <Container>
             
-            <Typography 
-            onClick={presentationClick}
+            <Typography
             align="center" 
             variant='h4' 
             sx={{ mb: 2}}
