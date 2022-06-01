@@ -15,7 +15,6 @@ function HistoryItem({ post }) {
 
     // function to delete a post
     const handleDelete = () => {
-        console.log(post.id);
 
         // SweetAlert to warn user of deletion
         Swal.fire({
@@ -41,7 +40,7 @@ function HistoryItem({ post }) {
                     text: `You have deleted your post.`,
                     icon: 'success',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             } else if (
                 result.dismiss === Swal.DismissReason.cancel
             ) {
@@ -50,7 +49,7 @@ function HistoryItem({ post }) {
                     text: `Delete cancelled.`,
                     icon: 'error',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             }
         })
 
@@ -96,7 +95,7 @@ function HistoryItem({ post }) {
                             }}
                             variant="contained"
                             className='buttons'
-                        ><VisibilityIcon sx={{mr: 1}}/> VIEW POST </Button>
+                        ><VisibilityIcon sx={{ mr: 1 }} /> VIEW POST </Button>
                         <Button
                             // click of delete button calls handleDelete function
                             onClick={handleDelete}
@@ -106,7 +105,7 @@ function HistoryItem({ post }) {
                             sx={{
                                 margin: '2px'
                             }}
-                        ><DeleteIcon sx={{mr: 1}}/> Delete </Button>
+                        ><DeleteIcon sx={{ mr: 1 }} /> Delete </Button>
                     </Box>
                 </Box>
             </ListItem>

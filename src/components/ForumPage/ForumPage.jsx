@@ -47,6 +47,7 @@ function ForumPage() {
 
     const [outcomeTag, setOutcomeTag] = useState('');
 
+    // Filter by keyword search if entered
     const handleChange = (event) => {
 
         const keyword = event.target.value;
@@ -60,14 +61,15 @@ function ForumPage() {
                 type: 'SEARCH_BY_KEYWORD',
                 payload: keyword
             })
-            console.log(keyword);
         }
     }
 
+    // Send user to addPost
     const handleClick = () => {
         history.push('/addPost')
     }
 
+    // Filter posts by outcome
     const handleSearchByOutcome = (event) => {
         dispatch({
             type: 'GET_POSTS_BY_OUTCOME',
@@ -76,9 +78,9 @@ function ForumPage() {
         setOutcomeTag(event.target.value)
     }
 
+    // Reset page
     const handleReset = () => {
         window.location.reload(false);
-
     }
 
     return (
@@ -87,10 +89,10 @@ function ForumPage() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <Typography 
-            align="center" 
-            variant='h4' 
-            sx={{ mb: 2}}
+            <Typography
+                align="center"
+                variant='h4'
+                sx={{ mb: 2 }}
             >The Pulse</Typography>
             <Box
                 sx={{
@@ -126,13 +128,13 @@ function ForumPage() {
 
 
                 </FormControl>
-                        
+
                 <Box sx={{
-                            display: 'flex'
-                        }}>
+                    display: 'flex'
+                }}>
                     <TextField
                         label="Search"
-                        
+
                         variant="filled"
                         value={searchKeyword}
                         onChange={(event) => handleChange(event)}
@@ -161,19 +163,11 @@ function ForumPage() {
                         }}
                         variant="contained"
                         onClick={handleClick}
-                    ><AddIcon sx={{mr: 1}}/>Add Post
+                    ><AddIcon sx={{ mr: 1 }} />Add Post
                     </Button>
                 </Box>
             </Box>
-            {/* <List sx={{ 
-                width: '100%', 
-                maxWidth: 800, 
-                bgcolor: 'background.paper',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-                
-            }}> */}
+
             {postList?.map(post => {
                 return (
                     <PostListItem
@@ -182,7 +176,7 @@ function ForumPage() {
                     />
                 )
             })}
-            {/* </List> */}
+
         </Container>
     );
 }

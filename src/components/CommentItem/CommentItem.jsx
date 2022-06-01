@@ -3,7 +3,19 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 //Styling Imports 
-import { Paper, Box, Button, Container, ListItemAvatar, Avatar, Typography, Divider, ListItem, TextField, Stack, overFlowY } from '@mui/material';
+import {
+    Paper,
+    Box,
+    Button,
+    Container,
+    ListItemAvatar,
+    Avatar,
+    Typography,
+    Divider,
+    ListItem,
+    TextField,
+    Stack,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
@@ -12,20 +24,17 @@ import Swal from 'sweetalert2';
 // import for playing videos on dom
 import ReactPlayer from 'react-player'
 
-
-
 function CommentItem({ comment, postId }) {
     const user = useSelector(store => store.user);
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
     const editComment = useSelector(store => store.editCommentReducer);
-    console.log('USER:', user, 'POST ID:', id, 'COMMENT TO EDIT:', editComment);
 
     const [editMode, setEditMode] = useState(true);
 
+    // Submit edited comment, if null alert user to enter message
     const handleSubmit = () => {
-        console.log('save clicked');
 
         if (editComment.comment === '') {
             Swal.fire({
@@ -42,10 +51,9 @@ function CommentItem({ comment, postId }) {
                 callback: setEditMode(true)
             })
         }
-        // dispatch({ type: 'CLEAR_EDIT',  });
-        // setEditMode(!editMode);
     }
 
+    // Store comment changes in reducer
     const handleChange = (event) => {
         dispatch({
             type: 'EDIT_COMMENT_ON_CHANGE',
@@ -56,9 +64,9 @@ function CommentItem({ comment, postId }) {
         })
     }
 
+
     const handleCommentEdit = () => {
         //switch to edit mode "form"
-        console.log('clicked update profile');
         dispatch({
             type: 'SET_COMMENT_TO_EDIT',
             payload: comment
@@ -76,8 +84,8 @@ function CommentItem({ comment, postId }) {
             background: 'white',
             color: 'black',
             showCancelButton: true,
-            confirmButtonColor: '#4E9BB9',
-            cancelButtonColor: 'red',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -86,7 +94,7 @@ function CommentItem({ comment, postId }) {
                 Swal.fire({
                     background: 'white',
                     color: 'black',
-                    confirmButtonColor: '#4E9BB9',
+                    confirmButtonColor: '#327B5B',
                     title: 'Deleted!',
                     text: `Comment has been deleted.`,
                     icon: 'success'
@@ -94,8 +102,6 @@ function CommentItem({ comment, postId }) {
             }
         })
     }
-
-    console.log('COMMENT:', comment.comment);
 
     const handlePhoto = () => {
         Swal.fire({
@@ -111,6 +117,8 @@ function CommentItem({ comment, postId }) {
     return (
         <ListItem alignItems="flex-start">
             <Container>
+
+
                 <Stack
                     direction="column"
                     justifyContent="center"
@@ -122,7 +130,7 @@ function CommentItem({ comment, postId }) {
                         <Avatar alt="profile picture" src={comment.profile_picture} />}
                     </ListItemAvatar>
                 </Stack>
-                {/* </Box> */}
+
                 <React.Fragment>
                     <Typography
                         sx={{ display: 'inline' }}
@@ -131,7 +139,7 @@ function CommentItem({ comment, postId }) {
                         color="text.primary"
                     >
                         {comment.username}
-                        {/* <br /> */}
+
                     </Typography>
                     <Box
                         sx={{
@@ -173,35 +181,35 @@ function CommentItem({ comment, postId }) {
                                             justifyContent: 'flex-end'
                                         }}
                                     >
-                                    <Button onClick={handleSubmit}
-                                        sx={{
-                                            margin: '2px',
+                                        <Button onClick={handleSubmit}
+                                            sx={{
+                                                margin: '2px',
 
-                                        }}
-                                        color="primary"
-                                        variant="contained"
-                                        className='buttons'
-                                    ><SendIcon sx={{mr: 1}}/> Submit </Button>
+                                            }}
+                                            color="primary"
+                                            variant="contained"
+                                            className='buttons'
+                                        ><SendIcon sx={{ mr: 1 }} /> Submit </Button>
                                     </Box>
                                 </Box>}
                             <Box
-                                    sx={{
-                                        justifyContent: 'center'
-                                    }}
-                                >
-                                    <Box>
-                                        {comment.video &&
-                                            <ReactPlayer
-                                                url={post.video}
-                                                width='50vw'
-                                                height='360px'
-                                                controls={true} />}
-                                    </Box>
-                                    <br />
-                                    <Box onClick={handlePhoto}>
-                                        {comment.image && <img className="hoverForPointer" src={comment.image} height="100px" />}
-                                    </Box>
+                                sx={{
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Box>
+                                    {comment.video &&
+                                        <ReactPlayer
+                                            url={post.video}
+                                            width='50vw'
+                                            height='360px'
+                                            controls={true} />}
                                 </Box>
+                                <br />
+                                <Box onClick={handlePhoto}>
+                                    {comment.image && <img className="hoverForPointer" src={comment.image} height="100px" />}
+                                </Box>
+                            </Box>
 
 
 
@@ -209,26 +217,26 @@ function CommentItem({ comment, postId }) {
                     </Box>
                     <Box className="btn-holder">
                         {user.id === comment.user_id ?
-                        editMode ? 
-                            <Button
-                                sx={{
-                                    margin: '2px',
-                                    marginBottom: '5px',
-                                }}
-                                color="primary"
-                                variant="contained"
-                                className='buttons'
-                                onClick={handleCommentEdit}
-                            ><EditIcon sx={{mr: 1}}/>Edit</Button> : <Button
-                            sx={{
-                                margin: '2px',
-                                marginBottom: '5px',
-                            }}
-                            color="primary"
-                            variant="contained"
-                            className='buttons'
-                            onClick={handleCommentEdit}
-                        ><EditIcon />Cancel</Button>: <div></div>}
+                            editMode ?
+                                <Button
+                                    sx={{
+                                        margin: '2px',
+                                        marginBottom: '5px',
+                                    }}
+                                    color="primary"
+                                    variant="contained"
+                                    className='buttons'
+                                    onClick={handleCommentEdit}
+                                ><EditIcon sx={{ mr: 1 }} />Edit</Button> : <Button
+                                    sx={{
+                                        margin: '2px',
+                                        marginBottom: '5px',
+                                    }}
+                                    color="primary"
+                                    variant="contained"
+                                    className='buttons'
+                                    onClick={handleCommentEdit}
+                                ><EditIcon />Cancel</Button> : <div></div>}
                         {(user.access_level >= 1 || user.id === comment.user_id) &&
                             <Button
                                 variant="contained"
@@ -239,11 +247,11 @@ function CommentItem({ comment, postId }) {
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}
-                            ><DeleteIcon sx={{mr: 1}}/> Delete </Button>}
+                            ><DeleteIcon sx={{ mr: 1 }} /> Delete </Button>}
                     </Box>
                 </React.Fragment>
 
-                {/* <p>Comment: "{comment.comment}" </p> */}
+
                 <br />
 
                 <Divider variant="inset" />

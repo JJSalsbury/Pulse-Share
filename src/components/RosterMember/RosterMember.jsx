@@ -24,13 +24,16 @@ function RosterMember({ member }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // function to conditionally render 
+    // function to conditionally render a user's title. will either be 'Administrator', 'Moderator', or no title.
     const titleRender = () => {
+        // if level 2 access_level, 'Administrator' will render
         if (member.access_level === 2) {
             return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Administrator</a></p></Typography>
-        } else if (member.access_level === 1) {
+        } // if level 1 access_level, 'Moderator' will render
+        else if (member.access_level === 1) {
             return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Moderator</a></p></Typography>
-        } else if (member.access_level ===0 ) {
+        } // if level 0 access_level, no title wil render 
+        else if (member.access_level === 0) {
             return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username}</a></p></Typography>
         }
 
@@ -42,17 +45,16 @@ function RosterMember({ member }) {
             return <p></p>;
         } else if (member.access_level === 1) {
             // if user access_level is 1, 'DEMOTE' button will render to call promoteUser function
-            return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon sx={{mr: 1}} fontSize='small'/> DEMOTE</Button>;
+            return <Button color='error' sx={{ boxShadow: 1 }} variant={'contained'} onClick={demoteUser}><SouthIcon sx={{ mr: 1 }} fontSize='small' /> DEMOTE</Button>;
         } else if (member.access_level === 0) {
             // if user access_level is 0, 'PROMOTE' button will render to call promoteUser function
-            return <Button color='primary' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon sx={{mr: 1}} fontSize='small'/> PROMOTE</Button>;
+            return <Button color='primary' sx={{ boxShadow: 1 }} variant={'contained'} onClick={promoteUser}><NorthIcon sx={{ mr: 1 }} fontSize='small' /> PROMOTE</Button>;
         }
 
     }
 
     // function to demote a Moderator to a normal user
     const demoteUser = () => {
-        console.log('clicked demote');
         const id = member.id;
         // create object to send to server
         const user = {
@@ -66,6 +68,8 @@ function RosterMember({ member }) {
             showCancelButton: true,
             confirmButtonText: 'Yes, Demote!',
             cancelButtonText: 'No, Cancel!',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to demote user
@@ -92,7 +96,7 @@ function RosterMember({ member }) {
             }
         })
     }
-    // function to promote a normal user to a Moderator
+    //promote to a Moderator
     const promoteUser = () => {
         console.log('clicked promote');
         const id = member.id;
@@ -124,7 +128,7 @@ function RosterMember({ member }) {
                     text: `You have promoted ${member.username} to a Moderator.`,
                     icon: 'success',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
@@ -134,14 +138,13 @@ function RosterMember({ member }) {
                     text: `${member.username} will remain a normal user.`,
                     icon: 'error',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             }
         })
 
 
     }
 
-    // function to delete a user
     const deleteUser = () => {
         console.log('clicked delete');
         const id = member.id;
@@ -173,7 +176,7 @@ function RosterMember({ member }) {
                     text: `You have deleted ${member.username}'s account.`,
                     icon: 'success',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
@@ -183,7 +186,7 @@ function RosterMember({ member }) {
                     text: `${member.username} will remain a user.`,
                     icon: 'error',
                     confirmButtonColor: '#327B5B',
-            })
+                })
             }
         })
     }
@@ -196,7 +199,7 @@ function RosterMember({ member }) {
                 {/* call buttonRender function to determine which button to render */}
                 <TableCell sx={{ width: 250 }} align={'center'}>{buttonRender()}</TableCell>
                 {/* if the username is for a profile that is not an Admin, a DELETE button will render to delete that user using deleteUser function*/}
-                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button color='common' sx={{ backgroundColor: 'black', boxShadow: 1, color: 'white' }} variant={'contained'} onClick={deleteUser}><DisabledByDefaultIcon sx={{mr: 1}} fontSize='small'/>DELETE USER</Button> : <p></p>}</TableCell>
+                <TableCell sx={{ width: 250 }} align={'center'}>{member.access_level < 2 ? <Button color='common' sx={{ backgroundColor: 'black', boxShadow: 1, color: 'white' }} variant={'contained'} onClick={deleteUser}><DisabledByDefaultIcon sx={{ mr: 1 }} fontSize='small' />DELETE USER</Button> : <p></p>}</TableCell>
             </TableRow>
         </>
     )

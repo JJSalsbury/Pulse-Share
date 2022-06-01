@@ -9,7 +9,9 @@ const {
 router.get('/', rejectUnauthenticated, (req, res) => {
     const id = req.user.id;
     const queryText = `
-    SELECT "id", to_char("posts".date, 'mm/dd/yy') as "date", to_char("posts".time, 'hh12:mi AM') as "time", "title", "post", "image", "video", "user_id", "outcome_id" FROM "posts" 
+    SELECT "id", to_char("posts".date, 'mm/dd/yy') as "date", 
+    to_char("posts".time, 'hh12:mi AM') as "time", 
+    "title", "post", "image", "video", "user_id", "outcome_id" FROM "posts" 
     WHERE "user_id" = $1
     ORDER BY "id" DESC;
     `;

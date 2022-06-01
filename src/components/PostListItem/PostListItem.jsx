@@ -66,11 +66,11 @@ function PostListItem({ post }) {
                         alignItems: 'center',
                         paddingRight: 3
                     }}>
-                    <Avatar 
-                        className="hoverForPointer" 
-                        alt="Profile Picture" 
-                        src={post.profile_picture} 
-                        onClick={() => { history.push(`/profile/${post.user_id}`) }} 
+                    <Avatar
+                        className="hoverForPointer"
+                        alt="Profile Picture"
+                        src={post.profile_picture}
+                        onClick={() => { history.push(`/profile/${post.user_id}`) }}
                     />
                 </ListItemAvatar>
                 <Box
@@ -113,9 +113,9 @@ function PostListItem({ post }) {
                                 <Box sx={{
                                     marginTop: '10px'
                                 }}>
-                                    Posted by: <a 
-                                                onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}
-                                                </a> {post.date} @ {post.time}
+                                    Posted by: <a
+                                        onClick={() => { history.push(`/profile/${post.user_id}`) }}>{post.username}
+                                    </a> {post.date} @ {post.time}
                                 </Box>
 
                                 <br />

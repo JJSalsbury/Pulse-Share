@@ -9,8 +9,8 @@ function* rosterSaga() {
     yield takeLatest('SEARCH_FOR_USER', searchForUser);
 }
 
+// get all of the users to be displayed in the user table for the Admin
 function* getRoster(action) {
-    console.log('in getRoster');
     try {
         const roster = yield axios.get('/api/roster')
         yield put({ type: 'SET_ROSTER', payload: roster.data })
@@ -21,9 +21,8 @@ function* getRoster(action) {
 
 }
 
+// will give the user tied to the id in the payload moderator privileges by changing their access level to 1
 function* promoteUser(action) {
-    console.log('in promoteUser');
-    console.log(action.payload);
     try {
         yield axios.put('/api/roster/promote', action.payload)
         yield put({ type: 'GET_ROSTER' })
@@ -34,9 +33,8 @@ function* promoteUser(action) {
 
 }
 
+// the user tied to the id in the payload will have their moderator privileges revoked by changing their access level to 0
 function* demoteUser(action) {
-    console.log('in demoteUser');
-    console.log(action.payload);
     try {
         yield axios.put('/api/roster/demote', action.payload)
         yield put({ type: 'GET_ROSTER' })
@@ -46,8 +44,8 @@ function* demoteUser(action) {
     }
 }
 
+// the user tied to the id in the payload will have their account deleted
 function* deleteUser(action) {
-    console.log('in deleteUser');
     const id = action.payload.id
 
     try {
@@ -59,10 +57,10 @@ function* deleteUser(action) {
     }
 }
 
+// searches for a specific user from the table by sending the contents of the search input as a search query
 function* searchForUser(action) {
     const user = action.payload.userName;
-    console.log(user);
-    
+
     try {
         const searches = yield axios.get(`/api/search/${user}`, action.payload)
         yield put({ type: 'SET_SEARCHED_USER', payload: searches.data })

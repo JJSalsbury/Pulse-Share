@@ -254,7 +254,7 @@ function ProfilePage({ profileId }) {
                                 component="img"
                                 alt="profile picture"
                                 src={profile.profile_picture}
-                                sx={{ width: 250, height: 250,border: '1px solid #32527B',borderRadius: .5, boxShadow:4 }}
+                                sx={{ width: 250, height: 250, border: '1px solid #32527B', borderRadius: .5, boxShadow: 4 }}
                             ></Box>
 
 
@@ -610,7 +610,7 @@ function ProfilePage({ profileId }) {
                         color='primary'
                         onClick={toPostHistory}>
                         <HistoryIcon
-                            sx={{mr: 1}}
+                            sx={{ mr: 1 }}
                         />Post History</Button >
                     {editMode ?
                         <Button
@@ -619,7 +619,7 @@ function ProfilePage({ profileId }) {
                             sx={{ margin: 1 }}
                             onClick={handleSubmit}>
                             <SendIcon
-                                sx={{mr: 1}}
+                                sx={{ mr: 1 }}
                             />Submit</Button>
                         :
                         <Button
@@ -627,13 +627,13 @@ function ProfilePage({ profileId }) {
                             color='primary'
                             sx={{ margin: 1 }}
                             onClick={handleUpdate}>
-                            <EditIcon sx={{mr: 1}}/>Update Profile</Button>}
+                            <EditIcon sx={{ mr: 1 }} />Update Profile</Button>}
                     {editMode ?
                         <Button
                             variant="contained"
                             color='error'
                             onClick={handleDelete}>
-                            <DeleteIcon sx={{mr: 1}}/>Delete Account</Button>
+                            <DeleteIcon sx={{ mr: 1 }} />Delete Account</Button>
                         :
                         ''}
                 </Container>

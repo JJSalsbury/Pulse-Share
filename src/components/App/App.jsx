@@ -15,14 +15,11 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
-//import ProfilePage from '../_ProfilePage/ProfilePage';
-import PostListPage from '../PostListPage/PostListPage';
-import ProfilePage from '../ProfilePage/ProfilePage';
+
 import ForumPage from '../ForumPage/ForumPage';
 import PostDetailPage from '../PostDetailPage/PostDetailPage';
 import AddPostPage from '../AddPostPage/AddPostPage';
@@ -124,20 +121,13 @@ function App() {
             exact
             path="/admin"
           >
+            {/* user must have an access_level of 2 to view the Admin Page */}
             {user.access_level < 2 ?
               <Redirect to="/posts" />
               :
               <AdminPage />
             }
           </ProtectedRoute>
-
-          <Route
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
-          </Route>
 
           <Route
             exact

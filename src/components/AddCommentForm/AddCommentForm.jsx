@@ -1,25 +1,22 @@
 //Imports
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 //Styling Imports
 import './AddCommentForm.css';
-import { TextareaAutosize } from '@mui/base';
 import { Paper, Container, Button, TextField, Box, Modal, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import Swal from 'sweetalert2';
-// imports for file upload
+//Imports for file upload
 import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';
 
+
+
 function AddCommentForm({ postId }) {
-    // const user = useSelector(store => store.user);
-    //     const history = useHistory();
     const image = useSelector(store => store.imageReducer);
     const video = useSelector(store => store.videoReducer);
     const [newComment, setNewComment] = useState('');
-    // const editComment = useSelector(store => store.commentReducer);
     const dispatch = useDispatch();
 
     let imageUrl = null;
@@ -41,9 +38,7 @@ function AddCommentForm({ postId }) {
 
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmitImage = (files, allFiles) => {
-        console.log(files[0])
         const imageToUpload = files[0];
-        console.log(imageToUpload['file']);
 
         dispatch({
             type: 'SET_IMAGE',
@@ -51,15 +46,12 @@ function AddCommentForm({ postId }) {
         })
 
         // Empties Dropzone 
-        console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
     }
 
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmitVideo = (files, allFiles) => {
-        console.log(files[0])
         const videoToUpload = files[0];
-        console.log(videoToUpload['file']);
 
         dispatch({
             type: 'SET_VIDEO',
@@ -67,7 +59,6 @@ function AddCommentForm({ postId }) {
         })
 
         // Empties Dropzone 
-        console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
     }
 
@@ -111,7 +102,6 @@ function AddCommentForm({ postId }) {
                 clearInterval(timerInterval)
             }
         }).then((result) => {
-            /* Read more about handling dismissals below */
             if (result.dismiss === Swal.DismissReason.timer) {
                 console.log('I was closed by the timer')
             }
@@ -120,7 +110,6 @@ function AddCommentForm({ postId }) {
         if (image.file) {
             // get secure url from our server
             const { url } = await fetch("/s3Url/image").then(res => res.json())
-            console.log(url)
 
             // post the image directly to the s3 bucket
             await fetch(url, {
@@ -133,12 +122,10 @@ function AddCommentForm({ postId }) {
 
             // creates url path for image
             imageUrl = url.split('?')[0]
-            console.log(imageUrl)
         }
 
         if (video.file) {
             const { url } = await fetch("/s3Url/video").then(res => res.json())
-            console.log(url)
 
             await fetch(url, {
                 method: "PUT",
@@ -149,7 +136,7 @@ function AddCommentForm({ postId }) {
             })
 
             videoUrl = url.split('?')[0]
-            console.log(videoUrl)
+
         }
 
         dispatch({
@@ -193,24 +180,13 @@ function AddCommentForm({ postId }) {
         })
     }
 
-    // const handleChange = (event) => {
-    //   event.preventDefault();
-
-    //   //dispatch action type for reducer to run, and payload (user input in state).
-    //   dispatch({
-    //     type: 'CREATE_NEW_COMMENT',
-    //     payload: { post_id: postId, comment: newComment }
-    //   });
-    //   setNewComment('');
-    // }
-
     return (
         <div className="container">
-            <Typography 
-            align="center" 
-            variant='h5' 
-            sx={{ mb: 2}}
-            
+            <Typography
+                align="center"
+                variant='h5'
+                sx={{ mb: 2 }}
+
             >Add a Comment</Typography>
             <Box component={Paper}
                 sx={{
@@ -236,15 +212,9 @@ function AddCommentForm({ postId }) {
                         </Box>
                     </Container>
                 </Paper>
-                {/* <Button onClick={handleClick}
-          sx={{
-            margin: '2px',
-          }}
-          color="primary"
-          variant="contained"
-          className='buttons'
-        ><SendIcon /> Submit </Button> */}
+
                 <Box>
+                    {/* If Image file exists render remove image button. Otherwise, show button to add photo */}
                     {image.file ?
                         <Box>
                             <p>{image.file.name}</p>
@@ -267,6 +237,8 @@ function AddCommentForm({ postId }) {
                         >Add Photo
                         </Button>
                     }
+
+                    {/* If video file exists remove video button renders. Otherwise, show button to add video */}
                     {video.file ?
                         <Box>
                             <p>{video.file.name}</p>

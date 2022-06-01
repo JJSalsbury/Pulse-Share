@@ -90,6 +90,7 @@ function PostDetailPage() {
         })
     }
 
+    // Send user back to page they arrived from
     const backToPrevious = () => {
         history.goBack();
     }
@@ -183,8 +184,6 @@ function PostDetailPage() {
                                         />
                                     </p>
 
-
-                                    {/* This will add line breaks if the user enters them */}
                                     {post !== '' &&
                                         <Typography style={{ whiteSpace: "pre-line" }}>
                                             {post?.post}

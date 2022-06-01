@@ -37,7 +37,6 @@ function AdminPage() {
                 type: 'SEARCH_FOR_USER',
                 payload: user
             })
-            console.log(user);
         }
     }
 
@@ -59,7 +58,7 @@ function AdminPage() {
                 Manage Users
             </Typography>
             <Box
-            sx={{mt: 2, display: 'flex', justifyContent: 'space-around'}}
+                sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}
             >
                 <Box>
                     <TextField
@@ -68,7 +67,7 @@ function AdminPage() {
                         variant="filled"
                         value={searchUser}
                         onChange={(event) => handleChange(event)}
-                        sx={{width: 300}}
+                        sx={{ width: 300 }}
                     />
                     <Button
                         // click of reset search button re-renders page and clears input using handleRest function

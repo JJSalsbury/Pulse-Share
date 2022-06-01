@@ -62,33 +62,23 @@ function EditPost({ setEditMode }) {
 
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmitImage = (files, allFiles) => {
-        console.log(files[0])
         const imageToUpload = files[0];
-        console.log(imageToUpload['file']);
-
         dispatch({
             type: 'SET_IMAGE',
             payload: imageToUpload
         })
-
         // Empties Dropzone 
-        console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
     }
 
     // receives array of files that are done uploading when submit button is clicked
     const handleSubmitVideo = (files, allFiles) => {
-        console.log(files[0])
         const videoToUpload = files[0];
-        console.log(videoToUpload['file']);
-
         dispatch({
             type: 'SET_VIDEO',
             payload: videoToUpload
         })
-
         // Empties Dropzone 
-        console.log(files.map(f => f.meta))
         allFiles.forEach(f => f.remove())
     }
 
@@ -121,8 +111,6 @@ function EditPost({ setEditMode }) {
         if (image.file) {
             // get secure url from our server
             const { url } = await fetch("/s3Url/image").then(res => res.json())
-            console.log(url)
-
             // post the image directly to the s3 bucket
             await fetch(url, {
                 method: "PUT",
@@ -131,15 +119,11 @@ function EditPost({ setEditMode }) {
                 },
                 body: image['file']
             })
-
             imageUrl = url.split('?')[0]
-            console.log(imageUrl)
-
         }
 
         if (video.file) {
             const { url } = await fetch("/s3Url/video").then(res => res.json())
-            console.log(url)
 
             await fetch(url, {
                 method: "PUT",
@@ -148,9 +132,7 @@ function EditPost({ setEditMode }) {
                 },
                 body: video['file']
             })
-
             videoUrl = url.split('?')[0]
-            console.log(videoUrl)
         }
 
         // Check if new video or image has been added
@@ -445,11 +427,11 @@ function EditPost({ setEditMode }) {
                         sx={{
                             margin: '2px'
                         }}
-                    ><SendIcon 
-                        sx={{
-                            mr: 1
-                        }}
-                    />Submit Post</Button>
+                    ><SendIcon
+                            sx={{
+                                mr: 1
+                            }}
+                        />Submit Post</Button>
                     <Button
                         variant="contained"
                         onClick={cancelEdit}
@@ -457,11 +439,11 @@ function EditPost({ setEditMode }) {
                         sx={{
                             margin: '2px'
                         }}
-                    ><DoDisturbIcon 
-                    sx={{
-                        mr: 1
-                    }}
-                    />Cancel</Button>
+                    ><DoDisturbIcon
+                            sx={{
+                                mr: 1
+                            }}
+                        />Cancel</Button>
                 </Box>
             </Box>
 

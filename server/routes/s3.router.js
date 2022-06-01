@@ -10,23 +10,24 @@ const {
 } = require('../modules/authentication-middleware');
 
 
-
+// creates URL for images
 router.get('/image', rejectUnauthenticated, async (req, res) => {
-    // GET route code here
     let mediaType = '.jpeg';
     const url = await generateUploadURL(mediaType);
     res.send({url})
 });
 
+// creates URL for videos
 router.get('/video', rejectUnauthenticated, async (req, res) => {
-    // GET route code here
     let mediaType = '.mp4';
     const url = await generateUploadURL(mediaType);
     res.send({url})
 });
 
+// not currently being used, needs to by front end
 router.put('/', async (req, res) => {
-    // let objectToDelete = req.body.image.split('.com/')[1];
+    // url path that is stored on database can be assigned to objectToDelete and should delete object from AWS
+    // example below
     let objectToDelete = "https://spinal-stim-forum-test-bucket.s3.us-east-2.amazonaws.com/aef7d4d6cda8ad8a.jpeg"
     objectToDelete = objectToDelete.split('.com/')[1];
     const response = await objectDeleter(objectToDelete);

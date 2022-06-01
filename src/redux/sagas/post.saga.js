@@ -5,7 +5,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 function* getOutcomesList() {
     try {
         const outcomesList = yield axios.get('/api/post/outcomesList');
-
         yield put({ type: 'SET_OUTCOMES_LIST', payload: outcomesList.data });
     } catch (error) {
         console.log('Outcomes List GET request failed', error);
@@ -16,7 +15,6 @@ function* getOutcomesList() {
 function* getAllPosts() {
     try {
         const postList = yield axios.get('/api/post/postList');
-
         yield put({ type: 'SET_POST_LIST', payload: postList.data });
     } catch (error) {
         console.log('Post List GET request failed', error);
@@ -27,7 +25,6 @@ function* getAllPosts() {
 function* getPostByOutcome(action) {
     try {
         const postList = yield axios.get(`/api/post/postListByOutcome/${action.payload}`);
-
         yield put({ type: 'SET_POST_LIST', payload: postList.data });
     } catch (error) {
         console.log('Post List by outcome_id GET request failed', error);
@@ -38,19 +35,18 @@ function* getPostByOutcome(action) {
 function* createNewPost(action) {
     try {
         const postId = yield axios.post('/api/post', action.payload);
-        yield put({type: 'GET_POST', payload: postId.data[0].id});
+        yield put({ type: 'GET_POST', payload: postId.data[0].id });
         yield action.payload.history.push(`/postDetail/${postId.data[0].id}`)
-        yield put({type: 'CLEAR_IMAGE'})
-        yield put({type: 'CLEAR_VIDEO'})
+        yield put({ type: 'CLEAR_IMAGE' })
+        yield put({ type: 'CLEAR_VIDEO' })
     } catch (error) {
         console.log('Create new post request failed', error);
     }
 }
 
-//get details for single post
+// get details for single post
 function* getPostDetails(action) {
     try {
-        console.log('GETTING POST DETAILS', action.payload);
         const details = yield axios.get(`/api/post/${action.payload}`);
         yield put({ type: 'SET_POST', payload: details.data[0] });
     } catch (err) {
@@ -60,7 +56,6 @@ function* getPostDetails(action) {
 
 // get user's previous posts
 function* getPostHistory() {
-    console.log('in getPostHistory');
     try {
         const postHistory = yield axios.get(`/api/history`);
         yield put({ type: 'SET_POST_HISTORY', payload: postHistory.data });
@@ -71,10 +66,9 @@ function* getPostHistory() {
 // Delete selected post
 function* deletePost(action) {
     try {
-        console.log('IN DELETE SAGA');
         yield axios.delete(`/post/${action.payload}`)
-        yield put({type: 'GET_ALL_POSTS'})
-        yield put({type: 'GET_POST_HISTORY'})
+        yield put({ type: 'GET_ALL_POSTS' })
+        yield put({ type: 'GET_POST_HISTORY' })
     } catch (err) {
         console.log(err);
     }
@@ -94,27 +88,25 @@ function* getEditPost(action) {
 // Submit the edited information to the server and database
 function* updatePost(action) {
     try {
-        console.log(action.payload)
         yield axios.put(`/api/post/${action.payload.id}`, action.payload);
         yield put({ type: 'GET_POST', payload: action.payload.id });
-        yield put({type: 'CLEAR_POST_EDIT'})
-        yield put({type: 'CLEAR_IMAGE'});
-        yield put({type: 'CLEAR_VIDEO'});
+        yield put({ type: 'CLEAR_POST_EDIT' })
+        yield put({ type: 'CLEAR_IMAGE' });
+        yield put({ type: 'CLEAR_VIDEO' });
         yield action.callback;
     } catch (err) {
         console.log(err);
     }
 }
 
+// Get filtered information from database based on title text, body text, or tag
 function* keywordSearch(action) {
-    console.log('in keywordSearch');
     const keyword = action.payload;
     try {
         const keywordSearch = yield axios.get(`/api/keyword/${keyword}`)
-        yield put({type: 'SET_KEYWORD_POSTS', payload: keywordSearch.data})
+        yield put({ type: 'SET_KEYWORD_POSTS', payload: keywordSearch.data })
     } catch {
         console.log('ERROR PERFORMING KEYWORD SEARCH IN SAGA');
-        
     }
 }
 
@@ -129,7 +121,6 @@ function* postSaga() {
     yield takeLatest('GET_POST_TO_EDIT', getEditPost)
     yield takeLatest('UPDATE_POST', updatePost);
     yield takeLatest('SEARCH_BY_KEYWORD', keywordSearch);
-
 }
 
 export default postSaga;
