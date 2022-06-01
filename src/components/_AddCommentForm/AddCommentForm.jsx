@@ -193,10 +193,6 @@ function AddCommentForm({ postId }) {
         })
     }
 
-    const presentationComment = () => {
-        setNewComment(`These settings worked really well! Thanks for sharing!`)
-    }
-
     // const handleChange = (event) => {
     //   event.preventDefault();
 
@@ -211,7 +207,6 @@ function AddCommentForm({ postId }) {
     return (
         <div className="container">
             <Typography 
-            onClick={presentationComment}
             align="center" 
             variant='h5' 
             sx={{ mb: 2}}

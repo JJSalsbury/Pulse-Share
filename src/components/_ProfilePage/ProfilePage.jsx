@@ -221,9 +221,6 @@ function ProfilePage({ profileId }) {
         })
     }
 
-
-
-
     return (
         <>
 
@@ -505,29 +502,7 @@ function ProfilePage({ profileId }) {
                     overflowY: 'scroll',
                     height: '40vh'
                 }}>
-
-
-
-
                     <h1>Biometrics</h1>
-
-
-                    <Box><strong>Age: </strong></Box>
-                    {editMode ? <TextField
-                        type="text"
-                        value={editProfile.age}
-                        onChange={(event) => handleChange(event, 'age')}
-                    /> : <Box>{profile.age}</Box>}
-
-
-                    <h1>Biometrics</h1>
-
-                    <Box><strong>Height: </strong>  </Box>
-                    {editMode ? <TextField
-                        type="text"
-                        value={editProfile.height}
-                        onChange={(event) => handleChange(event, 'height')}
-                    /> : <Box>{profile.height}</Box>}
 
                     <Box><strong>Age: </strong></Box>
                     {editMode ? <TextField
@@ -550,15 +525,6 @@ function ProfilePage({ profileId }) {
                         value={editProfile.height}
                         onChange={(event) => handleChange(event, 'height')}
                     /> : <Box>{profile.height}</Box>}
-
-
-
-                    <Box><strong>Biological Gender: </strong> </Box>
-                    {editMode ? <TextField
-                        type="text"
-                        value={editProfile.biological_gender}
-                        onChange={(event) => handleChange(event, 'biological_gender')}
-                    /> : <Box>{profile.biological_gender}</Box>}
 
 
                     <Box><strong>Injury Level: </strong>  </Box>
