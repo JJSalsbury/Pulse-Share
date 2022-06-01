@@ -32,7 +32,7 @@ function AdminPage() {
                 type: 'GET_ROSTER'
             })
         } else {
-            // after each keyst
+            // after each keystroke in the input, a dispatch will be made to search for what has been typed
             dispatch({
                 type: 'SEARCH_FOR_USER',
                 payload: user
@@ -41,6 +41,7 @@ function AdminPage() {
         }
     }
 
+    // function to re-render the page when the 'Reset Search' button is clicked
     const handleReset = () => {
         window.location.reload(false);
 
@@ -70,7 +71,7 @@ function AdminPage() {
                         sx={{width: 300}}
                     />
                     <Button
-                        // click of reset search button re-renders page and clears input
+                        // click of reset search button re-renders page and clears input using handleRest function
                         onClick={handleReset}
                         variant="contained"
                         color='primary'

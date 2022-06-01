@@ -25,7 +25,7 @@ function* promoteUser(action) {
     console.log('in promoteUser');
     console.log(action.payload);
     try {
-        yield axios.put('api/roster/promote', action.payload)
+        yield axios.put('/api/roster/promote', action.payload)
         yield put({ type: 'GET_ROSTER' })
     } catch {
         console.log('ERROR PROMOTING USER');
@@ -38,7 +38,7 @@ function* demoteUser(action) {
     console.log('in demoteUser');
     console.log(action.payload);
     try {
-        yield axios.put('api/roster/demote', action.payload)
+        yield axios.put('/api/roster/demote', action.payload)
         yield put({ type: 'GET_ROSTER' })
     } catch {
         console.log('ERROR DEMOTING USER');
@@ -64,7 +64,7 @@ function* searchForUser(action) {
     console.log(user);
     
     try {
-        const searches = yield axios.get(`/search/${user}`, action.payload)
+        const searches = yield axios.get(`/api/search/${user}`, action.payload)
         yield put({ type: 'SET_SEARCHED_USER', payload: searches.data })
     } catch {
         console.log('ERROR SEARCHING FOR A USER');

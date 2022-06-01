@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 // saga getOutcomesList will get the list of outcomes from DB
 function* getOutcomesList() {
     try {
-        const outcomesList = yield axios.get('/post/outcomesList');
+        const outcomesList = yield axios.get('/api/post/outcomesList');
 
         yield put({ type: 'SET_OUTCOMES_LIST', payload: outcomesList.data });
     } catch (error) {
@@ -15,7 +15,7 @@ function* getOutcomesList() {
 // saga getAllPosts will get the list of posts from DB
 function* getAllPosts() {
     try {
-        const postList = yield axios.get('/post/postList');
+        const postList = yield axios.get('/api/post/postList');
 
         yield put({ type: 'SET_POST_LIST', payload: postList.data });
     } catch (error) {
@@ -26,7 +26,7 @@ function* getAllPosts() {
 // saga getPostByOutcome will get the list of posts using outcome_id from DB
 function* getPostByOutcome(action) {
     try {
-        const postList = yield axios.get(`/post/postListByOutcome/${action.payload}`);
+        const postList = yield axios.get(`/api/post/postListByOutcome/${action.payload}`);
 
         yield put({ type: 'SET_POST_LIST', payload: postList.data });
     } catch (error) {
@@ -37,7 +37,7 @@ function* getPostByOutcome(action) {
 // saga createNewPost will insert new post to DB
 function* createNewPost(action) {
     try {
-        const postId = yield axios.post('/post', action.payload);
+        const postId = yield axios.post('/api/post', action.payload);
         yield put({type: 'GET_POST', payload: postId.data[0].id});
         yield action.payload.history.push(`/postDetail/${postId.data[0].id}`)
         yield put({type: 'CLEAR_IMAGE'})
@@ -51,7 +51,7 @@ function* createNewPost(action) {
 function* getPostDetails(action) {
     try {
         console.log('GETTING POST DETAILS', action.payload);
-        const details = yield axios.get(`/post/${action.payload}`);
+        const details = yield axios.get(`/api/post/${action.payload}`);
         yield put({ type: 'SET_POST', payload: details.data[0] });
     } catch (err) {
         console.log(err);
@@ -62,7 +62,7 @@ function* getPostDetails(action) {
 function* getPostHistory() {
     console.log('in getPostHistory');
     try {
-        const postHistory = yield axios.get(`/history`);
+        const postHistory = yield axios.get(`/api/history`);
         yield put({ type: 'SET_POST_HISTORY', payload: postHistory.data });
     } catch (err) {
         console.log(`ERROR GETTING POST HISTORY`);
@@ -84,7 +84,7 @@ function* deletePost(action) {
 // Get the details for the post to edit
 function* getEditPost(action) {
     try {
-        const editDetails = yield axios.get(`/post/${action.payload}`)
+        const editDetails = yield axios.get(`/api/post/${action.payload}`)
         yield put({ type: 'SET_POST_TO_EDIT', payload: editDetails.data[0] })
     } catch (err) {
         console.log(err);
@@ -95,7 +95,7 @@ function* getEditPost(action) {
 function* updatePost(action) {
     try {
         console.log(action.payload)
-        yield axios.put(`/post/${action.payload.id}`, action.payload);
+        yield axios.put(`/api/post/${action.payload.id}`, action.payload);
         yield put({ type: 'GET_POST', payload: action.payload.id });
         yield put({type: 'CLEAR_POST_EDIT'})
         yield put({type: 'CLEAR_IMAGE'});
@@ -110,7 +110,7 @@ function* keywordSearch(action) {
     console.log('in keywordSearch');
     const keyword = action.payload;
     try {
-        const keywordSearch = yield axios.get(`/keyword/${keyword}`)
+        const keywordSearch = yield axios.get(`/api/keyword/${keyword}`)
         yield put({type: 'SET_KEYWORD_POSTS', payload: keywordSearch.data})
     } catch {
         console.log('ERROR PERFORMING KEYWORD SEARCH IN SAGA');

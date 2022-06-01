@@ -24,6 +24,7 @@ function RosterMember({ member }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // function to conditionally render 
     const titleRender = () => {
         if (member.access_level === 2) {
             return <Typography><p><a onClick={() => { history.push(`/profile/${member.id}`) }}>{member.username} - Administrator</a></p></Typography>

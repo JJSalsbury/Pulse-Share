@@ -1,10 +1,10 @@
 import axios from "axios";
 import { put, takeEvery } from 'redux-saga/effects';
 
-
+// Get the profile information to edit
 function* getEditProfile(action) {
     try {
-        const response = yield axios.get(`/profile/${action.payload}`);
+        const response = yield axios.get(`/api/profile/${action.payload}`);
         yield put({ type: 'SET_PROFILE_TO_EDIT', payload: response.data[0] });
     }
     catch (error) {
@@ -12,28 +12,7 @@ function* getEditProfile(action) {
     }
 }
 
-// function* submitImage(action) {
-
-//     try{
-//         yield put({
-//             type: 'EDIT_ON_CHANGE',
-//             payload: {
-//                 property: action.payload.property,
-//                 value: action.payload.value
-//             }
-//         });
-//         yield put({
-//             type: 'PUT_PROFILE',
-//             payload: editProfile
-//         });
-//         yield put({ type: 'CLEAR_EDIT' });
-//     }catch (error) {
-//         console.log(error);
-        
-//     }
-    
-// }
-
+// Send updated profile information to DB
 function* updateProfile(action) {
     try{
         console.log('update profile action.payload', action.payload);

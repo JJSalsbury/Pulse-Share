@@ -3,7 +3,7 @@ import { put, takeEvery } from 'redux-saga/effects';
 
 function* getProfile(action) {
     try {
-        const response = yield axios.get(`/profile/${action.payload}`);
+        const response = yield axios.get(`/api/profile/${action.payload}`);
         yield put({ type: 'SET_PROFILE',payload: response.data[0] });
     }
     catch (error) {
@@ -18,7 +18,7 @@ function* deleteProfile(action) {
     const id = action.payload;
     console.log('delete profile saga id:', id);
     try {
-        yield axios.delete(`/profile`)
+        yield axios.delete(`/api/profile`)
         yield put ({type: 'LOGOUT'})
         yield action.payload.push("/home")
 
