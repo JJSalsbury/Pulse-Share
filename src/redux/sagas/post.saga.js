@@ -66,7 +66,7 @@ function* getPostHistory() {
 // Delete selected post
 function* deletePost(action) {
     try {
-        yield axios.delete(`/post/${action.payload}`)
+        yield axios.delete(`/api/post/${action.payload}`)
         yield put({ type: 'GET_ALL_POSTS' })
         yield put({ type: 'GET_POST_HISTORY' })
     } catch (err) {
