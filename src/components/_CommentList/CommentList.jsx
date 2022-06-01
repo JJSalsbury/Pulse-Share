@@ -29,7 +29,7 @@ import CommentItem from '../_CommentItem/CommentItem';
 //     },
 // });
 
-function CommentList( {postId} ) {
+function CommentList({ postId }) {
 
     const history = useHistory();
     const dispatch = useDispatch();
@@ -40,51 +40,57 @@ function CommentList( {postId} ) {
 
     //Display comments in DB on page load
     useEffect(() => {
-        dispatch({ type: 'GET_COMMENTS', payload: postId});
+        dispatch({ type: 'GET_COMMENTS', payload: postId });
     }, [postId]);
 
     //Render Return maps over comment list from DB making an item for each comment of the list
     return (
         <main>
-        {comments.length === 0 ? 
-            <div><h3>Be the first to comment!</h3></div>
-        :
-        <>
-        <h2>Comments</h2>
-        <Paper elevation={15}>
-        <Box
-        sx={{
-          border: '1px solid black',
-          borderRadius: '7px',
-          padding: '15px',
-        }}>
-        <div className="comments">
-        <List sx={{ bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px', position: 'relative',
-        overflow: 'auto',
-        maxHeight: 600,}}>
-            
-                {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
-                <Paper elevation={15}>
-                <section>
-                    {comments.map((comment) => {
-                        return (
-                            <CommentItem
-                                key={comment.id}
-                                comment={comment}
-                                postId={postId}
+            {comments.length === 0 ?
+                <div><h3>Be the first to comment!</h3></div>
+                :
+                <>
+                    <Typography
+                        align="center"
+                        variant='h5'
+                        sx={{ mb: 2 }}
+                    >Comments</Typography>
+                    <Paper elevation={15}>
+                        <Box
+                            sx={{
+                                border: '1px solid black',
+                                borderRadius: '7px',
+                                padding: '15px',
+                            }}>
+                            <div className="comments">
+                                <List sx={{
+                                    bgcolor: 'background.paper', border: '1px solid black', borderRadius: '7px', padding: '15px', position: 'relative',
+                                    overflow: 'auto',
+                                    maxHeight: 600,
+                                }}>
 
-                            />
-                        );
-                    })}
-                </section>
-            </Paper>
-            </List>
-            </div>
-            
+                                    {/* <button variant="primary" onClick={() => { history.push('/form') }}>Button Place Holder</button> */}
+                                    <Paper elevation={15}>
+                                        <section>
+                                            {comments.map((comment) => {
+                                                return (
+                                                    <CommentItem
+                                                        key={comment.id}
+                                                        comment={comment}
+                                                        postId={postId}
 
-            </Box>
-            </Paper>
-            </>
+                                                    />
+                                                );
+                                            })}
+                                        </section>
+                                    </Paper>
+                                </List>
+                            </div>
+
+
+                        </Box>
+                    </Paper>
+                </>
             }</main>
     );
 }

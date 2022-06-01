@@ -71,8 +71,8 @@ function PostDetailPage() {
             background: 'white',
             color: 'black',
             showCancelButton: true,
-            confirmButtonColor: 'red',
-            cancelButtonColor: '#4E9BB9',
+            confirmButtonColor: '#327B5B',
+            cancelButtonColor: '#AD3434',
             confirmButtonText: 'Delete'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -81,7 +81,7 @@ function PostDetailPage() {
                 Swal.fire({
                     background: 'white',
                     color: 'black',
-                    confirmButtonColor: '#4E9BB9',
+                    confirmButtonColor: '#327B5B',
                     title: 'Deleted!',
                     text: `Post has been deleted.`,
                     icon: 'success'
@@ -184,8 +184,11 @@ function PostDetailPage() {
                                     </p>
 
 
-
-                                    <p>{post.post}</p>
+                                    {/* This will add line breaks if the user enters them */}
+                                    {post !== '' &&
+                                        <Typography style={{ whiteSpace: "pre-line" }}>
+                                            {post?.post}
+                                        </Typography>}
 
                                 </Box>
                             </Box>
@@ -230,7 +233,7 @@ function PostDetailPage() {
                                         variant="contained"
                                         className='buttons'
                                         onClick={editPost}
-                                    ><EditIcon /> Edit </Button>}
+                                    ><EditIcon sx={{ mr: 1 }} /> Edit </Button>}
                                 {(user.access_level >= 1 || user.id === post.user_id) &&
                                     <Button
                                         variant="contained"
@@ -240,7 +243,7 @@ function PostDetailPage() {
                                         sx={{
                                             margin: '2px'
                                         }}
-                                    ><DeleteIcon /> Delete </Button>}
+                                    ><DeleteIcon sx={{ mr: 1 }} /> Delete </Button>}
                             </Box>
 
                         </Box>

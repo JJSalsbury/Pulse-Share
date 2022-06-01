@@ -38,6 +38,13 @@ function PostListItem({ post }) {
         history.push('')
     }
 
+    const postLengthCheck = () => {
+        if (post.post.length > 150) {
+            return post.post.substring(0, 150) + '.....'
+        } else {
+            return post.post
+        }
+    }
 
     return (
         <Box
@@ -95,8 +102,9 @@ function PostListItem({ post }) {
                                     component="span"
                                     variant="body1"
                                     color="text.primary"
+                                    sx={{ whiteSpace: "pre-line" }}
                                 >
-                                    {post.post}
+                                    {postLengthCheck()}
                                 </Typography>
                             </Box>
                         }

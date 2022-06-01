@@ -23,8 +23,9 @@ import {
     List,
     Divider,
     ListItemAvatar,
-    ListItemText
+    ListItemText,
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 function ForumPage() {
     useEffect(() => {
@@ -48,8 +49,8 @@ function ForumPage() {
 
     const handleChange = (event) => {
 
-    const keyword = event.target.value;
-        
+        const keyword = event.target.value;
+
         if (keyword.length < 1) {
             dispatch({
                 type: 'GET_ALL_POSTS'
@@ -86,33 +87,30 @@ function ForumPage() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-            <h2>Forum Page</h2>
+            <Typography 
+            align="center" 
+            variant='h4' 
+            sx={{ mb: 2}}
+            >The Pulse</Typography>
             <Box
                 sx={{
-                    width: '100%',
+                    width: '83%',
                     display: 'flex',
                     flexDirection: 'row',
-                    justifyContent: 'space-around',
+                    justifyContent: 'space-evenly',
                     alignItems: 'center',
-                    mb:2
+                    mb: 2
                 }}>
-                <Button
-                    sx={{
-                        backgroundColor: '#327b5b',
-                        margin: '2px',
-                    }}
-                    variant="contained"
-                    onClick={handleClick}
-                >Add Post
-                </Button>
+
                 <FormControl sx={{ minWidth: 150 }}>
+
                     <InputLabel id="demo-simple-select-autowidth-label">Outcomes</InputLabel>
                     <Select
                         labelId="demo-simple-select-autowidth-label"
                         id="demo-simple-select-autowidth"
                         value={outcomeTag}
                         label="Outcomes"
-                        autoWidth
+
 
                         onChange={(event) => handleSearchByOutcome(event)}
                     >
@@ -125,28 +123,47 @@ function ForumPage() {
                             )
                         })}
                     </Select>
-                    <Box>
-                        <TextField
-                            label="keyword"
-                            helperText="KEYWORD SEARCH FOR A POST"
-                            variant="filled"
-                            value={searchKeyword}
-                            onChange={(event) => handleChange(event)}
-                            sx={{ width: 300 }}
-                        />
-                        <Button
-                            // click of reset search button re-renders page and clears input
-                            onClick={handleReset}
-                            variant="contained"
-                            color='primary'
-                            sx={{
-                                margin: '2px',
-                                ml: 2,
-                                mt: 2
-                            }}
-                        >Reset Search</Button>
-                    </Box>
+
+
                 </FormControl>
+                        
+                <Box sx={{
+                            display: 'flex'
+                        }}>
+                    <TextField
+                        label="Search"
+                        
+                        variant="filled"
+                        value={searchKeyword}
+                        onChange={(event) => handleChange(event)}
+                        sx={{ width: 300 }}
+                    />
+                    <Button
+                        // click of reset search button re-renders page and clears input
+                        onClick={handleReset}
+                        variant="contained"
+                        color='primary'
+                        sx={{
+                            margin: '2px',
+                            ml: 2,
+                            height: '36px',
+                            mt: 1.3,
+                            // mb: 2
+                        }}
+                    >Reset Search</Button>
+                </Box>
+
+                <Box>
+                    <Button
+                        sx={{
+                            backgroundColor: '#327b5b',
+                            alignItems: 'center',
+                        }}
+                        variant="contained"
+                        onClick={handleClick}
+                    ><AddIcon sx={{mr: 1}}/>Add Post
+                    </Button>
+                </Box>
             </Box>
             {/* <List sx={{ 
                 width: '100%', 
@@ -159,7 +176,7 @@ function ForumPage() {
             }}> */}
             {postList?.map(post => {
                 return (
-                    <PostListItem 
+                    <PostListItem
                         key={post.id}
                         post={post}
                     />

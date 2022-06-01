@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import './AdminPage.css';
 import TextField from '@mui/material/TextField';
-import { Box, Button, ListItem } from '@mui/material'
+import { Box, Button, ListItem, Typography } from '@mui/material'
 import { render } from 'react-dom';
 
 function AdminPage() {
@@ -50,13 +50,15 @@ function AdminPage() {
 
     return (
         <div>
-            <h2>Manage Users</h2>
+            <Typography align="center" variant='h4'>
+                Manage Users
+            </Typography>
             <Box
             sx={{mt: 2, display: 'flex', justifyContent: 'space-around'}}
             >
                 <Box>
                     <TextField
-                        label="username"
+                        label="Username"
                         helperText="SEARCH FOR A USER"
                         variant="filled"
                         value={searchUser}

@@ -19,6 +19,8 @@ import {
     FormControl, 
     createTheme 
 } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 
 
 
@@ -60,6 +62,7 @@ function AddPostPage() {
     const [outcomeTag, setOutcomeTag] = useState('');
     let imageUrl = null;
     let videoUrl = null;
+
 
     const [openImageModal, setOpenImageModal] = React.useState(false);
     const handleOpenImageModal = () => setOpenImageModal(true);
@@ -188,12 +191,13 @@ function AddPostPage() {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, Cancel Post!',
+            confirmButtonColor: '#327B5B',
             cancelButtonText: 'No, Keep My Post!',
+            cancelButtonColor: '#AD3434',
             reverseButtons: true
         }).then((result) => {
             // clicking 'OK' sends dispatch to demote user
             if (result.isConfirmed) {
-
                 dispatch({
                     type: 'CLEAR_VIDEO'
                 })
@@ -204,10 +208,10 @@ function AddPostPage() {
                     type: 'CLEAR_POST'
                 })
                 
-                Swal.fire(
-                    'Canceled Post!',
-                )
-
+                Swal.fire({
+                    title: 'Canceled Post!',
+                    confirmButtonColor: '#327B5B',
+            })
                 history.push('/posts')
             }
         })
@@ -216,7 +220,11 @@ function AddPostPage() {
     return (
         <Container>
             
-            <h2>Add Post</h2>
+            <Typography
+            align="center" 
+            variant='h4' 
+            sx={{ mb: 2}}
+            >Add Post</Typography>
             <Box 
                 component={Paper}
                 sx={{
@@ -224,7 +232,7 @@ function AddPostPage() {
                     borderRadius: '7px',
                     border: '1px solid black',
                     boxShadow: 10,
-                    minHeight: '50vh'
+                    minHeight: '30vh'
                 }}
             >
                 <Box>
@@ -232,12 +240,13 @@ function AddPostPage() {
                         required
                         id="outlined-required"
                         label="Title"
-                        defaultValue={postTitle}
+                        value={postTitle}
                         style={{
                             marginBottom: 15,
                             minWidth: '100%'
                         }}
                         onChange={(event) => setPostTitle(event.target.value)}
+                        
                     />
                 </Box>
                 <Box>
@@ -287,9 +296,9 @@ function AddPostPage() {
                             <p>{image.file.name}</p>
                             <Button 
                                 onClick={handleChangeImage}
+                                color='error'
                                 style={{
-                                    marginBottom: 15,
-                                    color: 'blue'
+                                    marginBottom: 15
                                 }}
                             >Remove Photo
                             </Button> 
@@ -297,9 +306,9 @@ function AddPostPage() {
                         : 
                         <Button 
                             onClick={handleOpenImageModal}
+                            color='primary'
                             style={{
-                                marginBottom: 15,
-                                color: 'blue'
+                                marginBottom: 15
                             }}
                         >Add Photo
                         </Button>
@@ -309,9 +318,9 @@ function AddPostPage() {
                             <p>{video.file.name}</p>
                             <Button 
                                 onClick={handleChangeVideo}
+                                color='error'
                                 style={{
-                                    marginBottom: 15,
-                                    color: 'blue'
+                                    marginBottom: 15
                                 }}
                             >Remove Video
                             </Button> 
@@ -319,9 +328,9 @@ function AddPostPage() {
                         : 
                         <Button 
                             onClick={handleOpenVideoModal}
+                            color='primary'
                             style={{
-                                marginBottom: 15,
-                                color: 'blue'
+                                marginBottom: 15
                             }}
                         >Add Video
                         </Button>
@@ -424,7 +433,12 @@ function AddPostPage() {
                         />}
                     </Box>
                 </Modal>
-                <Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end'
+                    }}
+                >
                     <Button 
                         sx={{
                             margin: '2px'
@@ -432,14 +446,24 @@ function AddPostPage() {
                         variant="contained" 
                         color='primary'
                         onClick={handleClick} 
-                    >Submit Post</Button>
+                    >
+                        <SendIcon 
+                    sx={{
+                        mr: 1
+                    }}
+                    />Submit Post</Button>
                     <Button 
+                    variant="contained" 
+                    color='error'
                         sx={{
-                            // backgroundColor: 'red',
                             margin: '2px'
                         }}  
                         onClick={cancelPost} 
-                    >Cancel</Button>
+                    ><DoDisturbIcon 
+                        sx={{
+                            mr: 1
+                        }}
+                    />Cancel</Button>
                 </Box>
             </Box>
         </Container>

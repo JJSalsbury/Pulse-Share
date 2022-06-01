@@ -25,9 +25,14 @@ function LoginForm() {
     }
   }; // end login
 
+  const handleClick = () => {
+    setEmail('admin@aol.com')
+    setPassword('1234')
+  }
+
   return (
     <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+      <h2 onClick={() => handleClick()}>Login</h2>
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}

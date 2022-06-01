@@ -140,10 +140,10 @@ function CommentItem({ comment, postId }) {
                         }}
                     >
 
-                        <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px' }}>
+                        <Typography sx={{ display: 'flex-start', marginLeft: '75px', textAlign: 'left', marginBottom: '25px', whiteSpace: "pre-line" }}>
                             <p>{comment.date} {comment.time}</p>
                             {editMode ?
-                                <p>"{comment.comment}"</p> :
+                                <p>{comment.comment}</p> :
                                 <Box
                                     sx={{
                                         border: '1px solid black',
@@ -167,14 +167,22 @@ function CommentItem({ comment, postId }) {
                                             </Box>
                                         </Container>
                                     </Paper>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent: 'flex-end'
+                                        }}
+                                    >
                                     <Button onClick={handleSubmit}
                                         sx={{
                                             margin: '2px',
+
                                         }}
                                         color="primary"
                                         variant="contained"
                                         className='buttons'
-                                    ><SendIcon /> Submit </Button>
+                                    ><SendIcon sx={{mr: 1}}/> Submit </Button>
+                                    </Box>
                                 </Box>}
                             <Box
                                     sx={{
@@ -201,6 +209,7 @@ function CommentItem({ comment, postId }) {
                     </Box>
                     <Box className="btn-holder">
                         {user.id === comment.user_id ?
+                        editMode ? 
                             <Button
                                 sx={{
                                     margin: '2px',
@@ -210,7 +219,16 @@ function CommentItem({ comment, postId }) {
                                 variant="contained"
                                 className='buttons'
                                 onClick={handleCommentEdit}
-                            ><EditIcon /> Edit </Button> : <div></div>}
+                            ><EditIcon sx={{mr: 1}}/>Edit</Button> : <Button
+                            sx={{
+                                margin: '2px',
+                                marginBottom: '5px',
+                            }}
+                            color="primary"
+                            variant="contained"
+                            className='buttons'
+                            onClick={handleCommentEdit}
+                        ><EditIcon />Cancel</Button>: <div></div>}
                         {(user.access_level >= 1 || user.id === comment.user_id) &&
                             <Button
                                 variant="contained"
@@ -221,7 +239,7 @@ function CommentItem({ comment, postId }) {
                                     margin: '2px',
                                     marginBottom: '5px'
                                 }}
-                            ><DeleteIcon /> Delete </Button>}
+                            ><DeleteIcon sx={{mr: 1}}/> Delete </Button>}
                     </Box>
                 </React.Fragment>
 
