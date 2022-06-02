@@ -64,12 +64,12 @@ Thank you to Prime Digital Academy for the guidance and support in creating this
 
 ## Contacts
 
-JJ Salsbury      <a href="https://www.linkedin.com/in/jj-salsbury-10532386/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="https://www.linkedin.com/in/jj-salsbury-10532386/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  JJ Salsbury      
 
-Andrew Lounsbury <a href="https://www.linkedin.com/in/andrew-lounsbury/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="https://www.linkedin.com/in/andrew-lounsbury/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  Andrew Lounsbury 
 
-Brandon McCarty  <a href="https://www.linkedin.com/in/brandon-mccarty/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="https://www.linkedin.com/in/brandon-mccarty/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  Brandon McCarty  
 
-Joseph Sanchez   <a href="https://www.linkedin.com/in/joseph-sanchez-27b933234/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+<a href="https://www.linkedin.com/in/joseph-sanchez-27b933234/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  Joseph Sanchez   
 
-Freddy Reza      <a href="https://www.linkedin.com/in/freddy-reza-987028234/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  
+<a href="https://www.linkedin.com/in/freddy-reza-987028234/"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  Freddy Reza      
